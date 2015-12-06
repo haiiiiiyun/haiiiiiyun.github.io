@@ -1,0 +1,16 @@
+markdown: rdiscount
+permalink: /:title/
+url: http://since2015.info
+name: haiiiiiyun's blog
+author: Haiiiiiyun
+qq: 
+email: 
+duoshuo: 
+beian: 
+cnzz: 
+weibo: 
+github: 
+pygments: true
+safe: true
+paginate: 20
+about: "这里是haiiiiiyun 的个人博客，创建于 2015 年。
