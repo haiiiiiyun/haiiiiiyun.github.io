@@ -2,13 +2,13 @@ markdown: rdiscount
 permalink: /:title/
 url: http://since2015.info
 name: since2015.info
-author: haiiiiiyun
+author: Haiiiiiyun
 qq: 156227494
-email: jiang.haiyun@gmail.com
-duoshuo: 
-beian: 
-cnzz: 
-weibo: 
+email: 156227494@qq.com
+duoshuo: m
+beian: 浙ICP备xxx号
+cnzz: 1
+weibo: 1
 github: haiiiiiyun
 pygments: true
 safe: true
