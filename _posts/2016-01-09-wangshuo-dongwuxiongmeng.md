@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 《动物凶猛》王朔
-date: 2016-01-09 14:15:47
+title: 《动物凶猛》
+date: 2016-01-09
 categories: 阅读
 tags: 阅读 王朔 小说
 ---
