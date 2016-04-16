@@ -21,16 +21,67 @@ linear-gradient(
 12:00时的方向。
 因此，angle值为-45度和315度时所表示的激变方向指向是相同的。
 
+当angle为0时，从红到绿的渐变效果如下(使用支持css3的最新版本的浏览器来看以下效果，如chrome)：
+
 <div style="padding: 0;background:linear-gradient(0deg, reg, green); width:15em;height:15em;">
+   linear-gradient: 0deg 
 </div>
 
-以下通过观察<angle>为不同值时，从红色到绿色的渐变效果，来总结<angle>值的效果。
-
+代码如下：
 {% highlight css linenos %}
-div {
+div.gradient {
     padding: 0em;
     background: linear-gradient(0deg, red, green);
     height: 15em;
     width: 15em;
 }
 {% endhighlight %}
+
+{% highlight html %}
+<div class="gradient">
+   linear-gradient: 0deg 
+</div>
+{% endhighlight %}
+
+以下是angle取各值时对应的效果：
+
+
+<div style="padding: 0;background:linear-gradient(0deg, reg, green); width:15em;height:15em; margin: 2em;">
+    background:linear-gradient(0deg, reg, green);<br/>
+    background:linear-gradient(360deg, reg, green);
+</div>
+
+<div style="padding: 0;background:linear-gradient(45deg, reg, green); width:15em;height:15em; margin:2em;">
+    background:linear-gradient(45deg, reg, green);<br/>
+    background:linear-gradient(-315deg, reg, green);
+</div>
+
+<div style="padding: 0;background:linear-gradient(90deg, reg, green); width:15em;height:15em; margin:2em;">
+    background:linear-gradient(90deg, reg, green);<br/>
+    background:linear-gradient(-270deg, reg, green);
+</div>
+
+<div style="padding: 0;background:linear-gradient(135deg, reg, green); width:15em;height:15em; margin:2em;">
+    background:linear-gradient(135deg, reg, green);<br/>
+    background:linear-gradient(-225deg, reg, green);
+</div>
+
+<div style="padding: 0;background:linear-gradient(180deg, reg, green); width:15em;height:15em; margin:2em;">
+    background:linear-gradient(180deg, reg, green);<br/>
+    background:linear-gradient(-180deg, reg, green);
+</div>
+
+<div style="padding: 0;background:linear-gradient(225deg, reg, green); width:15em;height:15em; margin:2em;">
+    background:linear-gradient(225deg, reg, green);<br/>
+    background:linear-gradient(-135, reg, green);
+</div>
+
+<div style="padding: 0;background:linear-gradient(270deg, reg, green); width:15em;height:15em; margin:2em;">
+    background:linear-gradient(270deg, reg, green);<br/>
+    background:linear-gradient(-90deg, reg, green);
+</div>
+
+<div style="padding: 0;background:linear-gradient(315deg, reg, green); width:15em;height:15em; margin:2em;">
+    background:linear-gradient(315deg, reg, green);<br/>
+    background:linear-gradient(-45deg, reg, green);
+</div>
