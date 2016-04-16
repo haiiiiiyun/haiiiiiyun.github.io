@@ -14,7 +14,7 @@ linear-gradient(
 
 参考：[MDS linear-gradient()](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient)
 
-<img src="{{ site.url }}/assets/images/clock.jpg">
+<img src="{{ site.url }}/assets/images/clock.jpg" width="250">
 
 当用angle参数来指定渐变方向时，正数值表示按顺时针方向的偏移角度，而负数值是按逆时针方向的偏移角度值。
 45度是时针指向1:30时的方向，90度是时针指向3:00时的方向，315度是时针指向10:30时的方向，0度/360度是时针指向
