@@ -23,7 +23,7 @@ linear-gradient(
 
 当angle为0时，从红到绿的渐变效果如下(使用支持css3的最新版本的浏览器来看以下效果，如chrome)：
 
-<div style="padding: 0;background:linear-gradient(0deg, red, green); width:15em;height:15em;">
+<div style="padding:2em;background:linear-gradient(0deg, red, green); width:80%;height:15em;">
    linear-gradient: 0deg 
 </div>
 
@@ -46,42 +46,42 @@ div.gradient {
 以下是angle取各值时对应的效果：
 
 
-<div style="padding: 0;background:linear-gradient(0deg, red, green); width:15em;height:15em; margin: 2em;">
+<div style="padding:2em;background:linear-gradient(0deg, red, green); width:80%;height:15em; margin: 2em;">
     background:linear-gradient(0deg, red, green);<br/>
     background:linear-gradient(360deg, red, green);
 </div>
 
-<div style="padding: 0;background:linear-gradient(45deg, red, green); width:15em;height:15em; margin:2em;">
+<div style="padding:2em;background:linear-gradient(45deg, red, green); width:80%;height:15em; margin:2em;">
     background:linear-gradient(45deg, red, green);<br/>
     background:linear-gradient(-315deg, red, green);
 </div>
 
-<div style="padding: 0;background:linear-gradient(90deg, red, green); width:15em;height:15em; margin:2em;">
+<div style="padding:2em;background:linear-gradient(90deg, red, green); width:80%;height:15em; margin:2em;">
     background:linear-gradient(90deg, red, green);<br/>
     background:linear-gradient(-270deg, red, green);
 </div>
 
-<div style="padding: 0;background:linear-gradient(135deg, red, green); width:15em;height:15em; margin:2em;">
+<div style="padding:2em;background:linear-gradient(135deg, red, green); width:80%;height:15em; margin:2em;">
     background:linear-gradient(135deg, red, green);<br/>
     background:linear-gradient(-225deg, red, green);
 </div>
 
-<div style="padding: 0;background:linear-gradient(180deg, red, green); width:15em;height:15em; margin:2em;">
+<div style="padding:2em;background:linear-gradient(180deg, red, green); width:80%;height:15em; margin:2em;">
     background:linear-gradient(180deg, red, green);<br/>
     background:linear-gradient(-180deg, red, green);
 </div>
 
-<div style="padding: 0;background:linear-gradient(225deg, red, green); width:15em;height:15em; margin:2em;">
+<div style="padding:2em;background:linear-gradient(225deg, red, green); width:80%;height:15em; margin:2em;">
     background:linear-gradient(225deg, red, green);<br/>
     background:linear-gradient(-135, red, green);
 </div>
 
-<div style="padding: 0;background:linear-gradient(270deg, red, green); width:15em;height:15em; margin:2em;">
+<div style="padding:2em;background:linear-gradient(270deg, red, green); width:80%;height:15em; margin:2em;">
     background:linear-gradient(270deg, red, green);<br/>
     background:linear-gradient(-90deg, red, green);
 </div>
 
-<div style="padding: 0;background:linear-gradient(315deg, red, green); width:15em;height:15em; margin:2em;">
+<div style="padding:2em;background:linear-gradient(315deg, red, green); width:80%;height:15em; margin:2em;">
     background:linear-gradient(315deg, red, green);<br/>
     background:linear-gradient(-45deg, red, green);
 </div>
