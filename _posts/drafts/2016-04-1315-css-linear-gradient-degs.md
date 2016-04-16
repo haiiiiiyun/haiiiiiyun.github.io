@@ -1,5 +1,4 @@
 ---
-layout: post
 title: CSS3线性渐变linear-gradient的angle参数值
 date: 2016-04-15 15:38
 categories: Web
