@@ -10,7 +10,8 @@ beian:
 cnzz:
 weibo:
 github: haiiiiiyun
-pygments: true
+highlighter: pygments
 safe: true
+gems: [jekyll-paginate]
 paginate: 20
 about: "这里是 haiiiiiyun 的个人博客，创建于 2015 年。"
