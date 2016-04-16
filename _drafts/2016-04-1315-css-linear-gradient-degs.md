@@ -1,5 +1,4 @@
 ---
-layout: post
 title: CSS3线性渐变linear-gradient的angle参数值
 date: 2016-04-15 15:38
 categories: Web
@@ -17,11 +16,12 @@ linear-gradient(
 
 以下通过观察<angle>为不同值时，从红色到绿色的渐变效果，来总结<angle>值的效果。
 
-```
+{% highlight css linenos %}
 div {
     padding: 0em;
     background: linear-gradient(0deg, red, green);
     height: 15em;
     width: 15em;
 }
+{% endhighlight %}
 ```
