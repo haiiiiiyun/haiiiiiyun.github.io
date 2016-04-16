@@ -17,11 +17,12 @@ linear-gradient(
 
 以下通过观察<angle>为不同值时，从红色到绿色的渐变效果，来总结<angle>值的效果。
 
-```
+{% hightlight css linenos %}
 div {
     padding: 0em;
     background: linear-gradient(0deg, red, green);
     height: 15em;
     width: 15em;
 }
+{% endhightlight %}
 ```
