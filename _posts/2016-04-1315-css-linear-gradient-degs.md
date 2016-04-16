@@ -1,5 +1,5 @@
 ---
-title: CSS3线性渐变linear-gradient的angle参数值
+title: CSS3线性渐变linear-gradient的angle角度参数值
 date: 2016-04-15 15:38
 categories: Web
 tags: Programming Web CSS
