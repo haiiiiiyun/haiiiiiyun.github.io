@@ -8,16 +8,18 @@ tags: 技术
 
 #Markdown标记与效果对照
 
-1.<pre>*Itatic*或_Italic_</pre>
+1.\*Itatic\*或\_Italic\_
+
 *Itatic*
 
 
-2.<pre>**Bold**或__Bold__</pre>
+2.\*\*Bold\*\*或\_\_Bold\_\_
+
 **Bold**
 
-<pre>
-# Heading1或Heading 
-            =======</pre> 
+
+3.\# Heading1或Heading<br/>
+               \=\====== 
 #Heading
 
 
