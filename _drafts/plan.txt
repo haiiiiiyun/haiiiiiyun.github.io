@@ -1,0 +1,7 @@
+markdown对照表 http://commonmark.org/help/
+
+Sweet CSS3 Buttons http://simurai.com/archive/buttons/
+
+clearfix总结
+
+skew的角度
