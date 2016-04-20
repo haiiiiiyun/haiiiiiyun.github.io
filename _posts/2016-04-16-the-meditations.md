@@ -4,7 +4,7 @@ date: 2016-04-16
 categories: 阅读
 tags: 阅读
 ---
-<img src="{{ site.url }}assets/images/book/themeditations.jpg">
+<img src="{{ site.url }}/assets/images/book/themeditations.jpg">
 
 不要看何怀宏翻译的版本！
 <cite>
