@@ -3,3 +3,11 @@ markdown对照表 http://commonmark.org/help/
 Sweet CSS3 Buttons http://simurai.com/archive/buttons/
 
 clearfix总结
+
+https://css-tricks.com/centering-in-the-unknown/
+
+https://dev.opera.com/articles/flexbox-basics/
+
+css的3种垂直居中
+
+ cssstickyfooter.com■ ryanfait.com/sticky-footer■ css-tricks.com/ snippets/css/sticky-footer■ pixelsvsbytes.com/blog/ 2011/09/sticky-css-footers- the-flexible-way■ mystrd.at/modern-clean-css- sticky-footer
