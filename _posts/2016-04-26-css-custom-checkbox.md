@@ -7,7 +7,7 @@ tags: Programming Web CSS
 
 ## 一: 代码
 
-{% highlight html %}
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +73,7 @@ body {
 
 </body>
 </html>
-{% endhighlight %}
+```
 
 
 ## 二: 效果
