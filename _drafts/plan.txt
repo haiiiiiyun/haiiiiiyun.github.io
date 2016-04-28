@@ -10,4 +10,12 @@ https://dev.opera.com/articles/flexbox-basics/
 
 css的3种垂直居中
 
- cssstickyfooter.com■ ryanfait.com/sticky-footer■ css-tricks.com/ snippets/css/sticky-footer■ pixelsvsbytes.com/blog/ 2011/09/sticky-css-footers- the-flexible-way■ mystrd.at/modern-clean-css- sticky-footer
+ cssstickyfooter.com
+■ ryanfait.com/sticky-footer
+■ css-tricks.com/ snippets/css/sticky-footer
+■ pixelsvsbytes.com/blog/ 2011/09/sticky-css-footers- the-flexible-way
+■ mystrd.at/modern-clean-css- sticky-footer
+
+http://www.sphinx-doc.org/en/stable/rest.html
+https://en.wikipedia.org/wiki/Gettext
+http://docutils.sourceforge.net/docs/ref/rst/introduction.html
