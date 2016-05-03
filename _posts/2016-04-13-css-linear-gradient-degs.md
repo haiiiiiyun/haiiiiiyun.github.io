@@ -12,7 +12,7 @@ linear-gradient(
     [ <angle> | to <side-or-corner> ,]? <color-stop> [, <color-stop>]+ )
 ```
 
-参考：[MDS linear-gradient()](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient)
+参考：[MDN linear-gradient()](https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient)
 
 <img src="{{ site.url }}/assets/images/clock.jpg" width="250">
 
