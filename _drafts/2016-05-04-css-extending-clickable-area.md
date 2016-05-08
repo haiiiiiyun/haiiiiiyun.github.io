@@ -13,7 +13,7 @@ tags: Web CSS Programming
 .extend-via-border {
     background: #58a;
     cursor: pointer;
-    border: 10px solid transparent;
+    border: 20px solid transparent;
     background-clip: padding-box;
     font: bold 150%/1 sans-serif;
     padding: .3em .5em;
