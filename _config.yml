@@ -8,7 +8,6 @@ defaults:
       layout: "post"
 kramdown:
   input: GFM # GitHub Flavored Markdown
-markdown: rdiscount
 permalink: /:title/
 url: http://since2015.info
 name: since2015.info
@@ -20,7 +19,7 @@ beian:
 cnzz:
 weibo:
 github: haiiiiiyun
-highlighter: pygments
+highlighter: rouge
 safe: true
 gems: [jekyll-paginate]
 paginate: 20
