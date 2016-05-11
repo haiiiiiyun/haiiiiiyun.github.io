@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 留言
+title: Comments
 comments: yes
 thread: 616
 ---

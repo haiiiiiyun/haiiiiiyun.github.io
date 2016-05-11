@@ -1,26 +1,26 @@
 ---
-title: 关于
+title: About me
 layout: page
-comments: no
+comments: yes
 ---
 
-{{ site.about }}
+不入流Python程序猿。
+
+热爱编程。
+
+现居于浙江省。
 
 ----
 
-###联系方式：
+## 联系方式：
 
-{% if site.qq %}
-ＱＱ：[{{ site.qq }}](tencent://message/?uin={{ site.qq }})
-{% endif %}
-网站：[{{ site.name }}]({{ site.url }})
+QQ:[{{ site.qq }}](tencent://message/?uin={{ site.qq }})
 
-邮箱：[{{ site.email }}](mailto:{{ site.email }})
+Email:[{{ site.email }}](mailto:{{ site.email }})
 
-GitHub : [http://github.com/{{ site.github }}](http://github.com/{{ site.github }})
+GitHub: [{{ site.github }}](http://github.com/{{ site.github }})
 
-----
+Twitter: [{{ site.twitter }}](https://twitter.com/{{ site.twitter }}/)
 
-{% if site.weibo %}
-[![新浪微博](http://service.t.sina.com.cn/widget/qmd/{{ site.weibo }}/f78fbcd2/1.png)](http://weibo.com/u/{{ site.weibo }})
-{% endif %}
+Facebook: [{{ site.facebook }}](http://www.facebook.com/{{ site.facebook }})
+
