@@ -10,7 +10,7 @@ kramdown:
   input: GFM # GitHub Flavored Markdown
 permalink: /:title/
 url: http://www.atjiang.com
-name: Haiiiiiyun's blog
+name: 蒋海云的个人博客
 author: Haiiiiiyun
 qq: 156227494
 email: jiang.haiyun#gmail.com
@@ -25,4 +25,4 @@ highlighter: rouge
 safe: true
 gems: [jekyll-paginate]
 paginate: 20
-about: "haiiiiiyun 的个人博客。"
+about: "这里是蒋海云的个人博客。"
