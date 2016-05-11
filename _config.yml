@@ -9,14 +9,16 @@ defaults:
 kramdown:
   input: GFM # GitHub Flavored Markdown
 permalink: /:title/
-url: http://since2015.info
-name: since2015.info
+url: http://www.atjiang.com
+name: Haiiiiiyun's blog
 author: Haiiiiiyun
 qq: 156227494
-email: 156227494@qq.com
+email: jiang.haiyun#gmail.com
 duoshuo: 
+disqus: haiiiiiyun
 beian: 
 cnzz:
+ga: UA-77551377-1 #Google Analytics
 weibo:
 github: haiiiiiyun
 highlighter: rouge
