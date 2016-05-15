@@ -1,6 +1,6 @@
 ---
 title: Beej的GDB快速指南
-date: 2016-05-12 14:54
+date: 2016-05-14 20:14
 categories: Programming
 tags: C Programming Debug GDB
 ---
@@ -8,64 +8,48 @@ tags: C Programming Debug GDB
 > Beej's Quick Guide to GDB
 > Release 2 (2009 Jun 14)
 >
-> Beej's Quick Guide to GDB by [Brian "Beej Jorgensen" Hall](http://beej.us/guide/bggdb/) is licensed under a [Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 United States License](http://creativecommons.org/licenses/by-nc-nd/3.0/us/).
-________
+> Beej's Quick Guide to GDB by [Brian "Beej Jorgensen" Hall](http://beej.us/guide/bggdb/) is licensed under a
+> [Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 United States License](http://creativecommons.org/licenses/by-nc-nd/3.0/us/).
+---
 
 本文英文原文在: [http://beej.us/guide/bggdb/](http://beej.us/guide/bggdb/)
+---
 
-_______
+这是一篇快捷实用的指南，意在指导你从终端命令行开启GNU调试器**gdb**之旅。
+gdb通常由IDE开启运行，但是我们很多人因为各种原因而避免使用IDE，这篇教程就是为像你这样的人而写的。
 
+再次说明，这只是一篇入门教程。相较于这里的几段文字说明的功能，还有很多多多关于这个调试器的资料需要去了解。
+要获取更多信息，请参考你的"man"页面，或者下面列出的网上资源。
 
-This is a very quick-and-dirty guide meant to get you started with the GNU Debugger, gdb, from the command line in a terminal. Often times gdb is run via an IDE, but many people out there shun IDEs for a variety of reasons, and this tutorial is for you!
+除了**"其它"**章节，这篇教程要求按序阅读。
 
-Again, this is only a getting-started guide. There's much much MUCH more to learn about what the debugger does than is written in these few short paragraphs. Check out your "man" pages or the online resources listed below for more info.
+## 编译
 
-This tutorial is meant to be read in order, up to, but not including, the "Misc" section.
+你必需要告诉你的编译器在编译你的代码时，把符号调试信息包含进来。
+这里是如何用**gcc**实现的方法，使用**-g**选项：
 
-Contents
-Compiling to use a debugger
-More Information
-License
-Starting gdb and getting to main()
-Breakpoints
-Stepping Around
-Examining Variables
-Misc Stuff
-Stack Manipulation
-Additional Stepping Methods
-Jumping to an Arbitrary Section of Code
-Changing Variables and Values at Runtime
-Hardware Watchpoints
-Attach to a Running Process
-Using Coredumps for Postmortem Analysis
-Window Functions
-Display Registers and Assembly
-Writing a Front-End
-Quick Reference Cheat Sheet
-Compiling
-You have to tell your compiler to compile your code with symbolic debugging information included. Here's how to do it with gcc, with the -g switch:
-
-
+```shell
 $ gcc -g hello.c -o hello
 
 $ g++ -g hello.cpp -o hello
+```
 
-Once you've done that, you should be able to view program listings in the debugger.
+之后，你就能在调试器中查看程序的符号列表等信息了。
 
-More Information
-Check out the Official GDB Documentation for more information than you can shake a stick at!
+## 更多信息
 
-Also, a good GNU GDB front-end is DDD, the DataDisplayDebugger.
+请查看[官方GDB文档](http://www.gnu.org/software/gdb/documentation/)。
 
-License
-Creative Commons License
-Beej's Quick Guide to GDB by Brian "Beej Jorgensen" Hall is licensed under a Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 United States License.
+另外，**DDD**, 即DataDisplayDebugger, 是一个不错的GNU GDB前端。
 
-Starting The Debugger
-First things first: you can enter help at any gdb prompt and get more information. Also, you can enter quit to quit the debugger. Finally, just hitting RETURN will repeat the last command entered. Now let's fire it up!
+## 启动调试器
 
-There are several ways to start the debugger (e.g. if you were an IDE you might start it with a particular mode that's not so human-friendly) but I'll mention two of them here: vanilla console mode and curses GUI mode. The GUI is better, but let's quickly cover the simple one, and launch a program called hello in the debugger:
+首先记住：你能在任何**gdb**提示符处输入**help**命令来获取帮助信息。另外，你能输入**quit**命令退出调试器。最后，只输入**回车键**将重复最近一次的命令。
+现在我们开始吧！
 
+启动调试器有多种方法 (例如，如果你是IDE，你可以通过不太友好的某种特定模式来开启)，但是我在这里只提及两种方法：vanilla console模式和curses GUI模式。GUI的更好用，但是让我们先说说简单的那个，并在调试器里加载一个叫**hello**的程序：
+
+```
 $ gdb hello
 GNU gdb 6.8
 Copyright (C) 2008 Free Software Foundation, Inc.
@@ -80,19 +64,24 @@ Hello, world!
 
 Program exited normally.
 (gdb) 
-The last line is the gdb prompt, waiting for you to tell it what to do. Type r or run to run the program. (gdb allows you to abbreviate commands until they become ambiguous.)
+```
+最后一行是**gdb**提示符，等待你告诉它需要做什么。输入**r**或**run**来运行程序。(只要没有岐义，**gdb**允许你使用简写式的命令。）
 
-To start in neato and highly-recommended GUI mode, start the debugger with gdb -tui. (For many of the examples, below, I show the output of gdb's dumb terminal mode, but in real life I use TUI mode exclusively.)
+**要想开启更酷的并且强烈推荐的GUI模式**，使用**gdb -tui**。（在下面的许多例子中，我只展示了在**gdb**普通终端模式下的输出内容，但在实际工作中我只使用**TUI**模式。）
 
-And here is a screenshot of what you'll see, approximately:
+这里是你可能看到的截图，类似于：
 
+![gdb hellotui](http://beej.us/guide/bggdb/hellotui.png)
 
-All the normal gdb commands will work in GUI mode, and additionally the arrow keys and pgup/pgdown keys will scroll the source window (when it has focus, which it does by default). Also, you can change which file or function is displayed in the source window by giving the command list with a location as an argument, for example, "list hello.c:5 to bring up the file hello.c on line 5. (See "Breakpoints", below, for sample locations—the same locations that work with breakpoints will work with the list command.) As a side note, list also works in dumb terminal mode.
+所有普通**gdb**命令在GUI模式下都能使用，另外方向键和翻页键可用来滚动源代码窗口（当窗口获取焦点时，默认就会获取焦点）。同时，通过给**list**命令传送一个位置参数，你可以指定某个文件或函数在源代码窗口中显示，
+例如，**list hello.c:5**将*hello.c*文件的第５行显示在窗口中。（需知样例位置值，请参考下面的**断点**节，适用于断点的位置值也同样适用于**list**命令。）附带说明下，**list**同样能在普通终端模式下使用。
 
-Now, notice that we passed the name of the executable on the command line. Another option you have is to just start gdb with nothing else on the command line, then give it the command file hello, and that will cause the executable "hello" to be loaded up.
+现在，注意我们是在命令行上传入可执行文件名字的。
+另外一种方式是在命令行上只开启**gdb**，然后运行**file hello**，这样能载入可执行文件"hello"。
 
-Command line arguments! What if you have to get something into argv in your program? Pass them as arguments to the run command when you start execution:
+命令行参数！传入信息到程序的`argv`要怎么做？在开始运行时作为**run**命令的参数传入：
 
+```shell
 $ gdb hello
 GNU gdb 6.8
 Copyright (C) 2008 Free Software Foundation, Inc.
@@ -107,18 +96,34 @@ Hello, world!
 
 Program exited normally.
 (gdb) 
-Notice where it says "Starting Program", above, it shows the arguments "arg1" and "arg2" being passed to "hello".
+```
 
-Breakpoints
-Just starting the debugger to run the program straight through isn't very useful—we need to stop execution and get into stepping mode.
+注意上面的"Starting Program"那行, 里面显示"arg1"和"arg2"参数已传给了"hello"。
 
-First, before you issue the run command, you need to set a breakpoint someplace you'd like to stop. You use the break or b command, and specify a location, which can be a function name, a line number, or a source file and line number. These are examples of locations, which are used by various other commands as well as break:
+## 断点
 
-break main	Break at the beginning of the main() function
-break 5	Break at line 5 of the current file
-break hello.c:5	Break at line 5 of hello.c
-So for this test, let's set a breakpoint at main(), and start the program:
+只是启动调试器来运行一下程序不是很有用－我们需要中断执行然后进入步进模式。
 
+首先，在运行**run**命令前，你需要在你想中断的地方设置一个断点。你可以使用**break**或**b**命令，然后指定一个位置值，位置值可以是函数名，行号，或者源文件名加等号。这些都是位置值的样例，它们适用于**break**,也适用于各种其它命令：
+
+<table style="table-layout:fixed;">
+<tr>
+    <td>break main</td>
+    <td>在main()函数的开始处中断</td>
+</tr>
+<tr>
+    <td>break 5</td>
+    <td>在当前文件的第5行中断</td>
+</tr>
+<tr>
+    <td>break hello.c:5</td>
+    <td>在hello.c的第5行中断</td>
+</tr>
+</table>
+
+针对这个测试，我们在main()处设置一个断点，然后运行程序：
+
+```shell
 $ gdb hello
 GNU gdb 6.8
 Copyright (C) 2008 Free Software Foundation, Inc.
@@ -135,19 +140,25 @@ Starting program: /home/beej/hello
 Breakpoint 1, main () at hello.c:5
 5		printf("Hello, world!\n");
 (gdb)
-As you see, we've arrived at main() and execution has stopped at the breakpoint we set there. If you're running in dumb terminal mode, gdb will print the line it will execute next. If you're running in cool GUI mode, the line it will execute next will be highlighted in the source window.
+```
+可以看到，我们已经到达**main()**处，并且程序已在我们设置的断点处暂停了。如果我们在普通终端模式下运行，**gdb**会打印出下一条要执行的代码行。如果在GUI模式下运行，下一条要执行的代码行会在源代码窗口中高亮显示。
 
-To list the current breakpoints, use the info command, like so: "info breakpoints" (or the shorter "i b"):
+要列出当前的断点，使用**info**命令，例如："**info breakpoints**"（或者简写为"**i b**"）：
 
+```shell
 (gdb) b main
 Breakpoint 1 at 0x8048395: file hello.c, line 5.
 (gdb) i b
 Num     Type           Disp Enb Address    What
 1       breakpoint     keep y   0x08048395 in main at hello.c:5
-To clear a breakpoint, use the clear command with the breakpoint location. You can also clear a breakpoint by number with the delete command.
+```
 
-Additionally, you can enable or disable breakpoints, though these two commands take a breakpoint number as an argument, not a location! The enabled/disabled status of a breakpoint is visible under the "Enb" column in the breakpoint listing.
+要清空断点，使用带断点位置值的**clear**命令。你也可以通过**delete**命令删除一个断点。
 
+另外，你可以用**enable**或**disable**来启用或禁用断点，但是这两个命令需要断点编号作为参数，不是位置值。
+断点的启用/禁用状态信息在断点列表的"Enb"列里能看到。
+
+```shell
 (gdb) i b
 Num     Type           Disp Enb Address    What
 1       breakpoint     keep y   0x08048395 in main at hello.c:5
@@ -159,9 +170,14 @@ Num     Type           Disp Enb Address    What
 Deleted breakpoint 1 
 (gdb) i b
 No breakpoints or watchpoints.
-Stepping Around
-Once execution stops at a breakpoint, you can tell the debugger to do a few things. Let's start with the next command (or n). This command moves you to the next statement in the current function (or returns to the function's caller if you've stepped off the end of the function.) Here's a sample run; remember that gdb is printing the line it will execute next just before the "(gdb)" prompt. Also notice that when we run next on the printf() line, we see the output appear.
+```
 
+## 步进
+
+一旦暂停在中断点处，你就能让调试器做一些事情。我们从**next**命令（或**n**）开始说起。这个命令带你到当前函数的下一条语句（或者当在函数末尾时返回到函数调用者处）。
+这里有一个运行示例；记住**gdb**在"(gdb)"提示符前会打印出*下一条要执行的语句*。另外注意到，当我们在**printf()**行上运行**next**后，我们看到有输出了。
+
+```shell
 (gdb) b main
 Breakpoint 1 at 0x8048395: file hello.c, line 5.
 (gdb) r
@@ -182,20 +198,25 @@ which has no line number information.
 
 Program exited normally.
 (gdb) 
-(That weird stuff at the end about __libc_start_main() shows you that there was another function that called your main() function! It wasn't compiled with debugging information so we can't see the source, but we can still step through it—which we do—and the program exits normally.)
+```
+（在结尾有关**__libc_start_main()**的那行奇怪的东西，说明了有另一个函数在调用你的**main()**函数！它的调试信息没有被编译进来，所以我们看不到源代码，但是我们仍能步进到那里去--我们步进到了那里--然后程序正常退出了。）
 
-Now, notice that next steps over function calls. This doesn't mean that function doesn't get called; it means that next will execute the function until it's done, and then return you to the next line in your current function.
+现在，注意**next**是步过(step over)函数调用。这不是说函数没有被调用；它是说**next**将执行函数直到结束，然后返回到当前函数的下一行。
 
-What if you have a function you want to step into from your current function, and trace through that function line-by-line? Use the step (or s) command to do this. It works just like next, except it steps into functions.
+怎样才能从当前函数步进(step into)到另一个函数，然后一行行地跟踪那个函数呢？使用**step**（或**s**）命令来完成。
+它和**next**类似，除了它是步进到函数中。
 
-Let's say you're tired of single stepping, and just want the program to run again. Use the continue (or c) command to continue execution.
+比方说我们现在已经厌倦了单步调试，只想再次运行程序。使用**continue**（或**c**）命令来断续执行。
 
-What if the program is running but you forgot to set breakpoints? You can hit CTRL-C and that'll stop the program wherever it happens to be and return you to a "(gdb)" prompt. At that point, you could set up a proper breakpoint somewhere and continue to that breakpoint.
+如果程序已在运行但你忘记设置断点呢？你可以按**CTRL-C**键，这样程序会在当前位置暂停并返回"(gdb)"提示符。
+在那里，你可以设置一个合适的断点然后继续执行到断点处。
 
-One final shortcut is that just hitting RETURN will repeat the last command entered; this will save you typing next over and over again.
+最后一个快捷方式是：只敲一下回车键将重复最后输入的命令；这将省去你一次次输入**next**的麻烦。
 
-Examining Variables
-If you have some variables you wish to inspect over the course of the run, you can display them, but only if the variable is currently in scope. Each time you step the code, the value of the variable will be displayed (if it's in scope).
+## 检查变量
+
+如果你有一些变量想在运行过程中查看，可以用**display**来查看，但是只有当前处在变量作用域内才可能。
+每次你步进代码，变量的值都会显示（如果在作用域内的话）。
 
 (The following output is missing source code output between lines for clarity—it's what you'd see in GUI mode. Imagine you're seeing the highlight bar bouncing around the source code while you're running this:)
 
