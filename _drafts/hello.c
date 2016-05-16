@@ -1,9 +1,14 @@
 #include <stdio.h>
+#include <time.h>
 
 int main(void)
 {
-    printf("Hello, world\n");
-    
+    int i=0;
+
+    while(i<100){
+        i++;
+        sleep(1);
+    }
     return 0;
 }
 

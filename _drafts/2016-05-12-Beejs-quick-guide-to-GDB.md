@@ -1,6 +1,7 @@
 ---
 title: Beej的GDB快速指南
 date: 2016-05-14 20:14
+writing-time: 2016-05-14 20:14--2016-05-14 23:00, 2016-05-15 15:37 2016-05-15 17:24
 categories: Programming
 tags: C Programming Debug GDB
 ---
@@ -23,7 +24,7 @@ gdb通常由IDE开启运行，但是我们很多人因为各种原因而避免�
 
 除了**"其它"**章节，这篇教程要求按序阅读。
 
-## 编译
+# 编译
 
 你必需要告诉你的编译器在编译你的代码时，把符号调试信息包含进来。
 这里是如何用**gcc**实现的方法，使用**-g**选项：
@@ -36,18 +37,18 @@ $ g++ -g hello.cpp -o hello
 
 之后，你就能在调试器中查看程序的符号列表等信息了。
 
-## 更多信息
+# 更多信息
 
 请查看[官方GDB文档](http://www.gnu.org/software/gdb/documentation/)。
 
 另外，**DDD**, 即DataDisplayDebugger, 是一个不错的GNU GDB前端。
 
-## 启动调试器
+# 启动调试器
 
 首先记住：你能在任何**gdb**提示符处输入**help**命令来获取帮助信息。另外，你能输入**quit**命令退出调试器。最后，只输入**回车键**将重复最近一次的命令。
 现在我们开始吧！
 
-启动调试器有多种方法 (例如，如果你是IDE，你可以通过不太友好的某种特定模式来开启)，但是我在这里只提及两种方法：vanilla console模式和curses GUI模式。GUI的更好用，但是让我们先说说简单的那个，并在调试器里加载一个叫**hello**的程序：
+启动调试器有多种方法 (例如，如果你是IDE，你可以通过不太友好的某种特定模式来开启)，但是我在这里只提及两种方法：vanilla console模式和curses GUI模式。GUI模式更好用，但是让我们先说说简单的那个，并在调试器里加载一个叫**hello**的程序：
 
 ```
 $ gdb hello
@@ -100,7 +101,7 @@ Program exited normally.
 
 注意上面的"Starting Program"那行, 里面显示"arg1"和"arg2"参数已传给了"hello"。
 
-## 断点
+# 断点
 
 只是启动调试器来运行一下程序不是很有用－我们需要中断执行然后进入步进模式。
 
@@ -172,7 +173,7 @@ Deleted breakpoint 1
 No breakpoints or watchpoints.
 ```
 
-## 步进
+# 步进
 
 一旦暂停在中断点处，你就能让调试器做一些事情。我们从**next**命令（或**n**）开始说起。这个命令带你到当前函数的下一条语句（或者当在函数末尾时返回到函数调用者处）。
 这里有一个运行示例；记住**gdb**在"(gdb)"提示符前会打印出*下一条要执行的语句*。另外注意到，当我们在**printf()**行上运行**next**后，我们看到有输出了。
@@ -197,9 +198,9 @@ Single stepping until exit from function __libc_start_main,
 which has no line number information.
 
 Program exited normally.
-(gdb) 
+(gdb)
 ```
-（在结尾有关**__libc_start_main()**的那行奇怪的东西，说明了有另一个函数在调用你的**main()**函数！它的调试信息没有被编译进来，所以我们看不到源代码，但是我们仍能步进到那里去--我们步进到了那里--然后程序正常退出了。）
+（在后面有关 **__libc\_startmain()** 的那行奇怪的东西，说明了有另一个函数在调用你的**main()**函数！它的调试信息没有被编译进来，所以我们看不到源代码，但是我们仍能步进到那里去--我们步进到了那里--然后程序正常退出了。）
 
 现在，注意**next**是步过(step over)函数调用。这不是说函数没有被调用；它是说**next**将执行函数直到结束，然后返回到当前函数的下一行。
 
@@ -213,13 +214,14 @@ Program exited normally.
 
 最后一个快捷方式是：只敲一下回车键将重复最后输入的命令；这将省去你一次次输入**next**的麻烦。
 
-## 检查变量
+# 检查变量
 
-如果你有一些变量想在运行过程中查看，可以用**display**来查看，但是只有当前处在变量作用域内才可能。
+如果你想在运行过程中查看一些变量值，可以使用**display**，但是只有当前处在变量作用域内才可能。
 每次你步进代码，变量的值都会显示（如果在作用域内的话）。
 
-(The following output is missing source code output between lines for clarity—it's what you'd see in GUI mode. Imagine you're seeing the highlight bar bouncing around the source code while you're running this:)
+（为清晰起见，以下的输出内容不包含源代码部分--你在GUI模式中可以看到。当你运行下面的示例代码时，想像你能看到高亮条在代码行间跳转:)
 
+```shell
 (gdb) b main
 Breakpoint 1 at 0x8048365: file hello.c, line 5.
 (gdb) r
@@ -243,8 +245,10 @@ Breakpoint 1, main () at hello.c:5
 (gdb) next
 1: i = 4
 (gdb) 
-The number to the left of "i", above, is the display number of the variable. Use this number to undisplay the variable. If you forget the display numbers, you can type info display to get them:
+```
+上面，"i"左边的数字是变量序号。可以用这个数字来**undisplay**该变量。如果忘了序号，你可以输入**info display**来获取：
 
+```shell
 (gdb) b main
 Breakpoint 1 at 0x8048365: file hello.c, line 5.
 (gdb) r
@@ -259,40 +263,56 @@ Num Enb Expression
 1:   y  i
 (gdb) undisplay 1
 (gdb)
-If you just want to one-off know the value of a variable, you can print it. Here we see the value of "i" is 40:
+```
 
+如果你只是一次性的想知道变量值，可以用**print**显示。这里我们看到"i"的值是40：
+
+```shell
 (gdb) print i
 $1 = 40
 (gdb)
-(The "$" with the number after it means something, but it's not important for beginners.)
+```
 
-There's also a handy printf command that you can use to better format your output if you want to:
+(数字前面的"$"是有意思的，但是初学者不用深研。)
 
+另外还有一个便捷的**printf**命令，可以用它来格式化输出内容：
+
+```shell
 (gdb) printf "%d\n", i
 40
 (gdb) printf "%08X\n", i
 00000028
 (gdb)
-Misc Stuff
-This is stuff that doesn't really fit in the earlier sections, but it fun enough to list somewhere.
+```
 
-Stack Manipulation
-The command backtrace (or bt) will show you the current function call stack, with the current function at the top, and the callers in order beneath it:
+# 其它
 
+本节内容不太好放到之前的章节中，但是还是值得在这里列出来。
+
+## 堆栈操作
+
+**backtrace**命令（或**bt**）显示当前函数的调用堆栈，当前函数在最上面，其它调用者依次在下面。
+
+```shell
 (gdb) backtrace
 #0  subsubfunction () at hello.c:5
 #1  0x080483a7 in subfunction () at hello.c:10
 #2  0x080483cf in main () at hello.c:16
 (gdb)
-Type help stack for more info on what you can do with this.
+```
 
-Additional Stepping Methods
-To exit the current function and return to the calling function, use the finish command.
+输入**help stack**获取更多有关堆栈操作的信息。
 
-To step for a single assembly instruction, use the stepi command.
+## 其它步进操作方式
 
-To continue to a specific location, use the advance command, specifying a location like those shown in the "Breakpoints" section, above. Here's an example which advances from the current location until the function subsubfunction() is called:
+退出当前函数并返回调用者函数中，用**finish**命令。
 
+步进单条汇编指令，使用**stepi**命令(step instruction)。
+
+步进到特定位置，使用**advance**命令，并同上面"断点"那一节中显示的那样，指定一个位置值。
+下面的例子展示从当前位置开始步进，直到**subsubfunction()**函数被调用为止：
+
+```shell
 Breakpoint 1, main () at hello.c:15
 15		printf("Hello, world!\n");
 (gdb) advance subsubfunction
@@ -300,16 +320,20 @@ Hello, world!
 subsubfunction () at hello.c:5
 5		printf("Deepest!\n");
 (gdb) 
-advance is just shorthand for "continue to this temporary breakpoint."
+```
+**advance**命令是“断续运行(**continue**)到这个临时断点”的简略表示。
 
-Jumping to an Arbitrary Section of Code
-The jump command works exactly like continue, except it takes a location to jump to as an argument. (See the the "Breakpoints" section, above, for more information on locations.)
+## 跳到代码中的任意位置 
 
-If you need to stop at the jump destination, set a breakpoint there first.
+**jump**命令和**continue**命令完全类似，除了需要一个跳转地址值作为参数。（关于位置值的更多信息，请参与上面的“断点”节。）
 
-Changing Variables and Values at Runtime
-You can use the set variable command with an expression to evaluate, and this allows you to change the value of a variable during the run. You can also shorthand this by just using set with a parenthesized expression after it:
+如果你想在跳转目的地暂停，先在那里设置一个断点。
 
+## 在运行时修改变量及其值
+
+你可以使用**set variable**命令及一个赋值表达式，它能使你在运行时修改一个变量的值。你也可以用**set**后接带括号的赋值表达式的简写方式：
+
+```shell
 Breakpoint 1, main () at hello.c:15
 15		int i = 10;
 (gdb) print i
@@ -321,11 +345,15 @@ $2 = 20
 (gdb) print i
 $3 = 40
 (gdb) 
-This, along with the jump command, can help you repeat sections of code without restarting the program.
+```
+这个命令，加个**jump**命令，能使你在不重启程序的情况下重复运行某带代码 。
 
-Hardware Watchpoints
-Hardware watchpoints are special breakpoints that will trigger whenever an expression changes. Often you just want to know when a variable changes (is written to), and for that you can use the watch command:
+## 硬件监测点
 
+硬件监测点是一种特殊断点，它当表示值的值改变时触发。
+你通常只是想知道变量值何时改变了（写入值），对此你可以用**watch**命令：
+
+```shell
 Breakpoint 1, main () at hello.c:5
 5		int i = 1;
 (gdb) watch i
@@ -347,14 +375,18 @@ New value = 3
 main () at hello.c:7
 7		while (i < 100) {
 (gdb)
-Note that watch takes an expression as an argument, so you can put a variable name in there, or something more complex like *(p+5) or a[15]. I've even tried it with conditional expressions like i > 10, but have had mixed results.
+```
+注意**watch**的参数是一个表达式，因此你可以将变量值放进去，或者更复杂些像**\*(p+5)**或**a[15]**。
+我甚至试了像`i > 10`这样的表示表达式，但是得到了不同的结果。
 
-You can get a list of watch points with info break or info watch, and you can delete them by number with the delete command.
+你可以用**info break**或**info watch**获取监测点列表，并用**delete**命令和序号来删除。
 
-Finally, you can use rwatch to detect when a variable is read, and you can use awatch to detect when a variable is either read or written.
+最后，你可以用**rwatch**命令来检测变量的读操作，使用**awatch**来检测变量的读或写操作。
 
-Attach to a Running Process
-If your program is already going and you want to stop it and debug, first you'll need the process ID (PID), which will be a number. (Get it from Unix's ps command.) Then you'll use the attach command with the PID to attach to (and break) the running program.
+## 关联到正在运行的进程
+
+假设你的程序已经在运行了，然后你想中断并调试它，首先你需要知道进程ID(PID)，它是个数字。（勇冠Unix **ps**命令获取。）
+之后你可以用**attach**命令及PID来关联（并中断）正在运行的程序。
 
 For this, you can just start gdb with no arguments.
 

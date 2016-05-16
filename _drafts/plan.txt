@@ -19,3 +19,6 @@ css的3种垂直居中
 http://www.sphinx-doc.org/en/stable/rest.html
 https://en.wikipedia.org/wiki/Gettext
 http://docutils.sourceforge.net/docs/ref/rst/introduction.html
+
+c T<min> : http://csapp.cs.cmu.edu/3e/waside/waside-tmin.pdf
+cssapp p80, short-->unsigned int
