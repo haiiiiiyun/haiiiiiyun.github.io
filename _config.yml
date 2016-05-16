@@ -10,7 +10,7 @@ kramdown:
   input: GFM # GitHub Flavored Markdown
 permalink: /:title/
 url: http://www.atjiang.com
-name: 蒋海云的个人博客
+name: 蒋海云个人博客,日拱一卒&#8620;。
 author: Haiiiiiyun
 email: jiang.haiyun#gmail.com
 twitter: haiiiiiyun
