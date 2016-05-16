@@ -1,6 +1,7 @@
 ---
 title: 使用CSS background-clip属性实现半透明边框
-date: 2016-04-28 12:09
+date: 2016-04-27
+writing-time: 2016-04-28 12:09--2016-04-28 13:09
 categories: Web
 tags: Programming Web CSS 《CSS&nbsp;Secrets》  
 ---
