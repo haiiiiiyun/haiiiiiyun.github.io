@@ -1,7 +1,7 @@
 ---
 title: Beej的GDB快速指南
-date: 2016-05-14 20:14
-writing-time: 2016-05-14 20:14--2016-05-14 23:00, 2016-05-15 15:37 2016-05-15 17:24
+date: 2016-05-16
+writing-time: 2016-05-14 20:14--2016-05-14 23:00, 2016-05-15 15:37--2016-05-15 17:24 2016-05-15 20:56--2016-05-15 23:04
 categories: Programming
 tags: C Programming Debug GDB
 ---
@@ -14,6 +14,7 @@ tags: C Programming Debug GDB
 ---
 
 本文英文原文在: [http://beej.us/guide/bggdb/](http://beej.us/guide/bggdb/)
+
 ---
 
 这是一篇快捷实用的指南，意在指导你从终端命令行开启GNU调试器**gdb**之旅。
@@ -388,10 +389,12 @@ main () at hello.c:7
 假设你的程序已经在运行了，然后你想中断并调试它，首先你需要知道进程ID(PID)，它是个数字。（勇冠Unix **ps**命令获取。）
 之后你可以用**attach**命令及PID来关联（并中断）正在运行的程序。
 
-For this, you can just start gdb with no arguments.
+要实现这些，你只需按无参数方式启动**gdb**。
 
-In the following complete run, you'll notice a few things. First I attach to the running process, and it tells me it's in some function deep down called __nanosleep_nocancel(), which isn't too surprising since I called sleep() in my code. Indeed, asking for a backtrace shows exactly this call stack. So I say finish a couple times to get back up to main().
+在下面的完整例子中，你会发现一些事情。
+我先关联到正在运行的程序，然后它告诉我它正处于某个较深的函数调用中，函数名叫`__nanosleep_nocancel()`，这不会感到很意外，因为我在代码中调用了**sleep()**。实际上，运行**backtrace**命令就准确地显示了这个调用堆栈。因此我调用几个**finish**来返回到**main()**。
 
+```shell
 $ gdb
 GNU gdb 6.8
 Copyright (C) 2008 Free Software Foundation, Inc.
@@ -440,35 +443,51 @@ $1 = 19
 (gdb) quit
 The program is running.  Quit anyway (and detach it)? (y or n) y
 Detaching from program: /home/beej/hello, process 3490
-Notice that when I get back to main(), I print the value of i and it's 19—because in this case the program has been running for 19 seconds, and i gets incremented once per second.
+```
 
-Once we've quit the debugger and detached from the program, the program returns to running normally.
+注意到当我返回到**main()**后，我打印了`i`的值，它的值是19--这是因为这时程序已经运行了19秒，而`i`值每秒递增1。
 
-Mix this with set variable, above, and you've got some power!
+一旦我们退出调试器并断开与程序的关联，程序会折回去然后正常运行。
 
-Using Coredumps for Postmortem Analysis
-Let's say you build and run a program, and it dumps core on you for some reason or another:
+结合上面的**set variable**，你能做很多事情！
 
+## 利用Coredump进行事后分析
+
+比方说你创建并运行一个程序，然后因为某种原因它的核心转储了：
+
+```shell
 $ cc -g -o foo foo.c
 $ ./foo
 Segmentation fault (core dumped)
-This means that a core file (with a memory snapshot from the time of the crash) has been created with the name "core". If you're not getting a core file (that is, it only says "Segmentation fault" and no core file is created), you might have your ulimit set too low; try typing ulimit -c unlimited at your shell prompt.
+```
 
-You can fire up gdb with the -c option to specify a core file:
+这表明已经生成了一个叫"core"的核心转储文件（内容是崩溃时的内存快照）。
+如果你没有得到一个核心转储文件（也就是说，它只提示“Segmentation fault"然后没有产生核心转储文件），
+那么很可能是你的ulimit值设置的太低了；尝试下在shell提示符上输入**ulimit -c unlimited**。
 
+你可以在启动**gdb**时用**-c**选项来指定一个核心转储文件：
+
+```shell
 $ gdb -tui -c core foo
-And, if in TUI mode, you'll be greeted with a screen of information, telling you why the program exited ("signal 11, Segmentation fault"), and the highlight will be on the offending line. (In dumb terminal mode, the offending line is printed out.)
+```
 
-In this example, I print the variable that's causing the problem. Indeed it is NULL:
+如果在TUI模式下，一屏幕的信息会映入眼帘，告诉你程序退出的原因（"signal 11, Segmentation fault"），然后出错行会高亮显示。（在普通终端模式下，出错行就被打印出来。）
 
+在这个例子中，我输出引起问题的变量信息。实际上它的值是`NULL`：
 
-Even if you don't have all the source code, it's often useful to get a backtrace from the point the program crashed.
+![coredump.png](http://beej.us/guide/bggdb/coredump.png)
 
-Window Functions
-In TUI mode, you can get a list of existing windows with the info win command. You can then change which window has focus with the focus (or fs) command. focus takes either a window name, or "prev" or "next" as an argument. Valid window names are "SRC" (source window), "CMD" (command window), "REGS" (registers window), and "ASM" (assembly window). See the next section for how to use these other windows.
+即便你没有全部源码，获取到程序崩溃时的调用堆栈信息通常也是有用的。
 
-Note that when the SRC window has focus, the arrow keys will move the source code, but when the CMD window has focus, the arrow keys will select the previous and next commands in the command history. (For the record, the commands to move the SRC window single lines and single pages are +, -, <, and >.)
+## 窗口功能
 
+在TUI模式下，使用**info win**命令你能获取当前所有窗口的列表。你可以用**focus**（或**fs**）命令来调整窗口的焦点获取
+。**focus**要么用窗口外，或者"prev"或"next"做为参数。有效的窗口名是"SRC"（源代码窗口），"CMD"（命令窗口），
+"REGS"（寄存器窗口），以及"ASM"（汇编窗口）。如何使用其它几个窗口请参考下面的章节。
+
+注意到当SRC窗口获取焦点时，方向键将移动源代码，但是当CMD窗口获取焦点时，方向键将在命令历史中选择上一条和下一条命令。（在SRC窗口中移动单行和单页的命令分别是`+`、`-`、`<`和`>`。）
+
+```shell
 (gdb) info win
         SRC     (36 lines)  <has focus>
         CMD     (18 lines)
@@ -481,33 +500,67 @@ Focus set to CMD window.
 Focus set to SRC window.
 (gdb)
 (Window names are case in-sensitive.)
+```
 
-The winheight (or wh) command sets the height of a particular window, but I've had bad luck with this working well.
+**winheight**（或**wh**）命令用于设置指定窗口的调试，但是我运气太差，它好像不起作用。（译注：在`GNU gdb (Ubuntu 7.11-0ubuntu1) 7.11`上测试时，该命令可用）
 
-Display Registers and Assembly
-In TUI mode, the layout command controls which windows you see. Additionally, the tui reg allows control of the register window, and will open it if it's not already open.
+## 显示寄存器和汇编代码
+
+在TUI模式下，**layout**命令控制你能看到哪些窗口。另外，**tui reg**允许控制寄存器窗口，然后在窗口还没有打开时会将它打开。
+
+命令有：
 
 The commands are:
-layout src	Standard layout—source on top, command window on the bottom
-layout asm	Just like the "src" layout, except it's an assembly window on top
-layout split	Three windows: source on top, assembly in the middle, and command at the bottom
-layout reg	Opens the register window on top of either source or assembly, whichever was opened last
-tui reg general	Show the general registers
-tui reg float	Show the floating point registers
-tui reg system	Show the "system" registers
-tui reg next	Show the next page of registers—this is important because there might be pages of registers that aren't in the "general", "float", or "system" sets
-Here's a nifty screenshot to whet your appetite, showing source and assembly in "split" mode:
+<table style="table-layout:fixed;">
+<tr>
+    <td>layout src</td>
+    <td>标准布局－源代码窗口在上面，命令窗口在下面</td>
+</tr>
+<tr>
+    <td>layout asm</td>
+    <td>类似"src"布局，除了是汇编窗口在上面</td>
+</tr>
+<tr>
+    <td>layout split</td>
+    <td>三个窗口：源代码窗口在上，汇编窗口在中间，命令窗口在底部。</td>
+</tr>
+<tr>
+    <td>layout reg</td>
+    <td>在源代码窗口长汇编窗口上面打开寄存器窗口</td>
+</tr>
+<tr>
+    <td>tui reg general</td>
+    <td>显示通用寄存器</td>
+</tr>
+<tr>
+    <td>tui reg float</td>
+    <td>显示浮点数寄存器</td>
+</tr>
+<tr>
+    <td>tui reg system</td>
+    <td>显示"system" 寄存器</td>
+</tr>
+<tr>
+    <td>tui reg next</td>
+    <td>显示下页的寄存器－这很重要，因为可能很多页不属于"通用”、"float"或"system"的寄存器。</td>
+</tr>
+</table>
 
+这里有个漂亮的截图，以便激起你的兴趣，它将源代码和汇编代码显示在“拆分”模式下：
 
-Assembly code comes in two flavors on Intel machines: Intel and AT&T. You can set which one appears in the disassembly window with set disassembly-flavor. Valid values are "intel" and "att". If you already have the assembly window open, you'll have to close it and reopen it (layout src followed by layout split, for example.)
+![gdbwinss](http://beej.us/guide/bggdb/gdbwinss.png)
 
-To display registers in dumb terminal mode, type info registers for the integer registers, or info all-registers for everything.
+Intel机器上的汇编代码有两种风格：Intel和AT&T。你可以用**set disassembly-flavor**来设置在反汇编窗口中显示哪一种。
+有效值是"intel"和"att"。如果你已经打开了汇编窗口，你需要关闭再重新打开。(例如，先**layout src**然后再**layout split**。）
 
-Writing a Front-End
-You're thinking, "Wow, this is pretty cool, but I could write a killer front-end for this thing that worked so much better! How do I do it?"
+要在普通终端模式下显示寄存器，对于整型寄存器用**info registers**，或者用**info all-registers**显示所有寄存器。
 
-GDB supports what it calls the "machine interface interpreter", or GDB/MI. The interpreter is selected on the gdb command line with the --interpreter switch.
+## 写一个前端软件
 
-Basically you'll launch gdb and read commands and results to and from it (probably using pipes). Pretty straightforward.
+你在想，“哇，太酷了，但是我可以为它写个杀手级的前端软件，让它更好用！我要怎么做呢？”
 
-See the GDB documentation for all the details.
+GDB支持所谓的“机器界面解析器”，或者叫GDB/MI。在**gdb**命令行上使用**--interpreter**选项可以选择这个解析器。
+
+基本上你是先开启**gdb**然后与它进行命令与结果的交互（可能使用管道）。非常直接了当。
+
+参考[GDB文档](http://sourceware.org/gdb/current/onlinedocs/gdb_26.html#SEC263)来获取更多细节。
