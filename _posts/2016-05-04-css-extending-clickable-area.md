@@ -49,13 +49,11 @@ HTML修改为:
     border: 20px solid transparent;
 }
 ```
-由于元素背景颜色默认扩展到边框下，如果此时边框设置为透明，元素背景颜色会从边框处透出来，
-给人以元素变大了的效果：
+由于元素背景颜色默认扩展到边框下，如果此时边框设置为透明，元素背景颜色会从边框处透出来，给人以元素变大了的效果：
 ![边框扩大元素的效果]({{ site.url }}/assets/images/css-extending-clickable-area-error.png)
 
 
-将元素的`background-clip`属性修改为`padding-box`后，元素背景颜色只扩展到padding区域，不再扩展到边框。
-元素边框的颜色是父元素的背景色，因此不再给人以元素变大了的效果，但已经扩大了元素的边框边界和可点击区域。
+将元素的`background-clip`属性修改为`padding-box`后，元素背景颜色只扩展到padding区域，不再扩展到边框。元素边框的颜色是父元素的背景色，因此不再给人以元素变大了的效果，但已经扩大了元素的边框边界和可点击区域。
 
 ![通过border属性扩大可点击区域]({{ site.url }}/assets/images/css-extending-clickable-area.png)
 

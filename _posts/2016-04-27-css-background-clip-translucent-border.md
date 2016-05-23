@@ -73,8 +73,7 @@ div {
 
 ![image]({{ site.url }}/assets/images/translucent-border-error.jpg)
 
-此时看不出半透明边框的效果，这是因为元素的背景默认扩展至元素边框的外边界(border)，
-在设置了border宽度后，元素的背景能透过内容区域(content area)、padding区、border区看到(而透过margin区看到的是父元素背景)。
+此时看不出半透明边框的效果，这是因为元素的背景默认扩展至元素边框的外边界(border)，在设置了border宽度后，元素的背景能透过内容区域(content area)、padding区、border区看到(而透过margin区看到的是父元素背景)。
 
 元素本身的白色背景，透过半透明的边框，看到的还是白色。
 
@@ -82,14 +81,11 @@ div {
 
 ### 通过background-clip属性修正
 
-CSS的[background-clip](https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip)属性设置元素背景的扩展范围，
-值可以为**border-box**, **padding-box**, **content-box**，默认值为border-box。
+CSS的[background-clip](https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip)属性设置元素背景的扩展范围，值可以为**border-box**, **padding-box**, **content-box**，默认值为border-box。
 
-值为border-box时表示背景扩展至元素边框(border)的外边界, 值为padding-box时表示背景扩展至
-元素padding的外边界，而值为content-box时表示背景只扩展至内容区域(content)部分。
+值为border-box时表示背景扩展至元素边框(border)的外边界, 值为padding-box时表示背景扩展至元素padding的外边界，而值为content-box时表示背景只扩展至内容区域(content)部分。
 
-通过设置`background-clip: padding-box;`，使该元素的白色背景只扩展至padding的外边界，不再
-扩展至边框(border)部分，此时就能透过边框看到父元素的背景。
+通过设置`background-clip: padding-box;`，使该元素的白色背景只扩展至padding的外边界，不再扩展至边框(border)部分，此时就能透过边框看到父元素的背景。
 
 修改后的CSS如下：
 

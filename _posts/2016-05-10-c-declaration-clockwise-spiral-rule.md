@@ -13,12 +13,11 @@ tags: C Programming
 > Copyright © 1993,1994 David Anderson
 > This article may be freely distributed as long as the author's name and this notice are retained.
 >
-___
+---
 
 本文英文原文在: [http://c-faq.com/decl/spiral.anderson.html](http://c-faq.com/decl/spiral.anderson.html)
 
-_______
-
+---
 
 江湖中流传一种[“顺时针/螺旋式法则”](http://c-faq.com/decl/spiral.anderson.html)，能让任何C程序员在头脑中解析任意C声明！
 

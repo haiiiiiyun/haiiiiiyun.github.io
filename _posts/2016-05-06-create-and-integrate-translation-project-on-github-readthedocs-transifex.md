@@ -56,8 +56,8 @@ Django-docs-zh_CN > git push
 Django-docs-zh_CN > cp -R django-lts/docs ./docs
 
 ```
- docs目录是一个Sphinx文档工程，里面包含`conf.py`配置文件。
-修改`conf.py`里的配置项：`locale_dirs = ['locale/']`(一般默认就是该值)。
+
+ docs目录是一个Sphinx文档工程，里面包含`conf.py`配置文件。修改`conf.py`里的配置项：`locale_dirs = ['locale/']`(一般默认就是该值)。
 
 提取docs目录下的翻译项，生成pot文件。
 
@@ -71,8 +71,7 @@ docs > make gettext
 
 在transifex.com上创建一个项目，名称为`djangolts-docs-zh_cn`。
 
-运行`Django-docs-zh_CN > tx init`, 初始化transifex客户端，运行
-后在项目的根目录下生成`.tx`目录，`.tx/config`文件内保存翻译项目的相关信息，在用户主目录下生成`.transifexrc`文件，用于存放用户名等认证信息。
+运行`Django-docs-zh_CN > tx init`, 初始化transifex客户端，运行后在项目的根目录下生成`.tx`目录，`.tx/config`文件内保存翻译项目的相关信息，在用户主目录下生成`.transifexrc`文件，用于存放用户名等认证信息。
 
 设置翻译文件：
 
@@ -106,8 +105,7 @@ tx的操作和git类似， 查看tx状态： `tx status`， 你可以看到一�
 
 上传资源：`tx push -s`
 
-在transifex.com上翻译后，将翻译内容下载回来：`tx pull -l zh_CN`,
-运行后，在`docs/locale/zh_CN/LC_MESSAGES/`下生成相应的po文件。
+在transifex.com上翻译后，将翻译内容下载回来：`tx pull -l zh_CN`，运行后，在`docs/locale/zh_CN/LC_MESSAGES/`下生成相应的po文件。
 
 测试简体中文版本的文档：
 
@@ -120,5 +118,4 @@ Django-docs-zh_CN > make -e SPHINXOPTS="-D language='zh_CN'" html
 
 ## IV. 与readthedocs.org整合
 
-由于项目的结构符合readthedocs.org的要求，只需要在readthedocs.org上`Import a Project`，并指定git库地址为项目地址即可。
-然后在github的项目配置页面，设置Webhook与readthedocs关联，之后项目每次提交后，自动在readthedocs.org上重新构建。
+由于项目的结构符合readthedocs.org的要求，只需要在readthedocs.org上`Import a Project`，并指定git库地址为项目地址即可。然后在github的项目配置页面，设置Webhook与readthedocs关联，之后项目每次提交后，自动在readthedocs.org上重新构建。

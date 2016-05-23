@@ -17,8 +17,7 @@ transform: rotate | scale | skew | translate |matrix;
 
 其中的扭曲变形skew具有三种情况:
 
-1. skewX(&lt;angle&gt;): 在X轴(水平)方向进行扭曲变形,angle值为正数时,沿逆时针方向扭曲,值为负数时,沿顺时针方向扭曲。
-这和linear-gradient等属性的angle值为正数时,沿顺时钟方向计算正好相反。
+1. skewX(&lt;angle&gt;): 在X轴(水平)方向进行扭曲变形,angle值为正数时,沿逆时针方向扭曲,值为负数时,沿顺时针方向扭曲。这和linear-gradient等属性的angle值为正数时,沿顺时钟方向计算正好相反。
 例：transform: skewX(30deg)
 
 ![skewX(30deg)]({{ site.url }}/assets/images/skewX-30deg.png)

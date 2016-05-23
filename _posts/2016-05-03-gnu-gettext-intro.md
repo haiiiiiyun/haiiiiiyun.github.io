@@ -6,8 +6,7 @@ tags: Programming Utility
 ---
 
 # 一、简介
-支持多语言的程序，在编写时，通常源代码中的交互语句首先还是用英文编写，然后才为交互语句添加多语言支持机制。
-程序在运行过程时，再根据用户环境变量设置，选择合适的语言版本，显示给用户。
+支持多语言的程序，在编写时，通常源代码中的交互语句首先还是用英文编写，然后才为交互语句添加多语言支持机制。程序在运行过程时，再根据用户环境变量设置，选择合适的语言版本，显示给用户。
 
 [GNU gettext](https://www.gnu.org/software/gettext/) 为程序的国际化i18n和本地化l10n提供了很好的支持。
 
@@ -24,12 +23,9 @@ tags: Programming Utility
 
 # 二、PO文件格式
 
-[PO文件](https://www.gnu.org/savannah-checkouts/gnu/gettext/manual/html_node/PO-Files.html)， 也就是portable object文件，是可编辑的文本文件。
-通常，`xgettext`工具从源文件中提取待翻译语句后，默认生成的就是po文件，但是，我们通常将xgettext工具生成的文件保存为pot(portable object template)文件(通过`xgettext`工具的`-o`参数)，
-再用msginit从.pot文件生成特定语言版本的.po文件。
+[PO文件](https://www.gnu.org/savannah-checkouts/gnu/gettext/manual/html_node/PO-Files.html)， 也就是portable object文件，是可编辑的文本文件。通常，`xgettext`工具从源文件中提取待翻译语句后，默认生成的就是po文件，但是，我们通常将xgettext工具生成的文件保存为pot(portable object template)文件(通过`xgettext`工具的`-o`参数)，再用msginit从.pot文件生成特定语言版本的.po文件。
 
-每个.po文件都由一个或多个翻译单元(entry)组成，各翻译单元之前由空行分隔。
-每个翻译单元内，包含一个待翻译语句和相对应的翻译版本。
+每个.po文件都由一个或多个翻译单元(entry)组成，各翻译单元之前由空行分隔。每个翻译单元内，包含一个待翻译语句和相对应的翻译版本。
 
 .po文件中的翻译单元(entry)的语义格式如下：
 
@@ -247,8 +243,7 @@ msgstr ""
 
 ## 6、更新与合并
 
-当源文件更新后，通过步骤1-2-3生成新的.pot文件，假设为messages.pot。
-此时可使用`msgmerge`工具将原来的已翻译条目与新的.pot文件合并，生成新的.po文件。
+当源文件更新后，通过步骤1-2-3生成新的.pot文件，假设为messages.pot。此时可使用`msgmerge`工具将原来的已翻译条目与新的.pot文件合并，生成新的.po文件。
 
 `shell: msgmerge messages.pot zh_CN.po -o zh_CN2.po`
 

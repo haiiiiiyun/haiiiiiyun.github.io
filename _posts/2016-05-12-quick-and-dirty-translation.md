@@ -13,8 +13,7 @@ quick-and-dirty典型的用法有：
 
 内容多是用通俗易懂的语言讲解一些小知识、小窍门。
 
-**quick**是快捷的意思，**dirty**是脏或不干净的意思, 在[韦氏字典](http://www.merriam-webster.com/dictionary/quick%20and%20dirty)中，
-**quick and dirty**的定义是：
+**quick**是快捷的意思，**dirty**是脏或不干净的意思, 在[韦氏字典](http://www.merriam-webster.com/dictionary/quick%20and%20dirty)中，**quick and dirty**的定义是：
 
 > Definition of quick and dirty 
 > :  expedient and effective but not without flaws or unwanted side effects <a quick and dirty solution>

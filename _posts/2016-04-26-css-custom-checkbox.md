@@ -89,14 +89,11 @@ body {
     clip: rect(0,0,0,0);
 }
 ```
-通过clip属性隐藏掉系统生成的复选框。
-clip属性定义一个剪裁区域，在这个区域内的元素内容才可见。语法如下：
+通过clip属性隐藏掉系统生成的复选框。clip属性定义一个剪裁区域，在这个区域内的元素内容才可见。语法如下：
 ```
 clip: rect(<top>, <right>, <bottom>, <left>);
 ```
-top, bottom指定的偏移量都是从元素盒子的顶部边缘（border的上外边界)算起的，而right,left的偏移量都是从元素例子的左边缘（border的左外边界)算起的。
-详细可参考[w3cpuls上的clip属性相关文章](http://www.w3cplus.com/css3/clip.html)。
-用这种方式隐藏后，用户还可以用Tab键对复选框进行轮询访问。
+top, bottom指定的偏移量都是从元素盒子的顶部边缘（border的上外边界)算起的，而right,left的偏移量都是从元素例子的左边缘（border的左外边界)算起的。详细可参考[w3cpuls上的clip属性相关文章](http://www.w3cplus.com/css3/clip.html)。用这种方式隐藏后，用户还可以用Tab键对复选框进行轮询访问。
 
 
 ```css
@@ -113,10 +110,7 @@ top, bottom指定的偏移量都是从元素盒子的顶部边缘（border的上
     line-height: .65;
 }
 ```
-在label元素前生成一个伪元素, content: '\a0'表示伪元素的内容是一个空格。
-伪元素的content属性内容如果是一个特殊符号，如空格时，不能用**&amp;nbsp;**来表示，需要
-用特殊符号对应的unicode码来表示，如空格的unicode码是00A0，则表示为'\00a0',或者'\a0'。
-更多特殊字符要参考[常用的HTML特殊字符大全(css3 content)](http://www.phpjz.cn/web/201311/1700.html)。
+在label元素前生成一个伪元素, content: '\a0'表示伪元素的内容是一个空格。伪元素的content属性内容如果是一个特殊符号，如空格时，不能用**&amp;nbsp;**来表示，需要用特殊符号对应的unicode码来表示，如空格的unicode码是00A0，则表示为'\00a0',或者'\a0'。更多特殊字符要参考[常用的HTML特殊字符大全(css3 content)](http://www.phpjz.cn/web/201311/1700.html)。
 
 设置伪元素的样式，生成自定制的复选框。
 
