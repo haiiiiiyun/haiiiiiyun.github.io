@@ -1,5 +1,5 @@
 ---
-title: Full Stack Python 系列--1.2 学习编程
+title: Full Stack Python 系列之 1.2 学习编程
 date: 2016-05-21
 writing-time: 2016-05-22 23:10
 categories: Full&nbsp;Stack&nbsp;Python

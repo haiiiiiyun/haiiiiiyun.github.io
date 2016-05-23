@@ -1,5 +1,5 @@
 ---
-title: Full Stack Python 系列--1.1 简介
+title: Full Stack Python 系列之 1.1 简介
 date: 2016-05-20
 writing-time: 2016-05-22 14:28
 categories: Full&nbsp;Stack&nbsp;Python
