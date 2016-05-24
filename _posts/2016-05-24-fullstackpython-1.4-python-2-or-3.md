@@ -20,7 +20,7 @@ Python 编程语言目前正处在从版本 2 升级到版本 3 的漫长过渡�
 
 我个人推荐初学者现在应该从 Python 3 开始学起。因为现在已经能找到足够多的 [资料](http://fullstackpython.atjiang.com/best-python-resources.html) 来指导我们从零基础开始学习 Python 3。
 
-但是，如果你对 [DevOps](http://baike.baidu.com/view/5705743.htm) 型工作感兴趣，并且使用像 Ansible 或 Fabric 等 [配置管理工具](http://fullstackpython.atjiang.com/configuration-management.html)，那么你还是应该用 Python 2，因此这些工具还不支持 Python 3。如果你知道项目中必须要用到某些库，先在 [Python 超能墙](https://python3wos.appspot.com/) 网站上查下兼容性。如果你用 Django 的话，也有个类似的网站叫 [常用 Django 包的 Python 3 兼容性](http://djangowos.com/)。
+但是，如果你对 [DevOps](http://baike.baidu.com/view/5705743.htm) 型工作感兴趣，并且使用像 Ansible 或 Fabric 等 [配置管理工具](http://fullstackpython.atjiang.com/configuration-management.html)，那么你还是应该用 Python 2，因为这些工具还不支持 Python 3。如果你知道项目中必须要用到某些库，先在 [Python 超能墙](https://python3wos.appspot.com/) 网站上查下兼容性。如果你用 Django 的话，也有个类似的网站叫 [常用 Django 包的 Python 3 兼容性](http://djangowos.com/)。
 
 
 ### 从 Python 2 转到 3 的相关资源
