@@ -23,7 +23,7 @@ tags: Full&nbsp;Stack&nbsp;Python 翻译 Python
 1. 写代码时，通常要用到 [第三方库](http://fullstackpython.atjiang.com/application-dependencies.html) 和 [框架](http://fullstackpython.atjiang.com/web-frameworks.html)
 1. 运行程序
 1. 调试错误和异常结果
-1. 为目标用户[布署](http://fullstackpython.atjiang.com/deployment.html) 并运行应用
+1. 为目标用户[部署](http://fullstackpython.atjiang.com/deployment.html) 并运行应用
 
 
 ## 我怎样才能学好编程呢？
