@@ -122,7 +122,7 @@ class MyModel(models.Model):
     )
 ```
 
-# `django.conf.settings` 的使用
+# django.conf.settings 的使用
 
 在模块顶层（当模块被 import 时会自动执行的部分）不要存取 `django.conf.settings`。 Django 项目只能调用 `django.conf.settings.configure()` 函数一次（仅一次）来对 settings 进行配置。settings 是一个 `LazyObject` 对象，对其存取时才会真正调用 `django.config.settings.configure()` 来对 settings 进行配置。
 
