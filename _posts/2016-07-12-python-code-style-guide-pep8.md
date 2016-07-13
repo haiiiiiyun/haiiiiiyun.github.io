@@ -130,7 +130,7 @@ result = some_function_that_takes_arguments(
 
 3. 如果团队成员都同意使用长行，则可以将行长增加到不超过 100 个字符，但是 docstring 和注释还必须为 72 个字符。
 
-4. 有括号的长行可以用 implicit continuation 来断行，其它的可以用 `\\` 来断行，如：
+4. 有括号的长行可以用 implicit continuation 来断行，其它的可以用 `\` 来断行，如：
 
 ```
 with open('/path/to/some/file/you/want/to/read') as file_1, \
@@ -675,5 +675,8 @@ if greeting == True:
 if greeting is True:
 ```
 
+# 检测工具
+
+使用 [Flake8](https://flake8.readthedocs.io/en/latest/) 来检查代码质量。
 
 > 参考文献： [https://www.python.org/dev/peps/pep-0008/](https://www.python.org/dev/peps/pep-0008/)
