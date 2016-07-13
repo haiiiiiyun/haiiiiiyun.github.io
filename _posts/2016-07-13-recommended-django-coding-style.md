@@ -3,7 +3,7 @@ title: 推荐的 Django 代码风格
 date: 2016-07-13
 writing-time: 2016-07-13 08:27--12:50
 categories: programming
-tags: python Django programming
+tags: python Django programming Two&nbsp;Scoops&nbsp;of&nbsp;Django
 ---
 
 # 目标
