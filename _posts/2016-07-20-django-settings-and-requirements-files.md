@@ -181,7 +181,6 @@ $ export AUDREY_FREEZER_KEY=y34h-r1ght-d0nt-t0uch-my-1c3-cr34m
 ```
 $ heroku config:set SOME_SECRET_KEY=1c3-cr3am-15-yummy
 ```
-
 2. 在 Python 中存取这些配置信息
 
 ```
