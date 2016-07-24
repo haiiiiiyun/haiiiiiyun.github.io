@@ -37,7 +37,7 @@ PostgreSQL 核心团队还经常发布更新，从而显著提高了数据库的
 
 要想在数据表和对象间抽象出对应关系，许多 Python 开发人员会利用 [对象-关系映射器 (ORM)](http://fullstackpython.atjiang.com/object-relational-mappers-orms.html) 来将 PostgreSQL 中的关系型数据转化成可以在 Python 代码中使用的对象。例如，PostgreSQL 提供关系型数据库功能，而 psycopg 是常用的数据库连接器，但很多 ORM 能用于各种不同的 Web 框架，如下图所示。
 
-<img src="http://fullstackpython.atjiang.com/img/postgresql-orm-examples.png" width="100%" alt="各种不同的 Python ORM 如何与 PostgreSQL 和 psycopg2 连接器一起使用的例子。" class="technical-diagram" />
+<img src="http://fullstackpython.atjiang.com/img/postgresql-orm-examples.png" width="100%" alt="各种不同的 Python ORM 如何与 PostgreSQL 和 psycopg2 连接器一起使用的例子。" style="margin:10px 0 5px 0;" />
 
 到 [关于 Python ORM 主题的特定页](http://fullstackpython.atjiang.com/object-relational-mappers-orms.html) 了解更多知识。
 

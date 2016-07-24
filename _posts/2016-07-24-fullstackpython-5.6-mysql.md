@@ -23,8 +23,6 @@ MySQL 是 [关系型数据库](http://fullstackpython.atjiang.com/databases.html
 ## MySQL 还是 PostgreSQL？
 MySQL 是一款可运用于 Python Web 应用的开源数据库实现。MySQL 相比 [PostgreSQL](http://fullstackpython.atjiang.com/postgresql.html) 更易入门。但是，Python Web 开发人员通常更偏爱 PostgreSQL 的设计，特别在随着应用程序的演进需要进行数据迁移的时候。
 
-<div class="well see-also">MySQL 是对 <a href="http://fullstackpython.atjiang.com/databases.html">关系型数据库</a> 概念的一种实现。 在 <a href="http://fullstackpython.atjiang.com/data.html">数据</a> 那一章学习更多相关知识，或者到 <a href="http://fullstackpython.atjiang.com/table-of-contents.html"> 总目录页</a> 了解所有主题。</div>
-
 
 ## MySQL 的 Python 驱动器
 在 Python 应用中访问 MySQL 需要一个数据库驱动器（也叫作 “连接器”）。当然驱动器可以作为应用的一部分进行编写，但是实践中多数开发人员会采用一个现成的开源驱动器。
