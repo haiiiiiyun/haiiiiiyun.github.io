@@ -156,9 +156,9 @@ SQL 会特定于某个数据库，因此会降低可移植性。
 因此，只有当原始 SQL 能显著简化你的 Python 代码或者 ORM 生成的 SQL 代码才使用。
 
 
->> Django 项目的联合领导者 Jacob Kaplan-Moss:
->> 如果一个查询语句使用 SQL 语句比用 ORM 更方便，那就用 SQL 语句。
->> extra() 很讨厌，应该避免使用; raw() 可以适当使用。
+> Django 项目的联合领导者 Jacob Kaplan-Moss:
+> 如果一个查询语句使用 SQL 语句比用 ORM 更方便，那就用 SQL 语句。
+> extra() 很讨厌，应该避免使用; raw() 可以适当使用。
 
 
 # 在必要时才添加索引
@@ -239,9 +239,9 @@ def posting_flavor_status(request, pk, status):
 
 显式事务声明是提高网站性能的一种方法。即指定哪些视图或业务逻辑需要封装在事务中，哪些不需要。这种方式的缺点是增加了开发时间。
 
->> Aymeric Augustin:
->> 只要性能开销可以忍受，尽量使用 ATOMIC_REQUESTS。
->> 这适合于大多数网站的情况。
+> Aymeric Augustin:
+> 只要性能开销可以忍受，尽量使用 ATOMIC_REQUESTS。
+> 这适合于大多数网站的情况。
 
 何时使用事务：
 
