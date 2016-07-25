@@ -1,7 +1,7 @@
 ---
 title: CBV 最佳实践
 date: 2016-07-25
-writing-time: 2016-07-25 10:00
+writing-time: 2016-07-25 10:00--16:15
 categories: programming
 tags: python Django programming Two&nbsp;Scoops&nbsp;of&nbsp;Django
 ---
@@ -37,7 +37,7 @@ Django 提供了一些通用视图， generic class-based views (GCBV)，可以�
 
 一个简单的例子如下：
 
-```python
+```
 from django.views.generic import TemplateView
 
 class FreshFruitMixin(object):
@@ -85,7 +85,7 @@ DeleteView   | 删除对象               |
 
 **django.contrib.auth.decorators.login_required** 装饰器应用到 CBV 比较麻烦，应使用 django-braces 提供的 **LoginRequiredMixin**，例如：
 
-```python
+```
 # flavors/views.py
 from django.views.generic import DetailView
 
@@ -104,7 +104,7 @@ form_valid() 应该返回一个 django.http.HttpResponseRedirect 对象。
 
 例如：
 
-```python
+```
 from django.views.generic import CreateView
 
 from braces.views import LoginRequiredMixin
@@ -126,7 +126,7 @@ class FlavorCreateView(LoginRequiredMixin, CreateView):
 
 例如：
 
-```python
+```
 from django.views.generic import CreateView
 
 from braces.views import LoginRequiredMixin
@@ -147,7 +147,7 @@ class FlavorCreateView(LoginRequiredMixin, CreateView):
 
 例如，定义的视图如下：
 
-```python
+```
 from django.utils.functional import cached_property
 from django.views.generic import UpdateView, TemplateView
 
@@ -204,7 +204,7 @@ class FlavorDetailView(LoginRequiredMixin, FavoriteMixin, TemplateView):
 
 以下例子中使用的数据模型定义如下：
 
-```python
+```
 # flavors/models.py
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -237,7 +237,7 @@ class Flavor(models.Model):
 
 视图代码如下：
 
-```python
+```
 # flavors/views.py
 from django.views.generic import CreateView, UpdateView, DetailView
 
@@ -261,7 +261,7 @@ class FlavorDetailView(DetailView):
 
 下面将重载 FlavorCreateView 和 FlavorUpdateView 的 form_valid() 方法，实现当操作完成后推送不同的消息。可以将重复的代码提取出来，放在一个 Mixin 中，如下：
 
-```python
+```
 # flavors/views.py
 
 from django.contrib import messages
@@ -326,7 +326,7 @@ class FlavorDetailView(DetailView):
 
 由于查询没有修改数据，因此表单方法用 **GET**。要正确显示匹配的查询列表，需要重载 ListView 的 get_queryset() 方法，视图代码如下：
 
-```python
+```
 from django.views.generic import ListView
 
 from .models import Flavor
@@ -369,7 +369,7 @@ FBV 如果要区别不同的 HTTP 方法，需要用 if 块，而 CBV 只需定�
 
 如下面的代码所示，继承 View 类后，CBV 只需定义 get()，post() 就能完成相应的 HTTP 请求。
 
-```python
+```
 from braces.views import LoginRequiredMixin
 
 from .forms import FlavorForm
@@ -398,7 +398,7 @@ class FlavorView(LoginRequiredMixin, View):
 
 它最适合用来输出 JSON、PDF、Excel 等非 HTML 内容。如下例如下：
 
-```python
+```
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic import View
@@ -428,13 +428,14 @@ class PDFFlavorView(LoginRequiredMixin, View):
 
 # 其它资源
 
-+ [Class-based views](https://docs.djangoproject.com/en/1.8/topics/class-based-views/)
-+ [Built-in class-based generic views](https://docs.djangoproject.com/en/1.8/topics/class-based-views/generic-display/)
-+ [Form handling with class-based views](https://docs.djangoproject.com/en/1.8/topics/class-based-views/generic-editing/)
-+ [Using mixins with class-based views](https://docs.djangoproject.com/en/1.8/topics/class-based-views/mixins/)
-+ [Built-in class-based views API](https://docs.djangoproject.com/en/1.8/ref/class-based-views/)
++ http://2scoops.co/1.8-topics-class-based-views
++ http://2scoops.co/1.8-cbv-generic-display
++ http://2scoops.co/1.8-cbv-generic-editing
++ http://2scoops.co/1.8-cbv-mixins
++ http://2scoops.co/1.8-ref-class-based-views
 + [GCBV inspector](http://ccbv.co.uk)
-+ [The Python 2.3 Method Resolution Order](https://www.python.org/download/releases/2.3/mro/)
++ http://www.python.org/download/releases/2.3/mro/
++ http://pydanny.com/tag/class-based-views.html
 
 
 其它包：
