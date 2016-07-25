@@ -31,12 +31,12 @@ from django.views.generic import DetailView
 from tastings.models import Tasting
 
 urlpatterns = [
-    url(r" ˆ (?P<pk>\d+)/ $ ",
+    url(r"ˆ(?P<pk>\d+)/$",
         DetailView.as_view(
             model=Tasting,
             template_name="tastings/detail.html"),
         name="detail"),
-    url(r" ˆ (?P<pk>\d+)/results/ $ ",
+    url(r"ˆ(?P<pk>\d+)/results/$",
         DetailView.as_view(
             model=Tasting,
             template_name="tastings/results.html"),
@@ -149,7 +149,7 @@ class TasteUpdateView(UpdateView):
 
 在模板中的例子：
 
-{% hightlight %}
+```jinja2
 {% raw %}
 {% extends "base.html" %}
 
@@ -168,7 +168,7 @@ class TasteUpdateView(UpdateView):
 </ul>
 {% endblock content %}
 {% endraw %}
-{% endhightlight %}
+```
 
 ## 命名空间使 URL 名更短、更明显及 DRY
 
@@ -190,10 +190,10 @@ urlpatterns += [
 
 然后在模板中：
 
-{% highlight %}
+```jinja2
 {% raw %}
 {% extends "base.html" %}
-{% block title %}Contact{&#37; endblock title %}
+{% block title %}Contact{% endblock title %}
 {% block content %}
 <p>
   <a href="{% url "contactmonger:create" %}">Contact Us</a>
@@ -203,7 +203,7 @@ urlpatterns += [
 </p>
 {% endblock content %}
 {% endraw %}
-{% endhighlight %}
+```
 
 ## 更易查找、升级和重构
 
