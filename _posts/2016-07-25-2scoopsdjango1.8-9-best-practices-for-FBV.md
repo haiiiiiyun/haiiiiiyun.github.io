@@ -50,9 +50,9 @@ def check_sprinkles(request):
     if request.user.can_sprinkle or request.user.is_staff:
         # By adding this value here it means our display templates
         # can be more generic. We don't need to have
-        # {% if request.user.can_sprinkle or request.user.is_staff %}
+        # {% raw %}{% if request.user.can_sprinkle or request.user.is_staff %}{% endraw %}
         # instead just using
-        # {% if request.can_sprinkle %}
+        # {% raw %}{% if request.can_sprinkle %}{% endraw %}
         request.can_sprinkle = True
         return request
 
