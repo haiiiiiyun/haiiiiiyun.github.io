@@ -2,7 +2,7 @@
 title: Full Stack Python 系列之 6.1 应用程序编程接口
 meta: Web 应用编程接口 (APIs) 为数据在机器间传输提供了一种机制。到 Full Stack Python 上学习有关 API 的更多知识。
 date: 2016-07-26
-writing-time: 2016-07-27 21:24--23:09
+writing-time: 2016-07-26 21:24--23:09
 categories: Full&nbsp;Stack&nbsp;Python
 tags: Full&nbsp;Stack&nbsp;Python 翻译 Python
 ---
