@@ -40,7 +40,7 @@ sudo dpkg-reconfigure keyboard-configuration
 
 ## 定义一个更加容易按的 PREFIX
 
-`CTRL-b` 不太想按，如果已将 CAPS LOCK 重定义为 CTRL，`CTRL-a` 会好按的多（GNU-SCreen 的PREFIX 也是 `CTRL-a`）。
+`CTRL-b` 不太好按，如果已将 CAPS LOCK 重定义为 CTRL，`CTRL-a` 会好按的多（GNU-SCreen 的PREFIX 也是 `CTRL-a`）。
 
 *.tmux.conf* 中的配置命令是 **set-option** ，或者简写为 **set** 。
 
