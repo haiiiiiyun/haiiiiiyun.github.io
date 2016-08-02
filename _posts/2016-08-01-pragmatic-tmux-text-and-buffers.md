@@ -1,6 +1,6 @@
 ---
 title: Tmux 学习摘要4--处理文本和缓冲区
-date: 2016-08-01 16:30
+date: 2016-08-01
 writing-time: 2016-08-01 16:30--22:54
 categories: programming
 tags: Tmux
