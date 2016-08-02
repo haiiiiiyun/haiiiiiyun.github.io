@@ -161,8 +161,16 @@ bind -r L resize-pane -R 5
 
 ## 禁用鼠标
 
+在 tmux 2.1 以下版本： 
+
 ```conf
 setw -g mode-mouse off
+```
+
+在 tmux 2.1 及以上版本： 
+
+```conf
+setw -g mouse off
 ```
 
 # 外观风格
