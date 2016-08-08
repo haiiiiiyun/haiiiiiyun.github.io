@@ -308,18 +308,3 @@ def apiv1_gone(request):
 
 
 > 参考文献： [Two Scoops of Django: Best Practices for Django 1.8](https://www.amazon.com/Two-Scoops-Django-Best-Practices/dp/0981467342/)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
