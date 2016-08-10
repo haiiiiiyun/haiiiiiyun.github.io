@@ -150,7 +150,7 @@ $ pip freeze --local
 1. 安装 cookiecutter：
 
 ```
-$ sudo apt-get install cookiecutter
+$ pip install cookiecutter
 ```
 
 2. 运行 cookiecutter，并指定模板路径，用来生成项目：
