@@ -1,5 +1,5 @@
 ---
-title: Django 模型最佳实践
+title: Django 模板最佳实践
 date: 2016-07-28
 writing-time: 2016-07-28 14:29--16:53
 categories: programming
