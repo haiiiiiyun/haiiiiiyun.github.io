@@ -1,6 +1,6 @@
 ---
 title: Django 日志
-date: 2016-08-15
+date: 2016-08-16
 writing-time: 2016-08-16 10:47--12:27
 categories: programming
 tags: Database Ubuntu Postgresql programming
