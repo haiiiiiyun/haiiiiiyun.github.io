@@ -3,7 +3,7 @@ title: Django 部署：PaaS
 date: 2016-08-16
 writing-time: 2016-08-17 08:41--09:32
 categories: programming
-tags: Database Ubuntu Postgresql programming
+tags: python Django programming Two&nbsp;Scoops&nbsp;of&nbsp;Django
 ---
 
 永远不要将你的项目绑死到一个 PaaS 上，不要使用 PaaS 的很个性化的功能。

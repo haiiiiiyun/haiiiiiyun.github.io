@@ -3,7 +3,7 @@ title: Django Utilities
 date: 2016-08-16
 writing-time: 2016-08-16 21:58--23:28
 categories: programming
-tags: Database Ubuntu Postgresql programming
+tags: python Django programming Two&nbsp;Scoops&nbsp;of&nbsp;Django
 ---
 
 # 为工具类代码创建一个 core 应用

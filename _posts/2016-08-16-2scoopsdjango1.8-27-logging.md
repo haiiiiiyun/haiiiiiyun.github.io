@@ -3,7 +3,7 @@ title: Django 日志
 date: 2016-08-16
 writing-time: 2016-08-16 10:47--12:27
 categories: programming
-tags: Database Ubuntu Postgresql programming
+tags: python Django programming Two&nbsp;Scoops&nbsp;of&nbsp;Django
 ---
 
 日志能确保 Web 应用的稳定和健壮，它不仅能用于调试错误，而且能用于跟踪性能度量值。

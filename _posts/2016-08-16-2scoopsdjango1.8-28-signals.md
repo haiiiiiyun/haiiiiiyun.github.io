@@ -3,7 +3,7 @@ title: Django 的信号：安全安全和避免技术
 date: 2016-08-16
 writing-time: 2016-08-16 12:27--16:51
 categories: programming
-tags: Database Ubuntu Postgresql programming
+tags: python Django programming Two&nbsp;Scoops&nbsp;of&nbsp;Django
 ---
 
 尽量避免使用信号。
