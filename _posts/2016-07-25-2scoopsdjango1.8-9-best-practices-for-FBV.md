@@ -1,5 +1,5 @@
 ---
-title: FBV 最佳实践
+title: Django 的 FBV 最佳实践
 date: 2016-07-25
 writing-time: 2016-07-25 09:04--09:57
 categories: programming

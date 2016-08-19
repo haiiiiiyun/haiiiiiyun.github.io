@@ -1,5 +1,5 @@
 ---
-title: CBV 最佳实践
+title: Django 的 CBV 最佳实践
 date: 2016-07-25
 writing-time: 2016-07-25 10:00--16:15
 categories: programming

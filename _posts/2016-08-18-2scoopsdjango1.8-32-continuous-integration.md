@@ -1,5 +1,5 @@
 ---
-title: 持续集成
+title: Django 项目的持续集成
 date: 2016-08-18
 writing-time: 2016-08-18 12:10--12:48
 categories: programming

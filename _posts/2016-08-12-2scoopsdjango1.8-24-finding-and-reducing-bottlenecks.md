@@ -1,5 +1,5 @@
 ---
-title: 查找性能瓶颈
+title: 查找 Django 项目中的性能瓶颈
 date: 2016-08-12
 writing-time: 2016-08-11 14:17--2016-08-12 09:52
 categories: programming

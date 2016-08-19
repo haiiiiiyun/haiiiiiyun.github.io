@@ -1,5 +1,5 @@
 ---
-title: 使用 User 数据模型
+title: Django 项目中使用 User 数据模型
 date: 2016-08-09
 writing-time: 2016-08-09 10:45--11:33
 categories: programming
