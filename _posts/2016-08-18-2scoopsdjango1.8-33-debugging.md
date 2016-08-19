@@ -1,5 +1,5 @@
 ---
-title: 持续集成
+title: 调试
 date: 2016-08-18
 writing-time: 2016-08-18 13:49--14:40
 categories: programming
