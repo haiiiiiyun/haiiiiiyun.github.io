@@ -407,6 +407,4 @@ $ docker login -u docker-registry-username
 $ docker push docker-registry-username/docker-image-name
 ```
 
-> 参考文献： 
-> [Docker docs](https://docs.docker.com/engine/installation/linux/ubuntulinux/)
-> [how-to-install-and-use-docker-on-ubuntu-16-04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04)
+> 参考文献： [Docker docs](https://docs.docker.com/engine/installation/linux/ubuntulinux/) 以及 [how-to-install-and-use-docker-on-ubuntu-16-04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04)
