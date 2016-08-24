@@ -1,7 +1,7 @@
 ---
 title: YAML 基础知识
 date: 2016-08-24
-writing-time: 2016-08-24 12:54
+writing-time: 2016-08-24 12:54--15:10
 categories: programming
 tags: YAML
 ---
