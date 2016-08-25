@@ -3,7 +3,7 @@ title: Docker Compose 和 Django 入门
 date: 2016-08-25
 writing-time: 2016-08-25 08:44--09:43
 categories: programming
-tags: Docker
+tags: Docker Programming Utility 
 ---
 
 # 定义项目组件

@@ -3,7 +3,7 @@ title: 在 Docker 容器中运行一个简单的应用
 date: 2016-08-23
 writing-time: 2016-08-23 13:35--14:19
 categories: programming
-tags: Docker
+tags: Docker Programming Utility
 ---
 
 # 学习使用 Docker 客户端

@@ -3,7 +3,7 @@ title: Docker 注册中心及配置阿里云配置加速
 date: 2016-08-24
 writing-time: 2016-08-24 10:46--11:20
 categories: programming
-tags: Docker
+tags: Docker Programming Utility
 ---
 
 [Docker Hub](https://hub.docker.com/) 是由 Docker 公司维护的公共注册中心。

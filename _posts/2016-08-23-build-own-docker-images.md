@@ -3,7 +3,7 @@ title: 构建自己的 Docker 映像文件
 date: 2016-08-23
 writing-time: 2016-08-23 15:03--15:54
 categories: programming
-tags: Docker
+tags: Docker Programming Utility
 ---
 
 # 列出主机上的映像文件

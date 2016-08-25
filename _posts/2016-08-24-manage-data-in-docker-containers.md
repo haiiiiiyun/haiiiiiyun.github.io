@@ -3,7 +3,7 @@ title: 管理 Docker 容器中的数据
 date: 2016-08-24
 writing-time: 2016-08-24 08:31--10:44
 categories: programming
-tags: Docker
+tags: Docker Programming Utility
 ---
 
 # 管理容器中的数据

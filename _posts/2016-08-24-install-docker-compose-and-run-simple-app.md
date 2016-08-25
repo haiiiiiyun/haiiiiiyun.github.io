@@ -3,7 +3,7 @@ title: 安装 Docker Compose 并运行一个简单的 Python Web 应用
 date: 2016-08-24
 writing-time: 2016-08-24 16:46--17:23
 categories: programming
-tags: Docker
+tags: Docker Programming Utility
 ---
 
 # 安装
