@@ -1,7 +1,7 @@
 ---
 title: Ruby 基础知识(Learn X in Y minutes)
 date: 2016-08-25
-writing-time: 2016-08-25 15:34
+writing-time: 2016-08-25 15:34--22:46
 categories: programming
 tags: Ruby
 ---
@@ -27,19 +27,19 @@ irb(main):001:0>
 # 这是注释
 
 =begin
-这是多行注释的写法，不般都不用
+这是多行注释的写法，不般都不用这种注释
 =end
 
 # Ruby 中最最重要的概念是：一切都是对象。
 
-# 数量是对象
+# 数字是对象
 
 3.class #=> Fixnum
 
 3.to_s #=> "3"
 
 
-# 一些基本算术表达
+# 一些基本算术符
 1 + 1 #=> 2
 8 - 1 #=> 7
 10 * 2 #=> 20
@@ -74,7 +74,7 @@ false.class #=> FalseClass
 1 != 1 #=> false
 2 != 1 #=> true
 
-# 除了 false 本身外，nil 唯一另外一个会被解析成 false 的值
+# 除了 false 本身外，nil 是唯一另外一个会被解析成 false 的值
 
 !nil   #=> true
 !false #=> true
@@ -86,7 +86,7 @@ false.class #=> FalseClass
 2 <= 2 #=> true
 2 >= 2 #=> true
 
-# 组合比较操作符，左边小于右边，返回 -1, 相等返回 0, 大小返回 1
+# 组合比较操作符，左边小于右边，返回 -1, 相等返回 0, 大于返回 1
 1 <=> 10 #=> -1
 10 <=> 1 #=> 1
 1 <=> 1 #=> 0
@@ -143,7 +143,7 @@ x = 25 #=> 25
 x #=> 25
 
 # 赋值操作会返回所赋的值
-# 这意味着能进行多连续赋值：
+# 这意味着能进行连续赋值：
 
 x = y = 10 #=> 10
 x #=> 10
@@ -213,7 +213,7 @@ array.push(6) #=> [1, 2, 3, 4, 5, 6]
 array.include?(1) #=> true
 
 # 哈希表是 Ruby 的主要键/值对表示法。
-# 哈希表是花括号表示：
+# 哈希表用花括号表示：
 hash = { 'color' => 'green', 'number' => 5 }
 
 hash.keys #=> ['color', 'number']
@@ -222,10 +222,10 @@ hash.keys #=> ['color', 'number']
 hash['color'] #=> 'green'
 hash['number'] #=> 5
 
-# 通过不存在的键查询会回来 nil
+# 对不存在的键进行查询会返回 nil
 hash['nothing here'] #=> nil
 
-# 自 Ruby 1.9 后，当将符号用作键时，可以用这样的语法：
+# 自 Ruby 1.9 后，当符号用作键时，可以用这样的语法：
 
 new_hash = { defcon: 3, action: true }
 
@@ -423,7 +423,7 @@ dinner #=> 'quesadilla'
 5.odd? # true
 
 # 如果方法名末尾有 !，表示对调用者本身进行修改。
-# 很多方法的 ！ 版本会修改数据，非 ! 版本只是返回更新了的结果
+# 很多方法的 ! 版本会修改数据，非 ! 版本只是返回更新了的结果
 company_name = "Dunder Mifflin"
 company_name.upcase #=> "DUNDER MIFFLIN"
 company_name #=> "Dunder Mifflin"
@@ -434,36 +434,36 @@ company_name #=> "DUNDER MIFFLIN"
 # 通过 class 进行类定义
 class Human
 
-  # A class variable. It is shared by all instances of this class.
+  # 类变量。它能在该类的所有实例中共享。
   @@species = 'H. sapiens'
 
-  # Basic initializer
+  # 基本的初始化器
   def initialize(name, age = 0)
-    # Assign the argument to the "name" instance variable for the instance
+    # 将 name 值赋给实例变量 @name
     @name = name
-    # If no age given, we will fall back to the default in the arguments list.
+    # 如果没有指定 age 值，会使用参数列表中的默认值
     @age = age
   end
 
-  # Basic setter method
+  # 基本的 setter 方法
   def name=(name)
     @name = name
   end
 
-  # Basic getter method
+  # 基本的 getter 方法
   def name
     @name
   end
 
-  # The above functionality can be encapsulated using the attr_accessor method as follows
+  # 以上的功能也可以用下面的 attr_accessor 来封装
   attr_accessor :name
 
-  # Getter/setter methods can also be created individually like this
+  # Getter/setter 方法也可以像这样单独创建
   attr_reader :name
   attr_writer :name
 
-  # A class method uses self to distinguish from instance methods.
-  # It can only be called on the class, not an instance.
+  # 类方法通过使用 self 与实例方法区别开来。
+  # 类方法只能通过类来调用，不能通过实例调用。
   def self.say(msg)
     puts msg
   end
@@ -474,12 +474,12 @@ class Human
 end
 
 
-# Instantiate a class
+# 初始化类
 jim = Human.new('Jim Halpert')
 
 dwight = Human.new('Dwight K. Schrute')
 
-# Let's call a couple of methods
+# 调用一些方法
 jim.species #=> "H. sapiens"
 jim.name #=> "Jim Halpert"
 jim.name = "Jim Halpert II" #=> "Jim Halpert II"
@@ -487,30 +487,30 @@ jim.name #=> "Jim Halpert II"
 dwight.species #=> "H. sapiens"
 dwight.name #=> "Dwight K. Schrute"
 
-# Call the class method
+# 调用类方法
 Human.say('Hi') #=> "Hi"
 
-# Variable's scopes are defined by the way we name them.
-# Variables that start with $ have global scope
+# 变量的作用域由它们的名字格式定义
+# 以 $ 开头的具有全局域
 $var = "I'm a global var"
 defined? $var #=> "global-variable"
 
-# Variables that start with @ have instance scope
+# 以 @ 开头的具有实例作用域
 @var = "I'm an instance var"
 defined? @var #=> "instance-variable"
 
-# Variables that start with @@ have class scope
+# 以 @@ 开头的具有类作用域
 @@var = "I'm a class var"
 defined? @@var #=> "class variable"
 
-# Variables that start with a capital letter are constants
+# 以大写字母开头的是常数
 Var = "I'm a constant"
 defined? Var #=> "constant"
 
-# Class is also an object in ruby. So class can have instance variables.
-# Class variable is shared among the class and all of its descendants.
+# 类也是对象。因此类也有实例变量。
+# 类变量在类与其继承者之间共享。
 
-# base class
+# 基类
 class Human
   @@foo = 0
 
@@ -523,7 +523,7 @@ class Human
   end
 end
 
-# derived class
+# 派生类
 class Worker < Human
 end
 
@@ -533,7 +533,7 @@ Worker.foo # 0
 Human.foo = 2 # 2
 Worker.foo # 2
 
-# Class instance variable is not shared by the class's descendants.
+# 类实例变量不能在继承类间共享。
 
 class Human
   @bar = 0
@@ -559,8 +559,8 @@ module ModuleExample
   end
 end
 
-# Including modules binds their methods to the class instances
-# Extending modules binds their methods to the class itself
+# include 模块后，模块的方法会绑定为类的实例方法
+# extend 模块后，模块的方法会绑定为类方法
 
 class Person
   include ModuleExample
@@ -575,7 +575,7 @@ Person.new.foo # => 'foo'
 Book.foo       # => 'foo'
 Book.new.foo   # => NoMethodError: undefined method `foo'
 
-# Callbacks are executed when including and extending a module
+# 当对模块进行 include 或 extend 时，相应的回调代码会被执行。
 
 module ConcernExample
   def self.included(base)
@@ -600,10 +600,14 @@ class Something
   include ConcernExample
 end
 
+# 类 Something 包含了 ConcernExample, 因此 ConcernExample 模块
+# 上的 included 回调代码会被执行。
+
 Something.bar     # => 'bar'
 Something.qux     # => NoMethodError: undefined method `qux'
 Something.new.bar # => NoMethodError: undefined method `bar'
 Something.new.qux # => 'qux'
+```
 
 
 > 参考文献： 
