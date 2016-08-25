@@ -62,6 +62,8 @@ services:
       - db
 ```
 
+web 服务的 depends_on 中定义了要依赖 db 服务，因此，当 web 容器启动时，会自动启动 db 容器。同时会在 web 容器系统的 `/etc/hosts` 添加一条到 db 服务的 host 记录，从而在配置数据库的主机时，只需用 `db` 即可。
+
 # 创建一个 Django 项目
 
 1. 创建 Django 项目目录，即在当前项目目录下运行：
