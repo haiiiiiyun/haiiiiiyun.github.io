@@ -78,7 +78,7 @@ body {
 
 ## 二: 效果
 
-![image]({{ site.url }}/assets/images/css-checkboxes.png)
+![image](/assets/images/css-checkboxes.png)
 
 
 ## 三: 实现

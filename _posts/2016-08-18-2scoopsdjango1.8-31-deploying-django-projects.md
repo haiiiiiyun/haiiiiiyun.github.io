@@ -41,7 +41,7 @@ PostgreSQ: postgresql, postgresql-contrib, libpq-dev, python-dev
 
 基本的多服务器配置：
 
-![Django 基本的多服务器配置]({{site.url}}/assets/images/django-basic-multi-server-setup.png)
+![Django 基本的多服务器配置](/assets/images/django-basic-multi-server-setup.png)
 
 + 数据库服务器：如 PostgreSQL 和 MySQL
 + WSGI 应用服务器： 如 uWSGI，Gunicorn + Nginx, Apache + mod_wsgi
@@ -68,7 +68,7 @@ Redis 和 Memcached 类似，但它还有以下的功能：
 
 ## 高级的多服务器设置
 
-![Django 高级多服务器配置]({{site.url}}/assets/images/django-advanced-multi-server-setup.png)
+![Django 高级多服务器配置](/assets/images/django-advanced-multi-server-setup.png)
 
 负载均衡设备即可以是硬件也可以是软件。
 

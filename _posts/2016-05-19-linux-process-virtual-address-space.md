@@ -10,7 +10,7 @@ tags: C Programming Linux CSAPP
 
 从每个进程的角度来看，内存中只存在操作系统内核及本进程，即内存是被本进程独占的。
 
-![Linux进程虚拟地址空间]({{site.url}}/assets/images/virtual_address_space.png)
+![Linux进程虚拟地址空间](/assets/images/virtual_address_space.png)
 
 从向往上看，分为进程代码和数据区、堆数据区、共享库区、堆栈区、内核内存区。
 

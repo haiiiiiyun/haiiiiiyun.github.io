@@ -5,7 +5,7 @@ categories: Programming
 tags: Programming
 ---
 
-![GDB小鱼]({{ site.url }}/assets/images/GDB-archer.jpg)
+![GDB小鱼](/assets/images/GDB-archer.jpg)
 
 [GDB](https://sourceware.org/gdb/) 是GUN项目里的调试器软件，支持Ada, C, C++, Objective-C, Pascal等语言。
 

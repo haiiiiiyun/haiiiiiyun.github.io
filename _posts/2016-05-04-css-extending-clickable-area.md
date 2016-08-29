@@ -10,7 +10,7 @@ tags: Web CSS Programming 《Css&nbsp;Secrets》
 1. 设备当前位置和目标位置的距离(D)。距离越长，所用时间越长;
 2. 目标的大小(S)。目标越大，所用时间越短。
 
-![Fitt's Law]({{ site_url }}/assets/images/fitts-law.jpg)
+![Fitt's Law](/assets/images/fitts-law.jpg)
 
 因此，扩大目标大小是提高UI易用性的很好方法。
 
@@ -50,12 +50,12 @@ HTML修改为:
 }
 ```
 由于元素背景颜色默认扩展到边框下，如果此时边框设置为透明，元素背景颜色会从边框处透出来，给人以元素变大了的效果：
-![边框扩大元素的效果]({{ site.url }}/assets/images/css-extending-clickable-area-error.png)
+![边框扩大元素的效果](/assets/images/css-extending-clickable-area-error.png)
 
 
 将元素的`background-clip`属性修改为`padding-box`后，元素背景颜色只扩展到padding区域，不再扩展到边框。元素边框的颜色是父元素的背景色，因此不再给人以元素变大了的效果，但已经扩大了元素的边框边界和可点击区域。
 
-![通过border属性扩大可点击区域]({{ site.url }}/assets/images/css-extending-clickable-area.png)
+![通过border属性扩大可点击区域](/assets/images/css-extending-clickable-area.png)
 
 完整的CSS代码下：
 

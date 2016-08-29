@@ -5,7 +5,7 @@ categories: 阅读
 tags: 阅读
 ---
 
-![蕃茄工作法图解封面]({{ site.url }}/assets/images/book/pomodoro-technique-illustrated.jpg)
+![蕃茄工作法图解封面](/assets/images/book/pomodoro-technique-illustrated.jpg)
 
 蕃茄工作法主张以25分钟的短期迭代为工作节奏，休息时安心休息，工作时一心一意。专注工作、排序待办事项优先级和休息时间段交错安排、从而获得一个可持续发展的步伐。
 

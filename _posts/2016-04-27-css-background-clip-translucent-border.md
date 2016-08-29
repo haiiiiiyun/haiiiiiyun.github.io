@@ -8,7 +8,7 @@ tags: Programming Web CSS 《CSS&nbsp;Secrets》
 
 ## 一: 效果
 
-![image]({{ site.url }}/assets/images/translucent-border.jpg)
+![image](/assets/images/translucent-border.jpg)
 
 ## 二: 代码
 
@@ -71,13 +71,13 @@ div {
 ```
 设置元素的背景为白色，边框为半透明的白色。效果如下：
 
-![image]({{ site.url }}/assets/images/translucent-border-error.jpg)
+![image](/assets/images/translucent-border-error.jpg)
 
 此时看不出半透明边框的效果，这是因为元素的背景默认扩展至元素边框的外边界(border)，在设置了border宽度后，元素的背景能透过内容区域(content area)、padding区、border区看到(而透过margin区看到的是父元素背景)。
 
 元素本身的白色背景，透过半透明的边框，看到的还是白色。
 
-![css盒子模型]({{site.url}}/assets/images/css-box.png)
+![css盒子模型](/assets/images/css-box.png)
 
 ### 通过background-clip属性修正
 

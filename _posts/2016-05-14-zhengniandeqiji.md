@@ -5,7 +5,7 @@ categories: 阅读
 tags: 阅读
 ---
 
-![正念的奇迹封面]({{ site.url }}/assets/images/book/zhengniandeqiji.jpg)
+![正念的奇迹封面](/assets/images/book/zhengniandeqiji.jpg)
 
 所谓正念,是指对当下的实相保有觉知。
 

@@ -5,7 +5,7 @@ categories: 阅读
 tags: 阅读
 ---
 
-![哪来的天才封面]({{ site.url }}/assets/images/book/talentisoverrated.jpg)
+![哪来的天才封面](/assets/images/book/talentisoverrated.jpg)
 
 丰富的工作经验和创造伟大成就关系不大，即“经验困境”。大多数人都只是在重复之前做过的事情，保持很久以前就已经实现的现有水平。
 
@@ -25,7 +25,7 @@ tags: 阅读
 1. 极耗费心神;
 1. 枯燥乏味的。
 
-![舒适区，学习区，恐慌区]({{ site.url }}/assets/images/comfort-zone.jpg)
+![舒适区，学习区，恐慌区](/assets/images/comfort-zone.jpg)
 
 刻意练习将人推到能力的边缘，进入学习期，以强化技能。刻意练习对取得伟大成就的重要性，体现在没有10年艰苦准备是无法出类拔萃的(“十年沉默期")，在任何领域，杰出人士都有着这个”十年规则“。
 

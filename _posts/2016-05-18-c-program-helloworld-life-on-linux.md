@@ -47,7 +47,7 @@ linux> gcc -o hello hello.c
 
 编译过程要经历以下4个阶段：
 
-![编译过程]({{site.url}}/assets/images/c_compile_process.png)
+![编译过程](/assets/images/c_compile_process.png)
 
 ## 1、预处理阶段
 

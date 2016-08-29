@@ -19,7 +19,7 @@ tags: Programming Utility
 1. 编辑po文件（可使用poedit等工具)，将交互语句逐条翻译;
 1. 使用msgfmt工具将po文件转化成mo(machine object)文件。
 
-![GNU gettext]({{ site.url }}/assets/images/gnu-gettext.png)
+![GNU gettext](/assets/images/gnu-gettext.png)
 
 # 二、PO文件格式
 
