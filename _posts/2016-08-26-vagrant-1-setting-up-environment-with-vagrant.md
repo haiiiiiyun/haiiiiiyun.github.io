@@ -3,7 +3,7 @@ title: 使用 Vagrant 设置你的环境
 date: 2016-08-26
 writing-time: 2016-08-26 15:23
 categories: programming
-tags: Vagrant Utility
+tags: Vagrant Utility Vagrant&nbsp;Virtual&nbsp;Development&nbsp;Environment&nbsp;Cookbook
 ---
 
 # 简介
