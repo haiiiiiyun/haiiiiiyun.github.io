@@ -1,5 +1,5 @@
 ---
-title: PostgreSQL 初学者应该学会的 10 个任务
+title: PostgreSQL 初学者应该学会的 11 个任务
 date: 2016-07-29
 writing-time: 2016-07-29 15:50--17:07
 categories: programming
@@ -211,6 +211,27 @@ SELECT special_move, name from equipment;
 
 ```sh
 sudo service postgresql restart
+```
+
+# 十一、备份与恢复
+
+## 备份
+
+```shell
+$ sudo su - postgres
+
+$ pg_dump dbname > backup.sql
+```
+
+## 还原
+
+```shell
+$ sudo su - postgres
+$ dropdb dbname # 先删除原来的数据库
+$ psql # 打开 psql 界面
+#postgres# CREATE DATABASE dbname OWNER owername;
+# \q
+$ psql -d dbname -f backup.sql
 ```
 
 参考文献： 
