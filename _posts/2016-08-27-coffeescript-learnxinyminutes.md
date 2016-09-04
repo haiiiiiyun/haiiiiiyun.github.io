@@ -3,7 +3,7 @@ title: CoffeeScript 基础知识(Learn X in Y minutes)
 date: 2016-08-27
 writing-time: 2016-08-27 14:49--15:28
 categories: programming
-tags: Coffeescript Javascript
+tags: Coffeescript Javascript LearnXinYminutes
 ---
 
 CoffeeScript 是门小型语言，它能将语句逐行编译成等价的 Javascript 代码，因此在运行时无需再进行解析。

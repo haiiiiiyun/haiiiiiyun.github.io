@@ -3,7 +3,7 @@ title: Ruby 基础知识(Learn X in Y minutes)
 date: 2016-08-25
 writing-time: 2016-08-25 15:34--22:46
 categories: programming
-tags: Ruby
+tags: Ruby LearnXinYminutes
 ---
 
 安装 Ruby:

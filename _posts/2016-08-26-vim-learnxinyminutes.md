@@ -3,7 +3,7 @@ title: Vim 基础知识(Learn X in Y minutes)
 date: 2016-08-26
 writing-time: 2016-08-26 09:00-11:00
 categories: programming
-tags: Vim Utility
+tags: Vim Utility LearnXinYminutes
 ---
 
 [Vim](www.vim.org)
