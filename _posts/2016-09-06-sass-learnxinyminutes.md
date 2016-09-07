@@ -567,4 +567,4 @@ body {
 * [The Sass Way](http://thesassway.com/) provides tutorials (beginner-advanced) and articles.
 ```
 
-> 参考文献： [Learn Git in Y minutes](https://learnxinyminutes.com/docs/git/)
+> 参考文献： [Learn Sass in Y minutes](https://learnxinyminutes.com/docs/sass/)
