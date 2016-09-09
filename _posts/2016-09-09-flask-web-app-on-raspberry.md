@@ -1,12 +1,12 @@
 ---
 title: Flask Web App 大屏消息分发系统在树莓派 Raspberry Pi 上的部署
-date: 2016-09-08
-writing-time: 2016-09-08 12:47
+date: 2016-09-09
+writing-time: 2016-09-08 12:47--2016-09-09 11:31
 categories: programming
 tags: Flask Python Raspberry&nbsp;Pi
 ---
 
-#一、 安装系统
+# 一、 安装系统
 
 ## 1. 下载
 
@@ -85,13 +85,13 @@ $ unzip ./2016-05-27-raspbian-jessie.zip
 $ sudo umonut /dev/mmcblk0
 ```
 
-使用 dd 命令将映像文件写入卡中：
+使用 dd 命令将映像文件写入 SD 卡中：
 
 ```bash
 $ sudo dd bs=1M if=2016-05-27-raspbian-jessie.img of=/dev/mmcblk0
 ```
 
-这个命令执行时间比较长，需要好几分钟。
+执行这个命令可能需要好几分钟。
 
 至此，系统已经写入 SD 卡中。
 
@@ -105,40 +105,9 @@ $ apt-get update
 $ apt-get upgrade
 ```
 
-# 三、安装和配置 “大屏消息分发系统”
+# 三、网络设置
 
-先建立一个工作目录：
-
-```bash
-$ mkdir workspace
-```
-
-下载系统源代码：
-
-```bash
-$ git clone git@github.com:haiiiiiyun/screen-message-delivery.git
-```
-
-如果没有安装 pip (Python 2 >=2.7.9 及 Python 3 >=3.4) 中都已经自带了 ，先安装：
-
-```bash
-# in root terminal
-$ wget https://bootstrap.pypa.io/get-pip.py
-$ python get-pip.py
-```
-
-安装依赖包：
-
-```bash
-$ cd workspace
-$ pip install -r requirements.py
-```
-
-安装 Chromium 软件
-
-## 网络设置
-
-系统默认是设置为 DHCP，如果要设置成静态地址，需要修改 `/etc/network/interfaces` 文件：
+系统网络默认设置的是 DHCP，如果要设置成静态地址，需要修改 `/etc/network/interfaces` 文件：
 
 在修改前最好先将原文件备份：
 
@@ -185,7 +154,7 @@ nameserver 8.8.4.4
 nameserver 114.114.114.114
 ```
 
-## 配置分辨率
+# 四、配置分辨率
 
 本次连接的显示器是 SONY KDL-55HX750，分辨率为 1920X1080，即 1080p。
 
@@ -264,8 +233,7 @@ H means 16:9 variant (of a normally 4:3 mode).
 
 由于我们的电视机是 1080p 的，因此设置 `hdmi_mode=16`。
 
-如果接的是电脑显示器，则 `hdmi_group=2`，
-同时 DMT 规定的分辨率如下：
+如果接的是电脑显示器，则 `hdmi_group=2`， 同时 DMT 规定的分辨率如下：
 
 ```conf
 hdmi_mode=1    640x350   85Hz
@@ -356,7 +324,41 @@ hdmi_mode=85   720p      60Hz
 hdmi_mode=86   1366x768        reduced blanking
 ```
 
-## 设置自动启动
+# 五、安装和配置 “大屏消息分发系统”
+
+先建立一个工作目录：
+
+```bash
+$ mkdir workspace
+```
+
+
+下载项目源码，[这是 Github 仓库](https://github.com/haiiiiiyun/screen-message-delivery)：
+
+```bash
+$ git clone git@github.com:haiiiiiyun/screen-message-delivery.git
+```
+
+如果没有安装 pip (Python 2 >=2.7.9 及 Python 3 >=3.4 中都已经自带了) ，先安装：
+
+```bash
+# in root terminal
+$ wget https://bootstrap.pypa.io/get-pip.py
+$ python get-pip.py
+```
+
+安装依赖包：
+
+```bash
+$ cd workspace
+$ pip install -r requirements.py
+```
+
+安装 Chromium 软件
+
+
+
+# 六、 设置自动启动
 
 自动启动的功能：
 
@@ -371,12 +373,25 @@ hdmi_mode=86   1366x768        reduced blanking
 # in root terminal
 cd screen-message-delivery
 cat "@bash /home/pi/workspace/screen-message-delivery/startup.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
+```
 
+# 七、运行图
 
-https://github.com/haiiiiiyun/screen-message-delivery
+## 树莓派
+![树莓派](https://raw.githubusercontent.com/haiiiiiyun/screen-message-delivery/master/static/screenshots/raspberry.jpg)
 
+### 首页
 
+![首页](https://raw.githubusercontent.com/haiiiiiyun/screen-message-delivery/master/static/screenshots/homepage.jpg)
 
+### 登录页
 
+![登录页](https://raw.githubusercontent.com/haiiiiiyun/screen-message-delivery/master/static/screenshots/login.jpg)
 
+### 消息类型设置页
 
+![消息类型设置页](https://raw.githubusercontent.com/haiiiiiyun/screen-message-delivery/master/static/screenshots/settings.jpg)
+
+### 屏幕显示页
+
+![屏幕显示页](https://raw.githubusercontent.com/haiiiiiyun/screen-message-delivery/master/static/screenshots/screen.jpg)
