@@ -391,17 +391,18 @@ g()  -- 输出 343; 在这之前没有输出。
 ```
 ## 参考资料
 
-+ <a href="http://love2d.org/">Love 2D game engine</a>。
-+ <a href="http://nova-fusion.com/2012/08/27/lua-for-programmers-part-1/">BlackBulletIV's Lua for programmers</a>。
-+ The official <a href="http://www.lua.org/pil/contents.html">Programming in Lua</a> book。
-+ <a href="http://lua-users.org/files/wiki_insecure/users/thomasl/luarefv51.pdf">Lua short reference</a> on lua-users.org。
++ [Love 2D game engine](http://love2d.org/)
++ [BlackBulletIV's Lua for programmers](http://nova-fusion.com/2012/08/27/lua-for-programmers-part-1/)
++ The official [Programming in Lua](http://www.lua.org/pil/contents.html)
++ [Lua short reference](http://lua-users.org/files/wiki_insecure/users/thomasl/luarefv51.pdf)
 
 
 未覆盖的主要主题是标准库：
-* <a href="http://lua-users.org/wiki/StringLibraryTutorial">string library</a>
-* <a href="http://lua-users.org/wiki/TableLibraryTutorial">table library</a>
-* <a href="http://lua-users.org/wiki/MathLibraryTutorial">math library</a>
-* <a href="http://lua-users.org/wiki/IoLibraryTutorial">io library</a>
-* <a href="http://lua-users.org/wiki/OsLibraryTutorial">os library</a>
+
+- [string library](http://lua-users.org/wiki/StringLibraryTutorial)
+- [table library](http://lua-users.org/wiki/TableLibraryTutorial)
+- [math library](http://lua-users.org/wiki/MathLibraryTutorial)
+- [io library](http://lua-users.org/wiki/IoLibraryTutorial)
+- [os library](http://lua-users.org/wiki/OsLibraryTutorial)
 
 > 参考文献： [Learn Lua in Y minutes](https://learnxinyminutes.com/docs/lua/)
