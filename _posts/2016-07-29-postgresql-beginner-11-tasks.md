@@ -218,9 +218,7 @@ sudo service postgresql restart
 ## 备份
 
 ```shell
-$ sudo su - postgres
-
-$ pg_dump dbname > backup.sql
+$ pg_dump --username=name dbname > backup.sql
 ```
 
 ## 还原
@@ -228,9 +226,7 @@ $ pg_dump dbname > backup.sql
 ```shell
 $ sudo su - postgres
 $ dropdb dbname # 先删除原来的数据库
-$ psql # 打开 psql 界面
-#postgres# CREATE DATABASE dbname OWNER owername;
-# \q
+$ createdb --owner=owner dbname
 $ psql -d dbname -f backup.sql
 ```
 
