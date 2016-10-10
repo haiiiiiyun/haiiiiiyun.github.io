@@ -20,8 +20,8 @@ tags: Programming Python Aliyun
 
 ```
 [global]
-trusted-host =  mirrors.aliyun.com
-index-url = http://mirrors.aliyun.com/pypi/simple
+trusted-host=mirrors.aliyun.com
+index-url=http://mirrors.aliyun.com/pypi/simple
 ```
 
 若使用阿里云服务器，可将源的域名从 mirrors.aliyun.com 改为 mirrors.aliyuncs.com, 这样就不会占用公网流量。
@@ -32,7 +32,7 @@ index-url = http://mirrors.aliyun.com/pypi/simple
 
 方法是在 Dockerfile 文件中使用 `COPY` 命令（假设 pip.conf 位于源码目录中的 requirements/ 下)：
 
-```
+```bash
 COPY ./requirements/pip.conf /etc/pip.conf
 COPY ./requirements/ /requirements
 
@@ -41,5 +41,5 @@ RUN pip install -r /requirements/production.txt
 
 参考：
 
-> https://pip.pypa.io/en/stable/user_guide/#config-file
-> http://mirrors.aliyun.com/
++ [p://pip.pypa.io/en/stable/user_guide/#config-file](https://pip.pypa.io/en/stable/user_guide/#config-file)
++ [mirrors.aliyun.com](http://mirrors.aliyun.com/)
