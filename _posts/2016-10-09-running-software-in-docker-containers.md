@@ -256,7 +256,7 @@ AGENT_CID=$(docker create --link $WEB_CID:insideweb \
 
 容器的所有状态为： running, paused, restarting, exited 等。各状态相互转化如下：
 
-![Docker 容器状态转换图](/assets/images/docker-state-transition-diagram.png)
+![Docker 容器状态转换图](/assets/images/dockerinaction/docker-state-transition-diagram.png)
 
 容器创建后，再开启：
 

@@ -1,7 +1,7 @@
 ---
 title: Docker 中通过 Volume 实现持久化存储和数据共享
 date: 2016-10-10
-writing-time: 2016-10-10 14:52
+writing-time: 2016-10-10 14:52--2016-10-11 11:00
 categories: programming
 tags: Docker Programming Utility 《Docker&nbsp;in&nbsp;Action》
 ---
@@ -12,7 +12,7 @@ tags: Docker Programming Utility 《Docker&nbsp;in&nbsp;Action》
 
 一个 *Volume* 就是主机目录树上的一部分挂载到容器目录树上的一个挂载点。下图中，一个 Volume 挂载到了 /data 目录，故对 `/` 的写操作会导向到已挂载的 UFS，而对 `/data` 的写操作，通过 Volume，会直接在主机的文件系统上操作。
 
-![容器通过 Volume 直接写到主机文件系统上](/assets/images/docker-container-mounted-volume.png)
+![容器通过 Volume 直接写到主机文件系统上](/assets/images/dockerinaction/docker-container-mounted-volume.png)
 
 
 ## Volume 提供了独立于容器的数据管理功能
