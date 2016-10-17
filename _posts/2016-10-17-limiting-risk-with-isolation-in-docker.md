@@ -44,7 +44,7 @@ $ docker run -d -P --name ch6_wordpress
 
 上面开启的 MariaDB 容器的相对 CPU 权重是 1024，而 WordPress 的为 512，应该 MariaDB 容器获取的 CPU 周期数为 WordPress 的两倍。如果再开一个权重为 2048 的容器，那么总权重份数为 1024+512+2048，而第三个容器获取的 CPU 周期数约占 2048/(1024+512+2048)=0.57。
 
-![相对权重与 CPU 共享数](/assets/images/dockinaction/docker-relative-weight-and-cpu-shares.png)
+![相对权重与 CPU 共享数](/assets/images/dockerinaction/docker-relative-weight-and-cpu-shares.png)
 
 另一种方法是通过在 `docker run` 或 `docker create` 中的 `--cpuset-cpus` 选项将容器限制在某些核上运行。
 
@@ -142,8 +142,186 @@ Linux 最新的 user(USR) 命名空间允许将一个空间中的用户映射到
 
 但是 Docker 还没有整合 USR 命名空间。因此容器中用户和主机上的用户，只要 user ID 相同，那么在容器和主机上都具有相同的权限。故容器中的高权限用户通过 Volume 会影响主机上的文件系统。
 
+## 使用 run-as 用户
 
-待续。。。
+获取容器/映像中 run-as 用户的 3 种方法：
+
+### 使用 `docker inspect` 获取
+
+```bash
+$ docker create --name bob busybox:latest ping localhost
+
+$ docker inspect bob  # display all of bob's metadata
+
+$ docker inspect --format "{{.Config.User}}" bob  # show only run-as user defined by bob's image
+```
+
+`--format` 选项能接受任何有效的 Go 语言模板。
+
+这种方式有 2 个问题：
+
+1. run-as 用户可能会被容器的启动脚本修改，因此，本方法获取的只是映文件配置的用户
+2. 必须先从映像文件创建出一个容器后，方能获取，创建容器有一定的风险
+
+
+就以上的问题，只能通过手动解压映像文件，查看它的 metadata 和启动脚本来解决，这种方法又很费时。因此，最好通过运行一些简单的实验命令来检测默认用户。
+
+以下能解决第 1 个问题：
+
+```bash
+$ docker run --rm --entrypoint "" busybox:latest whoami  # output: root
+
+$ docker run --rm --entrypoint "" busybox:latest id # output: uid=0(root) gid=0(root) groups=IO(wheel)
+```
+
+上面的命令都将容器的 entrypoint 清空，以确保容器只运行只本命令中指定的程序，不执行默认的启动脚本。
+
+创建容器时，可以通过 `--user` 或 `-u` 来修改容器中的默认 run-as 用户，但是指定的用户名必须已经在映像中已经存在了。
+
+列出映像中的所有用户名：
+
+```bash
+$ docker run --rm busybox:latest awk -F: '$0=$1' /etc/passwd
+
+root
+daemon
+bin
+sys
+sync
+mail
+www-data
+operator
+nobody
+```
+
+设定默认用户的例子：
+
+```bash
+$ docker run --rm \ 
+    --user nobody \ # set run-as user to nobody
+    busybox:latest id # output: uid=99(nobody) gid=99(nobody)
+
+uid=99(nobody) gid=99(nobody)
+
+# 也可以用 username:group 对
+$ docker run --rm \
+    -u nobody:www-data \ # set run-as user to nobody and group to www.data
+    busybox:latest id
+
+uid=99(nobody) gid=33(www-data)
+
+# 也可以用 ID 值
+$ docker run --rm \
+    -u 99:33 \ # set UID and GID
+    busybox:latest id
+
+uid=99(nobody) gid=33(www-data)
+```
+
+通过容器，恶意软件可以很容易将用户改成 root，再通过 Volume 危害主机：
+
+```bash
+$ docker run -it --name escalation -u nobody \
+    busybox:latest id \
+    /bin/sh -c "whoami; su -c whoami" # output: "nobody" and then "root"
+```
+
+## 用户和 Volume
+
+容器上的用户命名空间和主机上的用户命名空间是共享的。因此，容器中 root 用户，对于 Volume 中的文件系统，也有 root 权限，从而会对主机上的对应文件系统造成权限影响。下面是一个简单例子：
+
+```bash
+$ echo "e=mc^2" > garbage  # create a file on host
+$ chmod 600 garbage # make file readable only by its owner
+$ sudo chown root:root garbage # make file owned by root
+
+$ docker run --rm -v "$(pwd)"/garbage:/test/garbage \
+    -u nobody \
+    ubuntu:latest cat /test/garbage # nobody can't read file
+
+cat: /test/garbage: Permission denied
+
+
+$ docker run --rm -v "$(pwd)"/garbage:/test/garbage \
+    -u root \
+    ubuntu:latest cat /test/garbage # root can read file
+
+e=mc^2
+
+$ sudo rm -f garbage # cleanup that garbage
+```
+
+克服这个难题的方法是事先计划好目标目录的用户和组：
+
+```bash
+$ mkdir logFiles
+$ sudo chown 2000:2000 logFiles # set ownership of directory to desired user and group
+
+# write important log file
+$ docker run --rm -v "$(pwd)"/logFiles:/logFiles \
+    -u 2000:2000 ubuntu:latest \
+    /bin/bash -c "echo This is important info > /logFiles/important.log"
+
+# append to log from another container
+$ docker run --rm -v "$(pwd)"/logFiles:/logFiles \
+    -u 2000:2000 ubuntu:latest \
+    /bin/bash -c "echo More info >> /logFiles/important.log"
+
+
+$ sudo rm -r logFiles
+```
+
+# 使用 capability 来调整对 OS 的功能访问
+
+Docker 能调整容器中的进程的 主机 OS 功能访问授权，这些功能访问授权称为 capability。 Docker 在创建容器时，会默认去除了一组 capability，包括：
+
++ SETPCAP: 修改进程的 capability
++ SYS_MODULE: 插入/删除内核模块
++ SYS_RAWIO: 修改内核内存
++ SYS_PACCT: 配置进程的记账
++ SYS_NICE: 修改进程的优先级
++ SYS_RESOURCE: 覆盖资源的限制
++ SYS_TIME: 修改系统时钟
++ SYS_TTY_CONFIG: 配置 TTY 设备
++ AUDIT_WRITE: 写审计日志
++ AUDIT_CONTROL: 配置审计子系统
++ MAC_OVERRIDE: 忽略内核 MAC 策略
++ MAC_ADMIN: 配置 MAC 设置信息
++ SYSLOG: 修改内核的 print 行为
++ NET_ADMIN: 配置网络
++ SYS_ADMIN: 表示系统管理的全部功能
+
+
+添加容器的 capability 用 `--cap-add`，去除容器的 capability 用 `--cap-drop`。 Linux 文档中的所有 capability 名都是以 `CAP_` 开头的全部大写字母，但是这里用其不带前缀的小字版本。例子：
+
+```bash
+$ docker run --rm -u nobody \
+    ubuntu:latest \
+    /bin/bash -c "capsh --print | grep net_raw"
+
+Current: = cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap+i
+    Bounding set =cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap
+
+$ docker run --rm -u nobody \
+    --cap-drop net_raw \ # drop NET_RAW capability
+    ubuntu:latest \
+    /bin/bash -c "capsh --print | grep net_raw" # no output
+
+$ docker run --rm -u nobody \
+    ubuntu:latest \
+    /bin/bash -c "capsh --print | grep sys_admin" # no output
+
+$ docker run --rm -u nobody \
+    --cap-add sys_admin \
+    ubuntu:latest \
+    /bin/bash -c "capsh --print | grep sys_admin"
+
+urrent: = cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_sys_admin,cap_mknod,cap_audit_write,cap_setfcap+i
+Bounding set =cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_sys_admin,cap_mknod,cap_audit_write,cap_setfcap
+hp
+```
+
+
 
 
 
