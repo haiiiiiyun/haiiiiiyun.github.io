@@ -94,6 +94,115 @@ $ docker build -t dockerinaction/mailer-base:0.6 -f mailer-base.df
 
 ## 文件系统指令
 
+Dockerfile 文件 mailer-logging.df 内容如下：
+
+```conf
+FROM dockerinaction/mailer-base:0.6
+COPY ["./log-impl", "${APPROOT}"]
+RUN chmod a+x ${APPROOT}/${APP} && \
+    chown example:example /var/log
+USER example:example
+VOLUME ["/var/log"]
+CMD ["/var/log/mailer.log"]
+```
+
+从上面的内容可看到，Dockefile 指令中可以使用基映像定义的环境变量，如 `APPROOT`。
+
++ COPY，该指令最少有两个参数，最后一个是目的文件/目录，其它的都是源文件。它有一个未预料的特性是：所有复制过来的文件的所有者都设为了 root，即使在 COPY 前设置了 USER 也一样。最好先 COPY 完所有要操作的文件，然后再 RUN。COPY 指令也同时支持 shell 形式和 exec 形式，但当参数中包含空格时，最好用 exec 形式。
++ VOLUME，和 `docker run` 和 `docker create` 中的 `--volume` 功能类似。数组中的每一项都会被创建一个 Volume，如本例中相当于 `--volume /var/log:/var/log`。该指令不能创建 bind-mount Volume，也不能定义只读的 Volume。
++ CMD，它和 ENTRYPOINT 类似，也同时支持 shell 和 exec 两种形式，用于开启容器中的某个进程。显著区别是：CMD 为入口点提供参数列表。容器默认的入口点是 `/bin/sh`。如果入门点已用 exec 形式设置过了，那么可用 CMD 来设置默认参数。本例中，基映像设置的 `ENTRYPOINT ["/app/mailer.sh"]`，而现在的 `CMD ["/var/log/mailer.log"]`，那么容器运行时默认会执行 `/app/mailer.sh /var/log/mailer.log`。
+
+另一个实现是用 AWS 的简单邮件服务来发送邮件，Dockerfile 文件 mailer-live.df 如下：
+
+```conf
+FROM dockerinaction/mailer-base:0.6
+ADD ["./live-impl", "${APPROOT}"]
+RUN apt-get update && \
+    apt-get install -y curl python && \
+    curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
+    python get-pip.py && \
+    pip install awscli && \
+    rm get-pip.py && \
+    chmod a+x "${APPROOT}/${APP}"
+RUN apt-get install -y netcat
+USER example:example
+CMD ["mailer@dockerinaction.com", "pager@dockerinaction.com"]
+```
+
++ ADD，它和 COPY 类似，但它的源文件部分可以是一个 URL，另外当源文件是压缩文件时，可以自动提出。自动解压文件功能很好，但是 URL 下载最好不用，因为它无法清除临时文件，从而增加了层，可以通过连接的 RUN 命令来实现（如以上命令所示）。
+
+
+# 注入下游构建时的行为
+
+在基映像的 Dockerfile 中可以使用 ONBUILD 指令，如：
+
+```
+ONBUILD COPY [".", "/var/myapp"]
+ONBUILD RUN go build /var/myapp
+```
+
+这些指令，当在构建基映像本身时不会被执行，但当在构建子映像中，会通过 `FROM BASE_IMAGE_NAME` 时触发，即在运行 `FROM` 后，会执行这些 `ONBUILD` 指令。
+
+本例子中，先创建一个基映像 ，Dockerfile 文件为 base.df：
+
+```
+FROM busybox:latest
+WORKDIR /app
+RUN touch /app/base-evidence
+ONBUILD RUN ls -al /app
+```
+
+当用 `docker build` 构建该基映像时，不会运行 `ls -al /app`。
+
+```bash
+$ docker build -t dockerinaction/ch8_onbuild -f base.df .
+```
+
+子映像的 Dockerfile downstream.df 如下：
+
+```
+FROM dockerinaction/ch8_onbuild
+RUN touch downstream-evidence
+RUN ls -al .
+```
+
+构建时会先执行基映像中的 `ls -al /app`，再运行子映像中的 `ls -al .`：
+
+```bash
+$ docker build -t dockerinaction/ch8_onbuild_down -f downstream.df .
+Sending build context to Docker daemon 4.096 kB
+Step 1 : FROM dockerinaction/ch8_onbuild
+# Executing 1 build trigger...
+Step 1 : RUN ls -al /app
+ ---> Running in 226a8fbdb4ad
+total 8
+drwxr-xr-x    2 root     root          4096 Oct 20 08:38 .
+drwxr-xr-x   20 root     root          4096 Oct 20 08:40 ..
+-rw-r--r--    1 root     root             0 Oct 20 08:38 base-evidence
+ ---> c9869c6c3a51
+Removing intermediate container 226a8fbdb4ad
+Step 2 : RUN touch downstream-evidence
+ ---> Running in 0b1ffa66ed1d
+ ---> 8e011e58309e
+Removing intermediate container 0b1ffa66ed1d
+Step 3 : RUN ls -al .
+ ---> Running in 003c80788161
+total 8
+drwxr-xr-x    2 root     root          4096 Oct 20 08:40 .
+drwxr-xr-x   21 root     root          4096 Oct 20 08:40 ..
+-rw-r--r--    1 root     root             0 Oct 20 08:38 base-evidence
+-rw-r--r--    1 root     root             0 Oct 20 08:40 downstream-evidence
+ ---> 5393b3626dce
+Removing intermediate container 003c80788161
+Successfully built 5393b3626dce
+```
+
+# 使用启动脚本及多进程容器
+
+## 环境预先验证
+
+续。。
+
 
 
 
