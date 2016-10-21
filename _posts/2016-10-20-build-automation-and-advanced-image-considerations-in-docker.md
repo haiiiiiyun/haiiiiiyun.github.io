@@ -1,7 +1,7 @@
 ---
 title: 自动化构建 Docker 映像及高级映像
 date: 2016-10-20
-writing-time: 2016-10-20 14:00
+writing-time: 2016-10-20 14:00--2016-10-21 10:28
 categories: programming
 tags: Docker Programming Utility 《Docker&nbsp;in&nbsp;Action》
 ---
