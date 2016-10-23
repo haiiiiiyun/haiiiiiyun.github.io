@@ -109,7 +109,7 @@ CMD ["/var/log/mailer.log"]
 从上面的内容可看到，Dockefile 指令中可以使用基映像定义的环境变量，如 `APPROOT`。
 
 + COPY，该指令最少有两个参数，最后一个是目的文件/目录，其它的都是源文件。它有一个特性和我们预想的不一样：所有复制过来的文件的所有者都设为了 root，即使在 COPY 前设置了 USER 也一样。最好先 COPY 完所有要操作的文件，然后再 RUN。COPY 指令也同时支持 shell 格式和 exec 格式，但当参数中包含空格时，最好用 exec 格式。
-+ VOLUME，和 `docker run` 和 `docker create` 中的 `--volume` 功能类似。数组中的每一项都会用来创建一个 Volume，如本例中相当于 `--volume /var/log:/var/log`。该指令不能创建 bind-mount Volume，也不能定义只读的 Volume。
++ VOLUME，和 `docker run` 和 `docker create` 中的 `--volume` 功能类似。数组中的每一项都会用来创建一个 Volume，如本例中相当于 `--volume /var/log`。该指令不能创建 bind-mount Volume，也不能定义只读的 Volume。
 + CMD，它和 ENTRYPOINT 类似，也同时支持 shell 和 exec 两种格式，用于开启容器中的某个进程。显著区别是：CMD 为入口点提供参数列表。容器默认的入口点是 `/bin/sh`。如果入门点已用 exec 格式设置过了，那么可用 CMD 来设置默认参数。本例中，基映像设置的 `ENTRYPOINT ["/app/mailer.sh"]`，而现在的 `CMD ["/var/log/mailer.log"]`，那么容器运行时默认会执行 `/app/mailer.sh /var/log/mailer.log`。
 
 另一个实现是用 AWS 的简单邮件服务来发送邮件，Dockerfile 文件 mailer-live.df 如下：
