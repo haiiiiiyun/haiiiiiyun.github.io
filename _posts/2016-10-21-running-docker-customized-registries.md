@@ -300,7 +300,87 @@ token, 使用 JSON web token(JWT)，Docker Hub 也是用的这种机制。注册
 
 htpasswd 本身是 Apache 套件中的一个程序，它用于创建加密的用户名和密码对，而密码是用 bcrypt 加密的。
 
+当采用 htpasswd 认证时，注意密码都是明文传输的，因此最好用 HTTPS。
 
+htpasswd 认证既可以加到反向代理层，也可以加到注册中心。
+
+先用 htpasswd 创建密码文件。创建一个安装了 htpasswd 的映像。Dockerfile 文件 htpasswd.df:
+
+```
+FROM debian:jessie
+LABEL source=dockerinaction
+LABEL category=utility
+RUN apt-get update && \
+    apt-get install -y apache2-utils
+ENTRYPOINT ["htpasswd"]
+```
+
+创建映像：
+
+```bash
+$ docker build -t htpasswd -f htpasswd.df .
+```
+
+为密码文件新建一个新项：
+
+```bash
+$ docker run -it --rm htpasswd -nB <USERNAME>
+```
+
++ <USERNAME> 写入用户名
++ -nB 选项指定使用 bcrypt 加密算法，并将结果输出到标准输出
+
+输出结果会类似 `username:$2y$05$h2fDaJFn7nPyEMZeF4Hl2uyM9IYr9ofKIIKsrFkQbzvGC3H09ZZeW`，将这个结果复制到 registry.password 文件。
+
+在 NGINX 中实现 HTTP Basic 认证，其配置文件 tls-auth-proxy.conf 如下：
+
+```
+upstream docker-registry {
+    server registry:5000;
+}
+
+server {
+    listen 443 ssl;
+    # Use the localhost name for testing purposes
+    server_name localhost;
+    # A real deployment would use the real hostname where is it deployed
+    # server_name mytotallyawesomeregistry.com;
+
+    client_max_body_size 0;
+    chunked_transfer_encoding on;
+
+    # SSL
+    ssl_certificate /etc/nginx/conf.d/localhost.crt; 
+    ssl_certificate_key /etc/nginx/conf.d/localhost.key; 
+
+    # We're going to forward all traffic bound for the registry
+    location /v2/ { # Note /v2 prefix
+      auth_basic "registry.localhost"; #Authentication realm
+      auth_basic_user_file /etc/nginx/conf.d/registry.passwd;
+      proxy_pass                            http://docker-registry;
+      proxy_set_header Host                 $http_host;
+      proxy_set_header X-Real-IP            $remote_addr;
+      proxy_set_header X-Forwarded-For      $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto    $scheme;
+      proxy_read_timeout                    900;
+    }
+}
+```
+
+映像的 Dockerfile 文件 tls-auth-proxy.df:
+
+```
+FROM nginx:latest
+LABEL source=dockerinaction
+LABEL category=infrastruction
+COPY ["./tls-auth-proxy.conf", \
+      "./localhost.crt", \
+      "./localhost.key", \
+      "./registry.passwd", \
+      "/etc/nginx/conf.d/"]
+```
+
+至此，可以创建并运行测试了。
 
 
 
