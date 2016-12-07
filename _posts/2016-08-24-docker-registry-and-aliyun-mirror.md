@@ -1,5 +1,5 @@
 ---
-title: Docker 注册中心及配置阿里云配置加速
+title: Docker 注册中心及配置阿里云加速
 date: 2016-08-24
 writing-time: 2016-08-24 10:46--11:20
 categories: programming
@@ -40,7 +40,7 @@ $ docker push yourname/newimage
 
 [Ali-OSM](http://mirrors.aliyun.com/help/docker-engine?spm=0.0.0.0.Xf8pOS)
 
-注册阿里去主机，获取专属加速地址： https://w7snjp9s.mirror.aliyuncs.com
+注册阿里云主机，获取专属加速地址： https://w7snjp9s.mirror.aliyuncs.com
 
 ## 安装或升级Docker
 
