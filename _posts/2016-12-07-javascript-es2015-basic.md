@@ -249,3 +249,64 @@ console.log(a.bar.call(b)); // => hei, 箭头函数不可改变上下文
 ```bash
 $ babel-node bind.js
 ```
+
+需要注意的是，由于箭头函数绑定上下文的特性，故不能随意在顶层作用域中使用，以防出错，例如：
+
+```javascript
+// 假设当前运行环境为浏览器，故顶层上下文为 `window`
+let obj = {
+    msg: 'pong',
+
+    ping: () => {
+        return this.msg; // Warning!
+    }
+}
+
+obj.ping()  // => undefined
+let msg = 'bang!";
+obj.ping() // => bang!
+```
+
+上面代码中，箭头函数 ping 绑定的上下文是定义它时(即定义 obj 时的作用域 window），故会出现这种情况。
+
+上面的代码等价于：
+
+```javascript
+let obj = {
+    // ...
+    ping: (function() {
+        return this.msg; // Warning!
+    }).bind(this)
+}
+
+// 同样等价于：
+let obj = { /* ... */ };
+obj.ping = (function() {
+    return this.msg;
+}).bind(this /* this -> window */)
+```
+
+## 模板字符串
+
+模板字符串使用 **`** 代替单/双引号来包围字符串。它支持变量注入和换行。
+
+变量注入的例子：
+
+```javascript
+let name = 'Will Wen Gunn'
+let title = 'Founder'
+let company = 'LikMoon Creation'
+
+let greet = `Hi, I'm ${name}, I am the ${title} at ${company}`
+console.log(greet) //=> Hi, I'm Will Wen Gunn, I am the Founder at LikMoon Creation
+```
+
+支持换行很适合用于写 SQL 语句：
+
+```javascript
+let sql = `
+SELECT * FROM Users
+WHERE FirstName='Mike'
+LIMIT 5;
+`
+```
