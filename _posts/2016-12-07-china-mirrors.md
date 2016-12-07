@@ -86,3 +86,22 @@ RUN pip install -r /requirements/production.txt
 ```
 
 参考： [阿里云服务器设置 Python PyPi 镜像源](http://www.atjiang.com/aliyun-pip-mirror/), [pip.pypa.io/en/stable/user_guide/#config-file](https://pip.pypa.io/en/stable/user_guide/#config-file), [mirrors.aliyun.com](http://mirrors.aliyun.com/)
+
+# Ruby
+
+## gem 的 Ruby China 镜像
+
+gem 的版本建议在 2.6.x 以上：
+
+```bash
+$ gem update --system # 这里要翻墙
+$ gem -v
+2.6.3
+
+$ gem sources --add https://gems.ruby-china.org/ --remove https://rubygems.org/
+$ gem sources -l
+https://gems.ruby-china.org
+# 确保只有 gems.ruby-china.org
+```
+
+参考： [gems.ruby-china.org](http://gems.ruby-china.org/)

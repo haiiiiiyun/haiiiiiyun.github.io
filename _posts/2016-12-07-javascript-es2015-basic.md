@@ -27,7 +27,7 @@ $ sudo apt-get install -y nodejs
 再安装 Babel CLI 和 preset:
 
 ```bash
-$ npm install --save-dev babel-cli babel-preset-latest babel-preset-es2015
+$ sudo npm install -g --save-dev babel-cli babel-preset-latest babel-preset-es2015
 ```
 
 然后，在项目的根目录下创建一个 .babelrc 文件，内容为：
@@ -51,6 +51,8 @@ const 用于定义常量。
 ```javascript
 // foo.js
 const foo = 'bar';
+
+foo = "newvalue";
 ```
 
 由于 ES6 之前没有原生实现，编码后用 var 来实现，并进行引用检查：
