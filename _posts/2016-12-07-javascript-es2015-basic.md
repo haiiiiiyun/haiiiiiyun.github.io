@@ -1,14 +1,14 @@
 ---
-title: Javascript ES2015（ES6）新语法、新特性
+title: Javascript ES2015（ES6）标准入门
 date: 2016-12-07
-writing-time: 2016-12-07 10:25
+writing-time: 2016-12-07 10:25--2016-12-08 17:07
 categories: programming Javascript
 tags: Programming Javascript ES2015 ES6
 ---
 
 # 概述
 
-Javascript ES2015，即 ECMAScript 标准 ECMAScript 6 (简称 ES6) 是 2015 年 6 月正式发布的新标准。
+Javascript ES2015，即 ECMAScript 6 (简称 ES6)， 是 2015 年 6 月正式发布的新标准。
 
 由于大多数浏览器中的 Javascript 引擎还没有完全支持 ES2015 中的新特性，一般需要 [Babel](http://babeljs.io/) 等编译器将 ES6 代码转换成 ES5 标准的代码。
 
@@ -22,7 +22,7 @@ $ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 $ sudo apt-get install -y nodejs
 ```
 
-详细参考 [nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)
+详细参考 [nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)。
 
 再安装 Babel CLI 和 preset:
 
@@ -40,11 +40,11 @@ $ sudo npm install -g --save-dev babel-cli babel-preset-latest babel-preset-es20
 }
 ```
 
-这样 Babel 就能将 ES6 文件编译成 ES5 标准的文件了。
+之后，就可以使用 `babel` 命令将 ES6 文件编译成 ES5 标准的文件了。
 
 # ES2015 的新语法新特性
 
-## const, const 和块级作用域
+## const, let 和块级作用域
 
 const 用于定义常量。
 
@@ -71,7 +71,7 @@ SyntaxError: foo.js: "foo" is read-only
 ```
 
 
-Es6 之前的 JavaScrip 没有块级作用域，变量都用 var 声明，都是全局使用域。因此很容易出现下面的错误。
+Es6 之前的 JavaScrip 没有块级作用域，变量都用 var 声明，都是全局使用域。因此很容易出现下面的错误：
 
 ```html
 <button>一</button>
@@ -133,7 +133,7 @@ for (var i = 0; i < buttons.length; i++) {
 
 ## 箭头函数 Arrow Function
 
-箭头函数就是使用 `=>` 进行定义的函数，属性匿名函数 lambda 一类。它有以下几种语法：
+箭头函数就是使用 `=>` 进行定义的函数，属于匿名函数 lambda 一类。它有以下几种语法：
 
 ```javascrit
 
@@ -150,7 +150,7 @@ foo => {
 }
 ```
 
-箭头函数特别适合用于回调函数定义，如：
+箭头函数特别适合用于定义回调函数，如：
 
 ```javascript
 // arrow.js
@@ -267,7 +267,7 @@ let msg = 'bang!";
 obj.ping() // => bang!
 ```
 
-上面代码中，箭头函数 ping 绑定的上下文是定义它时(即定义 obj 时的作用域 window），故会出现这种情况。
+上面代码中，箭头函数 ping 绑定的上下文是定义它时的作用域上下文(即定义 obj 时的作用域 window），故会出现这种情况。
 
 上面的代码等价于：
 
@@ -331,7 +331,7 @@ let obj = {
 
 ### 支持 __proto__ 注入
 
-将 __proto__ 赋予一个对象，使其成为这个址属性类的一个实例，如：
+将 __proto__ 赋予一个对象，使其成为这个类的一个实例，如：
 
 ```javascript
 class Foo {
@@ -374,9 +374,7 @@ o.ping(); // => alive
 
 ### 同名方法属性省略语法
 
-在做 JavaScript 模块化时有用。
-
-例如：
+在做 JavaScript 模块化时有用。 例如：
 
 ```javascript
 // module.js
@@ -498,7 +496,7 @@ readLineInFile('big_file.txt', line => {
 
 `call` 和 `apply` 方法都是用于切换对象上下文的方法。
 
-`call` 方法的语法为 `call([thisObj[,arg1[, arg2[, [,.argN]]]]])`，参数 thisObj 是可选项，它将被用作当前对象(this值)。 arg1, arg2, , argN 可选项。将被传递方法参数序列。call 方法可以用来代替另一个对象调用一个方法。call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。如果没有提供 thisObj 参数，那么 Global 对象被用作thisObj。
+`call` 方法的语法为 `call([thisObj[,arg1[, arg2[, [,.argN]]]]])`，。call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。
 
 `apply` 方法的语法为 `apply([thisObj[,argArray]])`，如果 argArray 不是一个有效的数组或者不是 arguments 对象，那么将导致一个 TypeError。　如果没有提供 argArray 和 thisObj 任何一个参数，那么 Global 对象将被用作 thisObj， 并且无法传递任何参数。
 
@@ -593,7 +591,7 @@ weaks.has(foo) // => false
 
 ### Map 和 WeakMap
 
-Map 和 Object 非常相似，都是键值对结构。但是 Object 限制键必须是字符串或数字。
+Map 和 Object 非常相似，都是键值对结构。但是 Object 限制了键必须是字符串或数字。
 
 而 Map 的键可以是任何对象，例如：
 
@@ -625,7 +623,7 @@ weakm.has(keyObject) // => false
 
 ## 类 Classes
 
-ES2015 中的类也只是一种语法糖，用于定义原型(Prototype)的：
+ES2015 中的类只是一种语法糖，用于定义原型(Prototype)：
 
 ```bash
 $ node
@@ -731,7 +729,7 @@ ES2015 的类机制的不足：
 + 不支持私有属性 private
 + 不支持静态属性定义，但可用 get 和 set 语句实现
 + 不支持多重继承
-+ 没有类似协议 Protocol 和 接口 Interface 等的概念
++ 没有类似协议 Protocol 和接口 Interface 等的概念
 
 
 ## 生成器 Generator
@@ -746,17 +744,17 @@ function* FunctionName() {
 }
 ```
 
-生成器函数的声明琖也不是必须的，同样可以用匿名函数： `let FunctionName = function*() { /* ... */ }`。
+生成器函数的声明形式也不是必须的，同样可以用匿名函数： `let FunctionName = function*() { /* ... */ }`。
 
 生成器函数中的 yeild 语法，它的作用与 return 有点相似，但它并不退出函数，而是切出生成器运行时。
 
-生成器可以看做是与 Javascript 主线程分离的运行时，经可以被 yield 切回到主线程。每一次生成器运行时被 yield 都可牵出一个值，使其回到主线程，也可以从主线程返回一个值回到生成器运行时中：
+生成器可以看做是与 Javascript 主线程分离的运行时，可以被 yield 切回到主线程。每一次生成器运行时被 yield 后，都可牵出一个值，使其回到主线程，也可以从主线程返回一个值回到生成器运行时中：
 
 ```javascript
 let inputValue = yield outputValue
 ```
 
-上面全码中，生成器切出主线程后带出 outputValue，主函数经过处理后，通过 generator.next(inputValue) 把 inputValue 返回到生成器运行时中。
+上面代码中，生成器切出主线程后带出 outputValue，主函数经过处理后，通过 generator.next(inputValue) 把 inputValue 返回到生成器运行时中。
 
 ### 使用举例
 
@@ -811,7 +809,6 @@ B()
 C()
 ```
 
-
 ### 接口暴露
 
 有下面几种用法：
@@ -827,7 +824,7 @@ M.method()
 ```
 
 ```javascript
-// 覆盖整个模块的暴露对象
+// 涵盖整个模块的暴露对象
 // module.js
 export default {
     method1,
@@ -841,7 +838,7 @@ M.method1()
 
 ### 降级兼容
 
-实际应用中，目前还需要用 babel 等工具对代码进行降级兼容，babel 支持 CommonJS，AMD，UMD 等模块化标准的降级兼容：
+实际应用中，目前还需要用 Babel 等工具对代码进行降级兼容，Babel 支持 CommonJS，AMD，UMD 等模块化标准的降级兼容：
 
 
 ```bash
@@ -850,4 +847,199 @@ $ babel -m amd -d dist/amd/ src/
 $ babel -m umd -d dist/umd/ src/
 ```
 
-参考： [给 JavaScript 初心者的 ES2015 实战](http://www.open-open.com/lib/view/open1447222864319.html)
+
+## Promise
+
+ES2015 中的 Promise 是基于 [Promises/A+](https://promisesaplus.com/) 制定的。
+
+Promise 用于异步计算，是一种用于解决回调函数无限嵌套的工具。它的作用便是 “免去” 异步操作的回调函数，保证能通过后续监听而得到返回值，或对错误进行处理。
+
+基本语法为 `new Promise( /* executor */ function(resolve, reject) { ... } );`。 创建时，需要传递一个 executor 函数作为参数。executor 函数需有两个参数 **resolve** 和 **reject**。
+
+创建 Promise 时，executor 函数会立即执行（在 Promise 构建器返回该 Promise 对象前就被调用）。**resolve** 和 **reject** 函数会在之后根据 Promise 的状况相应调用。executor 通常初始化一些异常操作，然后，一旦完成后，要么成功时调用 **resolve**，要么发生错误时调用 **reject** 函数。
+
+基本用法：
+
+```javascript
+// 创建 Promise 对象的函数
+function fetchData() {
+    return new Promise((resolve, reject) => {
+        // ...
+    })
+}
+
+// 进行异步操作
+function fetchData() {
+    return new Promise((resolve, reject) => {
+        api.call('fetch_data', (err, data) => {
+            if (err) return reject(err)
+            resolve(data)
+        })
+    })
+}
+
+// 使用 Promise
+// fetchData 函数返回 Promise，因此有这样的便捷性：
+fetchData()
+    .then(data => {
+        // ...
+        return storeInFileSystem(data)
+    })
+    .then(data => {
+        return renderUIAnimated(data)
+    })
+    .catch(err => console.error(err))
+```
+
+## Symbol
+
+Symbol 对象具有唯一性，Symbol 是一种唯一且不可变的数据类型，可用于对象属性的 ID。
+
+
+```javascript
+// 创建时可以加可选的字符串
+var sym1 = Symbol()
+var sym2 = Symbol("foo")
+var sym3 = Symbol("foo")
+
+// 每一个都是唯一的，不是根据字符串转变的，因此
+console.log(Symbol('foo') == Symbol('foo')) // => false
+
+var sym = new Symbol(); // TypeError
+```
+
+基于它的唯一性，若将一个 Symbol 隐藏于一个封闭的作用域内，并作为一个对象的属性的键，则外层作用域便无法取得该属性的值：
+
+```javascript
+let privateDataStore = {
+    set(val) {
+        let key = Symbol(Math.random().toString(32).substr(2))
+        this[key] = val
+
+        return key
+    },
+
+    get(key) {
+        return this[key]
+    }
+}
+
+let key = privateDataStore('hello world')
+privateDataStore[key] // => undefined
+privateDataStore.get(key) // => hello world
+```
+
+上面创建的 Symbol 不是全局的，都不是跨文件唯一的，要实现全局唯一性，需要使用 **Symbol.for()** 和 **Symbol.keyFor()** 方法。
+
+
+## for ... of
+
+**for ... of** 语句用于遍历 iterable 对象（包括 Array，Map，Set，String，TypedArray， arguments 等）。
+
+基本语法为：
+
+```javascript
+for (variable of iterable) {
+    /* .. */
+}
+```
+
+例子：
+
+```javascript
+// 遍历数组
+let iterable = [10, 20, 30];
+
+for (let val of iterable){
+    console.log(val);
+}
+// 10
+// 20
+// 30
+
+// 如果不对变量进行修改，可以用 const 代替 let
+for (const val of iterable){
+    console.log(val);
+}
+
+// 遍历字符串
+let iterable = "boo";
+
+for (let val of iterable){
+    console.log(val);
+}
+// b
+// o
+// o
+
+// 遍历 Map
+
+let iterable = new Map([["a", 1], ["b", 2], ["c", 3]]);
+
+for (let entry of iterable) {
+    console.log(entry);
+}
+// [a,1]
+// [b,2]
+// [c,3]
+
+for (let [key, value] of iterable){
+    console.log(value);
+}
+// 1
+// 2
+// 3
+```
+
+一个显式实现了 [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#iterable) 协议的对象都是 Iterable 对象，都可用 **for ... of** 遍历。
+
+实现 iterable 协议举例如下：
+
+```javaScript
+var iterable = {
+    [Symbol.iterator]() {
+        return {
+            i: 0,
+            next() {
+                if (this.i < 3) {
+                    return {value: this.i++, done: false};
+                }
+                return {value: undefined, done: true};
+            }
+        }
+    }
+}
+
+for (var value of iterable) {
+    console.log(value);
+}
+// 0
+// 1
+// 2
+```
+
+## Proxy
+
+Proxy 可以在不入侵目标对象的情况下，对逻辑行为进行拦截和处理。Proxy 在目标对象之前架设一层 “拦截”，外界对该对象的访问，都必须先通过这层拦截，因此它提供了一种机制，可以对外界的访问进行过滤和改写。
+
+例如：
+
+```javaScript
+var obj = new Proxy(targingObj, {
+    get: function(target, key, receiver) {
+    },
+    set: function(target, key, value, receiver) {
+    }
+});
+```
+
+
+
+参考： 
+
++ [给 JavaScript 初心者的 ES2015 实战](http://www.open-open.com/lib/view/open1447222864319.html)
++ [ES6 JavaScript Promise的感性认知](http://www.zhangxinxu.com/wordpress/2014/02/es6-javascript-promise-%E6%84%9F%E6%80%A7%E8%AE%A4%E7%9F%A5/)
++ [MDN: Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
++ [MDN: Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)
++ [MDN: foo...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)
++ [阮一峰 ECMAScript 6 入门](http://es6.ruanyifeng.com/#README)
