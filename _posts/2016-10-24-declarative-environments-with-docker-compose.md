@@ -85,8 +85,39 @@ calaca:
 
 当使用 `docker-compose up` 来重启某个容器时，其相关的容器也必会被删除再重新构建开启，如果已经确保了相关容器无需重启，要加 `--no-dep`，如： `docker-compose up --no-dep -d registry`。
 
+# 玩转 docker-compose 环境
 
+下面的例子中使用的容器及其关系如下：
 
+![容器的依赖关系](/assets/images/dockerinaction/docker-compose-example.png)
+
+本例的代码可以通过 `git clone https://github.com/dockerinaction/ch11_coffee_api.git` 获取，是一个相关咖啡店的元数据的 API 应用。
+
+## 构建、开启和重构服务
+
+```bash
+$ docker-compose build # 构建相关映像, 由于大部分都使用了映像，只有 Coffee API 需要构建
+
+$ docker-compose pull # 下载相关用到的映像
+
+$ docker-compose up -d db # 开启 db 服务
+
+$ docker-compose up -d # 全部重新开启，可以看到即便 db 已经开启了，也会进行重启
+
+$ docker-compose up --no-dep -d proxy # 重建并重启 proxy，使用 --no-dep 保证其依赖服务不重启
+
+```
+FROM python:2.7
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+ONBUILD COPY requirements.txt /usr/src/app/
+ONBUILD RUN pip install --no-cache-dir -r requirements.txt
+
+ONBUILD COPY . /usr/src/app
+```
+续
 
 
 
