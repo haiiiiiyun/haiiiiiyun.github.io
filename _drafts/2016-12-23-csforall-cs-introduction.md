@@ -3,7 +3,7 @@ title: 什么是计算机科学--CS for All
 date: 2016-12-23
 writing-time: 2016-12-23 15:17
 categories: Computer&nbsp;Science
-tags: Programming 《csforall》
+tags: Programming 《csforall》Pi
 ---
 
 # 什么是计算机科学
@@ -21,8 +21,25 @@ tags: Programming 《csforall》
 
 ## 数据
 
-根据 International Data Corporation 描述，到 2010 年，我们的 "Digital Universe" 大小达到了 1.2 zettabytes。这有多大？Jeffrey Heer，一位专门从事故数据管理和可视化的计算机科学这样描述：
+根据 International Data Corporation 描述，到 2010 年，我们的 "Digital Universe" 大小达到了 1.2 zettabytes。这有多大？Jeffrey Heer，一位专门从事大数据管理和可视化的计算机科学这样描述：将 DVD 堆起来，一直到达月亮，再回来，这么多的 DVD 大约能存储 1.2 zettabytes 的数据。处理大数据，需要来自计算机科学的思想和工具。
 
+## 算法
+
+一个算法就是针对如何完成一项任务的精确步骤序列。算法通常能类比作用于其营养成分（数据）的菜谱。
+
+计算 Pi 值的算法：
+
+1. 画一个 2*2 英尺的正方形。
+2. 在正方形内画一个半径为 1 英尺的圆（直接刚好为 2 英尺）。
+3. 拿来一桶共 n 个飞镖，带上眼罩。
+4. 每次取一个飞镖，并且：
+    a. 在眼被蒙住的情况下，随机扔飞镖（假设飞镖都能落在正方形内）。
+    b. 记录飞镖是否落在圆内。
+5. 扔完所有飞镖后，将落在圆内的个数除以总数 n，并乘以 4，得到的就是 π 的近似值。
+
+算法原理：
+
+圆的面积为 π
 
 
 
