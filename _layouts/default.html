@@ -9,9 +9,14 @@
     <link rel="stylesheet" href="/media/css/style.css" />
     <link rel="stylesheet" href="/media/css/highlight.css" />
     <script type="text/javascript" src="/media/js/jquery-1.7.1.min.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
   </head>
   <body>
     <div id="container">
+
       <div id="main" role="main">
         <header>
         <h1>{{ page.title }}</h1>
