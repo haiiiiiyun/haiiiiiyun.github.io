@@ -81,7 +81,7 @@ Markdonw LaTeX 的参数文章：
 + [Mathjax 例子](https://cdn.mathjax.org/mathjax/latest/test/examples.html)
 + [Markdown LaTeX 在线编辑器](https://kerzol.github.io/markdown-mathjax/editor.html)
 + [LaTeX 完整教程](http://www.forkosh.com/mathtextutorial.html)
-+ [LaTeX 数学符号表，PDF 文件](http://mirror.lzu.edu.cn/CTAN/info/symbols/math/maths-symbols.pdfa)
++ [LaTeX 数学符号表，PDF 文件](http://mirror.lzu.edu.cn/CTAN/info/symbols/math/maths-symbols.pdf)
 
 
 > 参考文献： [MathJax Docs](http://docs.mathjax.org/en/latest/mathjax.html)
