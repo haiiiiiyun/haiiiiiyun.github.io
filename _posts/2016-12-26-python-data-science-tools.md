@@ -10,6 +10,8 @@ tags: Python Utility Data Visual&nbsp;Studio&nbsp;Code
 
 [Anaconda](https://www.continuum.io/anaconda-overview) 是一个开源的数据科学平台，基于 Python，支持 Mac，Linux 和 Win。
 
+如果下载太慢，可以到 [清华开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/) 下载。
+
 # 文本编辑器 Visual Studio Code
 
 [Visual Studio Code](https://code.visualstudio.com/docs) 是一个基于 Sublime 的文本编辑器，支持所有操作系统。该工具是微软开发的。

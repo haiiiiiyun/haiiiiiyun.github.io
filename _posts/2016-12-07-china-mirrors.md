@@ -104,4 +104,20 @@ https://gems.ruby-china.org
 # 确保只有 gems.ruby-china.org
 ```
 
-参考： [gems.ruby-china.org](http://gems.ruby-china.org/)
+## gem 的清华镜像
+ 
+ 使用以下命令替换 gems 默认源:
+
+```bash
+# 添加 TUNA 源并移除默认源
+gem sources --add https://mirrors.tuna.tsinghua.edu.cn/rubygems/ --remove https://rubygems.org/
+# 列出已有源
+gem sources -l
+# 应该只有 TUNA 一个
+```
+或者，编辑 ~/.gemrc，将 https://mirrors.tuna.tsinghua.edu.cn/rubygems/ 加到 sources 字段。
+
+
+参考： 
++ [gems.ruby-china.org](http://gems.ruby-china.org/)
++ [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)
