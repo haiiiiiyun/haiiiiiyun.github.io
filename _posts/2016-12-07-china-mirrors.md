@@ -1,4 +1,4 @@
----
+e--
 title: npm 等国内镜像整理
 date: 2016-12-07
 writing-time: 2016-12-07 12:42
@@ -117,7 +117,42 @@ gem sources -l
 ```
 或者，编辑 ~/.gemrc，将 https://mirrors.tuna.tsinghua.edu.cn/rubygems/ 加到 sources 字段。
 
+# Homebrew
+
+## 清华镜像
+
+### 索引镜像
+
+该镜像是 Homebrew 的 formula 索引的镜像，即由 `brew update` 时使用。
+
+替换再有上游：
+
+```bash
+$ cd "$(brew --repo)"
+$ git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+
+$ cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+$ git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+
+$ brew update
+```
+
+### Homebrew 的二进制编译包的镜像
+
+临时替换：
+
+```bash
+$ export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+```
+
+长期替换:
+
+```bash
+$ echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles' >> ~/.bash_profile
+$ source ~/.bash_profile
+```
 
 参考： 
 + [gems.ruby-china.org](http://gems.ruby-china.org/)
 + [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)
+
