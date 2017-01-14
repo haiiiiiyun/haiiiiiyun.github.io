@@ -1,19 +1,19 @@
 ---
 title: Fabric 基础
 date: 2017-01-13
-writing-time: 2017-01-13 15:40
+writing-time: 2017-01-13 15:40-- 2017-01-14 17:02
 categories: Tools
 tags: Admin Python Fabric SSH
 ---
 
 # Fabric 是什么
 
-Fabric 即是一个 Python(2.5-2.7) 的库，也是一个命令行工具，Fabric 可以通过 SSH 完成应用部署和系统管理等任务。
+Fabric 即是一个 Python(2.5-2.7) 库，也是一个命令行工具，它能基于 SSH 完成应用部署和系统管理等任务。
 
-更具体来说：
+更具体来说，它是：
 
 + 一个能让你通过命令行执行任意 Python 函数的工具。
-+ 一个函数库（基于低层的库），它能使通过 SSH 执行 shell 命令更加容易。
++ 一个函数库（基于低层的库），能使基于 SSH 执行 shell 命令更加容易。
 
 
 # Hello, fab
@@ -64,12 +64,12 @@ Hello Jeff!
 Done.
 ```
 
-要注意的是，这些参数都是按字符串类型传入的。
+要注意的是，这些参数都是以字符串类型传入的。
 
 
 # 执行本地命令
 
-假设我们有一个 Django Web 应用，该应用通过 git 部署到 `vcshost` 主机。Web 应用的目录结构如下：
+假设我们有一个 Django Web 应用，该应用通过 git 部署到 `vcshost` 服务器。Web 应用的目录结构如下：
 
 ```
 .
@@ -153,7 +153,7 @@ def prepare_deploy():
 
 # 失败
 
-Fabric 每次通过 local 运行本地程序后，都会对返回值进行检查，如果程序是非正常退出的，Fabric 会中止运行。例如，当 test 命令出现时，如下：
+Fabric 每次通过 local 运行本地程序后，都会对返回值进行检查，如果程序是非正常退出的，Fabric 会中止运行。例如，当 test 命令出错时：
 
 ```bash
 $ fab prepare_deploy
@@ -202,7 +202,7 @@ def test():
 + `__future__` 导入命令将 `with` 指令加入 Python 2.5
 + Fabric 的 `contrib.console` 模块，包含一个 `confirm` 函数，用来进行 "yes/no" 提问
 + `settings` 上下文管理器，用于将设置项应用于特定的代码块
-+ `local` 等任务运行操作能返回一个结果对象，包含 `failed`, `return_code` 等信息
++ `local` 等用来运行其它程序的操作命令能返回一个结果对象，包含 `failed`, `return_code` 等信息
 + `abort` 函数用于手动中止运行
 
 
@@ -261,9 +261,50 @@ def deploy():
         run("touch app.wsgi")
 ```
 
-续..
+在服务器上运行 `git clone` 等程序时，会要求密码等验证信息。Fabric 在运行中，会要求我们输入交互信息。例如，当运行 `fab deploy` 时，如下：
 
+```bash
+$ fab deploy
+No hosts found. Please specify (single) host string for connection: my_server
+[my_server] run: test -d /srv/django/myproject
 
+Warning: run() encountered an error (return code 1) while executing 'test -d /srv/django/myproject'
+
+[my_server] run: git clone user@vcshost:/path/to/repo/.git /srv/django/myproject
+[my_server] out: Cloning into /srv/django/myproject...
+[my_server] out: Password: <enter password>
+[my_server] out: remote: Counting objects: 6698, done.
+[my_server] out: remote: Compressing objects: 100% (2237/2237), done.
+[my_server] out: remote: Total 6698 (delta 4633), reused 6414 (delta 4412)
+[my_server] out: Receiving objects: 100% (6698/6698), 1.28 MiB, done.
+[my_server] out: Resolving deltas: 100% (4633/4633), done.
+[my_server] out:
+[my_server] run: git pull
+[my_server] out: Already up-to-date.
+[my_server] out:
+[my_server] run: touch app.wsgi
+
+Done.
+```
+
+可以看到，其中的 `Password:` 提示行，就是远程服务器上的 `git` 调用引发的交互输入。
+
+## 事先定义连接信息
+
+[env](http://docs.fabfile.org/en/1.13/usage/env.html) 是一个全局的 dict 对象，它包含有许多 Fabric 的设置信息，实际上，上面的 `settings` 对象只是一个对 `env` 的简单封装对象。因此，可以将 fabfile 修改成：
+
+```python
+from __future__ import with_statement
+from fabric.api import *
+from fabric.contrib.console import confirm
+
+env.hosts = ['my_server']
+
+def test():
+	do_test_stuff()
+```
+
+当 `fab` 加载 fabfile 时，env 变量的内容将会被修改。由于 `env.hosts` 是一个列表，因此我们的任务可以在多个远程服务器上运行。
 
 
 > 参考： 
