@@ -1,7 +1,7 @@
 ---
 title: 数据结构与算法--Array
 date: 2017-01-11
-writing-time: 2017-01-11 11:28
+writing-time: 2017-01-11 11:28--2017-01-16 11:31
 categories: Computer&nbsp;Science
 tags: Programming 《Data&nbsp;Structures&nbsp;and&nbsp;Algorithms&nbsp;Using&nbsp;Python》 Data&nbsp;Structure Algorithms Python
 ---
@@ -12,9 +12,9 @@ tags: Programming 《Data&nbsp;Structures&nbsp;and&nbsp;Algorithms&nbsp;Using&nb
 
 ADT 定义：
 
-+ Array(size): 创建一个长度为 size 的一组数组，并且将每个元素初始化成 None
++ Array(size): 创建一个长度为 size 的一给数组，并且将每个元素初始化成 None
 + length(): 返回数组中的元素个数
-+ getitem(index): 返回指定下标中的元素
++ getitem(index): 返回指定下标的元素
 + setitem(index, value): 修改数组中 index 位置的元素值
 + clearing(value): 将数组中的所有元素值重置成 value
 + iterator(): 返回迭代器
@@ -24,7 +24,7 @@ ADT 定义：
 
 ## ctypes 模块
 
-Python 中的许多数据类型和类实际上是用低层 C 语言中的相关类型实现的。Python 标准库中的 **ctypes** 模块可用来访问 C 语言中的各种类型及 C 类库中的功能。使用 **ctypes** 提供的大多数功能都要求理解一些 C 语言知识。
+Python 中的许多数据类型及类实际上都是基于低层 C 语言中的相关类型实现的。Python 标准库中的 **ctypes** 模块可用来访问 C 语言中的各种类型及 C 类库中的功能。使用 **ctypes** 提供的大多数功能都要求理解一些 C 语言知识。
 
 类似 Python 实现 string, list, tuple 和 dict，我们通过 **ctypes** 创建一个数组，其中的元素都是 Python 对象引用：
 
@@ -35,7 +35,7 @@ ArrayType = ctypes.py_object * 5
 slots = ArrayType()
 ```
 
-这个数组必须先初始化后才能访问，不然访问元素，如 `slots[0]` 会抛出异常，初始化如下：
+这个数组必须先初始化后才能访问，不然无法元素，如 `slots[0]` 会抛出异常，初始化如下：
 
 ```python
 for i in range(5):
@@ -74,7 +74,7 @@ class Array:
         return _ArrayGenerator( self._elements, self._size )
 
 def _ArrayGenerator( elements, size ):
-    for i in xrange( size ):
+    for i in range( size ):
         yield elements[i]
 ```
 
@@ -88,7 +88,9 @@ Python List 也是通过低层的 C 语言类型实现的，它是一个可修�
 pyList = [4, 12, 2, 34, 17]
 ```
 
-以上代码将调用 `list()` 构造器，构造器将创建一个数组结构用来存储列表中的元素。实际上初始创建的数组大小会大于所需的容量，这样便于以后的扩展操作。因此，用于存储列表元素的数组实际上是刚才创建的数组中的一个子数组 *subarray*。`len(lst)` 返回该子数组的长度，而整个数组的长度为 `capacity`。 用数组实现的 Python List 的抽象和物理视图如下：
+以上代码将调用 `list()` 构造器，构造器将创建一个数组结构用来存储列表中的元素。实际上初始创建的数组大小会大于所需的容量，这样便于以后的扩展操作。
+
+用于存储列表元素的数组实际上是刚才创建的数组中的一个子数组 *subarray*。`len(lst)` 返回该子数组的长度，而整个数组的长度为 `capacity`。 用数组实现的 Python List 的抽象和物理视图如下：
 
 ![用数组实现的 Python List 的抽象和禅理视图](/assets/images/datastructsusingpython/listUsingArrayView.png)
 
@@ -103,7 +105,7 @@ pyList = [4, 12, 2, 34, 17]
 3. 将新建的数组设置为 List 的数据结构
 4. 销毁旧的数组
 
-新建数组的大小是根据原数组的大小确定的，比如说，新数组的大小定为原数组的大小的 2 倍 。 扩展后再在数组后追加元素。
+新建数组的大小是根据原数组的大小确定的，比如说，新数组的大小定为原数组大小的 2 倍 。 扩展后再在数组后追加元素。
 
 ## 扩充列表 extend
 
@@ -169,12 +171,12 @@ Slice 会创建一个新的 List。
 + 使用数组的数组实现
 
 
-下面的实现采用了数组的数组方法，将二维数组中的每一行存储在它自己的一维数组中，然后再创建一个数组，进来保存行（即该数组是数组的数组）。Array2D 的抽象和物理存储视图如下：
+下面的实现采用了数组的数组方法，将二维数组中的每一行存储在一维数组中，然后再创建一个数组，用来保存行数组（即该数组是数组的数组）。Array2D 的抽象和物理存储视图如下：
 
 
 ![Array2D 的抽象和物理存储视图](/assets/images/datastructsusingpython/array2dView.png)
 
-有些语言的实现中，可以存取每个行，从而对每个元素的访问使用 `x[r][c]` 进行。为了隐藏实现现在，我们的实现不暴露行数组，从而对每个元素的访问使用 `x[r,c]` 进行。
+有些语言的实现中，可以存取每个行，从而对每个元素的访问使用 `x[r][c]` 进行。为了隐藏实现细节，我们的实现不暴露行数组，从而对每个元素的访问使用 `x[r,c]` 进行。
 
 实现如下：
 
@@ -225,7 +227,7 @@ class Array2D:
 
 # Matrix ADT
 
-矩阵是标量值的集合，这些值以行和列的形式组织成一个固定大小的矩形网格。
+矩阵是标量值的集合，这些值以行和列的形式组织成一个固定大小的矩形网格中。
 
 + Matrix(nrows, ncols): 创建一个 nrows 行和 ncols 列的矩阵
 + numRows(): 返回行数
@@ -318,17 +320,149 @@ class Matrix:
         return newMatrix
 ```
 
+# 应用： 游戏人生
+
+*The game of Life* 是由英国数学家 John H. Conway 发明的，它能模拟生物群落的兴衰更替。该游戏可用来观察一个复杂的系统或模式如何能从一组简单的规则演化而来。
+
+## 游戏规则
+
+该游戏使用一个不限大小的矩形网格，其中的每个单元格要么是空的，要么被一个有机体占据。被占据的单元格被视作是活的，而空的单元格被视作是死的。游戏的每次演进，都会基于当前的单元格布局，创造新的“一代”。下一代中的每个单元格状态是根据以下规则确定的：
+
+1. 若某单元格是活的，并且有 2 或 3 个活的邻居，那么它在下一代也保持活。每个单元格有 8 个邻居。
+2. 若某单元格是活的，但它没有活的邻居，或只有一个活邻居，它在下一代会死于孤立。
+3. 一个活单元格，若有 4 个或更多个活邻居，它在下一代会死于人口过剩。
+4. 一个死单元格，当且仅当只有 3 个活邻居时，会在下一代重生。
 
 
+用户先初始化配置，即指定哪些单元格是活的，然后运用以上的规则，生成下一代。可以看到，一些系统可能最终会消亡，而有些最终会进化成 “稳定” 状态。例如：
+
+![游戏人员稳定状态1](/assets/images/datastructsusingpython/gamelife_stable1.png)
+
+![游戏人员稳定状态2](/assets/images/datastructsusingpython/gamelife_stable2.png)
 
 
+## 设计方案
+
+一个网格 *life grid* 用来表示和存储游戏区。网格包含一组矩形单元格，并分成有限大小的行和列。
+
++ LifeGrid(nrows, ncols): 创建一个新的游戏网格。所有单元格设置为空（死）。
++ numRows(): 返回网格行数。
++ numCols(): 返回网格列数。
++ configure(coordList): 配置网格以进行下一代的演化。参数是一个 (row, col) 的序列，每一个元组表示该位置的单元格是活的。
++ clearCell(row, col): 设置单元格为空（死）。
++ setCell(row, col): 设置单元格为活。
++ isLiveCell(row, col): 返回一个布尔值，表示某个单元格是否包含一个活的有机体。
++ numLiveNeighbors(row, col): 返回某个单元格的所有活邻居个数。对于边缘的单元格，落在边缘外的邻居都认为是死的。
 
 
+## 实现
+
+使用一个二维数组来表示网格。每个单元格的状态使用 0 和 1 表示，0 表示死，1 表示活。这样在统计单元格的活邻居总数时，只需要将邻居的状态相加即可。实现时网格的大小是限定的，如果大小超出了，在运行过程中可以重新创建一个新的网格。
 
 
+```python
+# life.py
+from array import Array2D
 
+class LifeGrid:
+    DEAD_CELL = 0
+    LIVE_CELL = 1
 
+    def __init__( self, nrows, ncols ):
+        self._grid = Array2D( nrows, ncols )
+        self.configure( list() )
 
+    def numRows( self ):
+        return self._grid.numRows()
+
+    def numCols( self ):
+        return self._grid.numCols()
+
+    def configure( self, coordList ):
+        for i in range( self.numRows() ):
+            for j in range( self.numCols() ):
+                self.clearCell(i, j)
+
+        for coord in coordList:
+            self.setCell( coord[0], coord[1] )
+
+    def isLiveCell( self, row, col ):
+        return self._grid[ row, col ] == LifeGrid.LIVE_CELL
+
+    def clearCell( self, row, col ):
+        self._grid[ row, col ] = LifeGrid.DEAD_CELL
+
+    def setCell( self, row, col ):
+        self._grid[ row, col ] = LifeGrid.LIVE_CELL
+
+    def numLiveNeighbors( self, row, col ):
+        nrows = self.numRows()
+        ncols = self.numCols()
+
+        liveNum = 0
+        for i in range( row-1, row+2 ):
+            for j in range( col-1, col+2 ):
+               if ( 0 <= i < nrows ) and ( 0 <= j < ncols ):
+                   liveNum += self._grid[i, j]
+        liveNum -= self._grid[ row, col ]
+
+        return liveNum
+```
+
+```python
+from life import LifeGrid
+
+# Define the initial configuration of live cells.
+INIT_CONFIG = [ (0, 0), (0, 1), (1, 0), (1, 2), (3, 2), (3, 4), (5, 4), (5, 6), (7, 6), (7, 8), (9, 8), (9, 10), (11, 10), (11, 12), (12, 11), (12, 12)]
+
+# Indicate the number of generations
+#NUM_GENS = 8
+
+def main():
+    GRID_WIDTH = int( raw_input( "Grid width:" ) )
+    GRID_HEIGHT = int( raw_input( "Grid height:" ) )
+    NUM_GENS = int( raw_input( "Nbr of generations to evolve:" ) )
+    grid = LifeGrid( GRID_WIDTH, GRID_HEIGHT )
+    grid.configure( INIT_CONFIG )
+
+    # Play the game.
+    draw( grid )
+    for i in range( NUM_GENS ):
+        evolve( grid )
+        draw( grid )
+
+def evolve( grid ):
+    liveCells = list()
+
+    for i in range( grid.numRows() ):
+        for j in range( grid.numCols() ):
+            neighbors = grid.numLiveNeighbors( i, j )
+
+            # 1. If a cell is alive and has either two or three live neighbors, the cell remains alive in the next generation. 
+            # The neighbors are the eight cells immediately surrounding a cell: vertically, horizontally, and diagonally.  
+            # 2. A living cell that has no live neighbors or a single live neighbor dies from isolation in the next generation.
+            # 3. A living cell that has four or more live neighbors dies from overpopulation in the next generation.
+            # 4. A dead cell with exactly three live neighbors results in a birth and becomes alive in the next generation.
+            # All other dead cells remain dead in the next generation.
+
+            if (neighbors == 2 and grid.isLiveCell( i, j )) or \
+                (neighbors == 3):
+                    liveCells.append( (i, j) )
+
+    grid.configure( liveCells )
+
+def draw( grid ):
+    print
+    for i in range( grid.numRows() ):
+        for j in range( grid.numCols() ):
+            if grid.isLiveCell( i, j):
+                print '@',
+            else:
+                print '.',
+        print
+
+main()
+```
 
 > 参考： 
 
