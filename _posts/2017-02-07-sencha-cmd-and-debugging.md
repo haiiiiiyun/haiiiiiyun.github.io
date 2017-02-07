@@ -9,7 +9,7 @@ tags: Programming 《Ext&nbsp;JS&nbsp;6&nbsp;By&nbsp;Example》 Sencha ExtJS Jav
 
 # Sencha Cmd
 
-# # 命令格式
+## 命令格式
 
 `sencha [category] [command] [option...] [arguments...]`
 
@@ -97,7 +97,7 @@ Illumination 插件依赖 Firebug。它的功能有：
 
 ## 在线执行环境 Sencha Fiddle
 
-地址为 [fiddle.sencha.com](https://fiddle.sencha.com/)，可以在上面直接编写和运行 Ext JS 代码。
+地址 [fiddle.sencha.com](https://fiddle.sencha.com/)，可以在上面直接编写和运行 Ext JS 代码。
 
 
 参考： 
