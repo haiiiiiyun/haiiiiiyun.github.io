@@ -22,9 +22,17 @@ Ext JS 支持 MVC 和 MVVC 两种应用体系结构。
 
 它处理与 view 相关的所有逻辑，view 的事件处理，及应用的所有逻辑。
 
+ExtJS 5 和 6 中，共有两种 Controller: ViewController 和 Controller。
+
+ViewController 是针对某个特定 View 的 Controller，它具有 reference 和 listener 等新概念，用以方便 View 与 Controller 之间进行关联。同时，当 View 销毁后，其对应的 ViewController 也会跟着销毁。
+
+而 Controller 一般用于处理应用层级的视图逻辑。
+
 ## View model
 
 它封装了 view 所需的呈现逻辑，将数据绑定到 view, 当数据更新时更新 view。
+
+和 Model 不同，View model 大多数是为特定的某个 View 创建的。Model 是一个纯数据类，可以在应用中通用，而 View model 通常作为 View 的角色而创建，并且作为 View 和 Model 之间的数据绑定器。
 
 
 # Sencha Cmd 创建的一些默认文件
