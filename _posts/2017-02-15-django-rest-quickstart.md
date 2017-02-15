@@ -128,7 +128,7 @@ router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    url(r'^quickstart/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')), # browsable API 的 login URL
 ]
 ```
@@ -159,14 +159,14 @@ $ python manager.py runserver # 开启服务
 用 `curl` 命令测试：
 
 ```bash
-$ curl -H 'Accept: application/json; indent=4' -u admin:password123 http://127.0.0.1:8000/users/
+$ curl -H 'Accept: application/json; indent=4' -u admin:password123 http://127.0.0.1:8000/quickstart/users/
 {
     "count": 1,
     "next": null,
     "previous": null,
     "results": [
         {
-            "url": "http://127.0.0.1:8000/users/1/",
+            "url": "http://127.0.0.1:8000/quickstart/users/1/",
             "username": "admin",
             "email": "admin@example.com",
             "groups": []
@@ -177,7 +177,7 @@ $ curl -H 'Accept: application/json; indent=4' -u admin:password123 http://127.0
 用 [httpie](https://github.com/jakubroztocil/httpie#installation) 命令测试：
 
 ```bash
-$ http -a admin:password123 http://127.0.0.1:8000/users/
+$ http -a admin:password123 http://127.0.0.1:8000/quickstart/users/
 HTTP/1.0 200 OK
 Allow: GET, POST, OPTIONS
 Content-Type: application/json
@@ -194,20 +194,20 @@ X-Frame-Options: SAMEORIGIN
         {
             "email": "hy@example.com", 
             "groups": [], 
-            "url": "http://127.0.0.1:8000/users/2/", 
+            "url": "http://127.0.0.1:8000/quickstart/users/2/", 
             "username": "hy"
         }, 
         {
             "email": "admin@example.com", 
             "groups": [], 
-            "url": "http://127.0.0.1:8000/users/1/", 
+            "url": "http://127.0.0.1:8000/quickstart/users/1/", 
             "username": "admin"
         }
     ]
 }
 ```
 
-或者直接通过浏览器访问 http://127.0.0.1:8000/users/。
+或者直接通过浏览器访问 http://127.0.0.1:8000/quickstart/users/。
 
 
 # 参考 
