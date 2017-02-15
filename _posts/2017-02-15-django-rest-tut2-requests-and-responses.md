@@ -1,7 +1,7 @@
 ---
 title: Django REST 框架 V3 教程 2 - Request 和 Response
 date: 2017-02-15
-writing-time: 2017-02-15 19:27
+writing-time: 2017-02-15 19:27--20:41
 categories: Programming
 tags: Programming djangorestframework Django Python REST
 ---
