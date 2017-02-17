@@ -1,7 +1,7 @@
 ---
 title: Django REST 框架 V3 教程 5 - 超链接关联的 API
 date: 2017-02-16
-writing-time: 2017-02-16 11:34
+writing-time: 2017-02-16 11:34--16:00
 categories: Programming
 tags: Programming djangorestframework Django Python REST
 ---
