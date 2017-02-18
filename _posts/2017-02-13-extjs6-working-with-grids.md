@@ -565,6 +565,8 @@ var pivotGrid = Ext.create('Ext.pivot.Grid', {
 });
 ```
 
+*注：由于 PivotGrid 是付费功能，需要另外购买和下载评估版本后才能运行本文中的例子。*
+
 # 参考 
 
 + [Working with Grids](https://www.amazon.com/Ext-JS-Example-Anand-Dayalan/dp/178355049X/)
