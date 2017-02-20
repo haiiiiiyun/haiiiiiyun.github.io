@@ -1,9 +1,9 @@
 ---
 title: ExtJS 6 高级组件
 date: 2017-02-18
-writing-time: 2017-02-18 15:28
+writing-time: 2017-02-18 15:28--2017-02-19 11:07
 categories: Programming
-tags: Programming 《Ext&nbsp;JS&nbsp;6&nbsp;By&nbsp;Example》 Sencha ExtJS Javascript
+tags: Programming 《Ext&nbsp;JS&nbsp;6&nbsp;By&nbsp;Example》 Sencha ExtJS Javascript Tree
 ---
 
 # Tree Panel
@@ -158,7 +158,7 @@ Ext.create('Ext.tree.Panel', {
 
 ## Tree Grid
 
-可以在 Tree 中添加多列以创建一个 Tree Grid。Tree 默认只有一列，它显示为 Tree Store 各结点中的 text 域的值。
+可以在 Tree 中添加多列来创建一个 Tree Grid。Tree 默认只有一列，它显示为 Tree Store 各结点中的 text 域的值。
 
 Tree Grid 的 Tree Store 中需要有多个域。和 Grid 类似，Tree Grid 也有排序、过滤等功能。列通过 treecolumn 定义，和 Grid 类似，每个列也可以指定任何类型，如 checkbox, picture, button, URL 等。例子如下：
 
@@ -256,7 +256,7 @@ Ext.create('Ext.tree.Panel', {
 
 `Ext.view.View` (xtype: dataview) 可通过自定义模板显示数据，因此使用时需要提供自定义模板及 Data Store。而模板通过 `Ext.XTemplate` 定义。
 
-Data view 为包含的项提供了各种事件，如 click, double-click, mouseover, mouseout 等。下面的例子中先创建了 Person 数据模型及 Data Store：
+Data view 为包含的项提供了各种事件，如 click, doubleclick, mouseover, mouseout 等。下面的例子中先创建了 Person 数据模型及 Data Store：
 
 ```javascript
 Ext.define('Person', {
@@ -280,7 +280,7 @@ Ext.create('Ext.data.Store', {
 });
 ```
 
-在模板中可进行循环、条件判断等操作。要绑定数据模型中的域，可用 `{fieldname}` 形式进行：
+模板支持循环、条件判断等操作。要绑定数据模型中的域，可用 `{fieldname}` 形式进行：
 
 ```javascript
 var empTpl = new Ext.XTemplate(
@@ -325,7 +325,7 @@ Ext.create('Ext.view.View', {
 });
 ```
 
-itemSelector 确定的每个元素都会对应 Store 中的一条记录。而各种事件的处理函数，作用为也是由 itemSelector 确定的 HTML 元素上。
+itemSelector 确定的每个元素都会对应 Store 中的一条记录。而各种事件的处理函数，也是作用在由 itemSelector 确定的 HTML 元素上。
 
 
 # 拖放功能
@@ -337,13 +337,68 @@ itemSelector 确定的每个元素都会对应 Store 中的一条记录。而各
 3. 完成 drop target
 
 
+## 配置为 draggable
 
+为每个需要配置为 draggable 的元素对应创建一个 `Ext.dd.DD` 实例。例如，将所有 'pics' 下的 div 元素配置为 draggable：
 
+```javascript
+var pics = Ext.get('pics').select('div');
+Ext.each(pics.elements, function(el) {
+    var dd = Ext.create('Ext.dd.DD', el, 'picsDDGroup', {
+        isTarget: false
+    });
+});
+```
 
+这里 `Ext.get` 是通过 DOM 结点的 ID 值返回一个 Ext.dom.Element 对象。而 `Ext.select` 是基于 CSS/XPath 选择子返回一个 CompositeElement 对象（元素的集合）。
 
+## 创建 drop target
 
+使用 `Ext.dd.DDTarget` 创建 drop target 容器：
 
+```javascript
+var albums = Ext.get('album').select('div');
+Ext.each(album.elements, function(el){
+    var albumDDTarget = Ext.create('Ext.dd.DDTarget', el, 'picsDDGroup');
+});
+```
 
+## 完成 drop target
+
+当 draggable 元素拖放到 drop target 上时，我们需要将该元素移到 drop target 容器中。这通过重载 Ext.dd.DD 实例的 onDragDrop 方法实现：
+
+```javascript
+var overrides = {
+    onDragDrop: function(evtObj, targetElId){
+        var dropEl = Ext.get(targetElId);
+
+        if (this.el.dom.parentNode.id != targetElId) {
+            dropEl.appendChild(this.el);
+            this.onDragOut(evtObj, targetElId);
+            this.el.dom.style.position = '';
+            this.el.dom.style.top = '';
+            this.el.dom.style.left = '';
+        }
+        else {
+            this.onInvalidDrop();
+        }
+    },
+    onInvalidDrop: function() {
+        this.invalidDrop = true;
+    }
+}
+
+// Apply this override to the instances of the DD element.
+var albums = Ext.get('album').select('div');
+var pics = Ext.get('pics').select('div');
+
+Ext.each(pics.elements, function(el){
+    var dd = Ext.create('Ext.dd.DD', el, 'picsDDGroup', {
+        isTarget: false
+    });
+    Ext.apply(dd, overrides);
+});
+```
 
 
 # 参考 
