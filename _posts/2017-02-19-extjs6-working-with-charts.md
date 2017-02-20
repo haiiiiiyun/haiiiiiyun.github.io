@@ -420,15 +420,15 @@ Ext.create('Ext.Container', {
             series: [
                 {
                     type: 'pie',
-                    angleField: 'spend',
+                    angleField: 'spent',
                     label: {
                         field: 'cat'
                     },
                     tooltip: {
                         trackMouse: true,
-                        renderer: function (storeItem, item) {
-                            var value = ((parseFloat(storeItem.get('spent') / storeItem.store.sum('spent')) * 100.0).toFixed(2));
-                            this.setHtml(storeItem.get('cat') + ': ' + value + '%');
+                        renderer: function (toolTip, record, ctx) {
+                           var value = ((parseFloat(record.get('spent') / record.store.sum('spent')) * 100.0).toFixed(2));
+                            toolTip.setHtml(record.get('cat') + ': ' + value + '%');
                         }
                     }
                 }
