@@ -1,7 +1,7 @@
 ---
 title: ExtJS 6 图表功能
 date: 2017-02-19
-writing-time: 2017-02-19 11:08
+writing-time: 2017-02-19 11:08--2017-02-20 09:07
 categories: Programming
 tags: Programming 《Ext&nbsp;JS&nbsp;6&nbsp;By&nbsp;Example》 Sencha ExtJS Javascript Chart
 ---
@@ -293,15 +293,10 @@ Ext.create('Ext.Container', {
                     title: ['Total', 'Slaves'],
                     yField: ['total', 'slaves'],
                     tooltip: {
-                        traceMouse: true,
-                        style: 'background: #fff',
-                        /*
+                        trackMouse: true,
                         renderer: function (toolTip, record, ctx) {
-                              toolTip.setHtml('In ' + record.get('year') + ': Population total was ' + record.get('total') + ' m');
-                          }
-                        renderer: function(storeItem, item){
-                            this.setHtml('In ' + storeItem.get('year') + ' ' + item.field + ' population was ' + storeItem.get(item.field) + ' m');
-                        }*/
+                            toolTip.setHtml('In ' + record.get('year') + ' populations was ' + record.get('total') + ' m');
+                        }
                     }
                 }
             ],
@@ -470,9 +465,9 @@ Ext.create('Ext.Container', {
                     },
                     tooltip: {
                         trackMouse: true,
-                        renderer: function (storeItem, item) {
-                            var value = ((parseFloat(storeItem.get('spent') / storeItem.store.sum('spent')) * 100.0).toFixed(2));
-                            this.setHtml(storeItem.get('cat') + ': ' + value + '%');
+                        renderer: function (toolTip, record, ctx) {
+                           var value = ((parseFloat(record.get('spent') / record.store.sum('spent')) * 100.0).toFixed(2));
+                            toolTip.setHtml(record.get('cat') + ': ' + value + '%');
                         }
                     }
                 }
