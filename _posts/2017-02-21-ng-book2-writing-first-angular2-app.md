@@ -233,8 +233,9 @@ export class HelloWorldComponent implements OnInit {
   styleUrls: ['./hello-world.component.css']
 })
 export class HelloWorldComponent implements OnInit {
-...
+}
 ```
+
 
 组件注解和 Python 里的装饰器类似，也是用 `@`。注解将 meta 数据加入到我们的代码中。本例中，当将 `@Component` 使用在 `HelloWorldComponent` 类上时，即将 `HelloWorldComponent` “装饰”为了一个组件。
 
@@ -394,9 +395,192 @@ export class UserListComponent implements OnInit {
 
 ## 利用 User Item 组件
 
-在 User List 组件通过 User Item 组件来显示每个用户的信息。
+User List 组件通过 User Item 组件来显示每个用户的信息。
 
-先在 UserListComponent 
+User List 的模板 `src/app/user-list/user-list.component.html`:
+
+```html
+<ul>
+  <app-user-item 
+    *ngFor="let name of names">
+  </app-user-item>
+</ul>
+```
+
+但是现在 User Item 组件还不能接收 User List 中的每个用户名，故显示的用户名字都是 "Felip"。我们需要有将数据传入子组件的机制，而这是通过 `@Input` 注释（装饰器）来实现的。
+
+## 接收输入
+
+在组件的类定义中，任何加有 `@Input` 注释的属性都为可接收输入的属性。将 User Item 组件的 name 属性设置为可接收输入：
+
+`src/app/user-item/user-item.component.ts`: 
+
+```typescript
+import { Component, Input, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-user-item',
+  templateUrl: './user-item.component.html',
+  styleUrls: ['./user-item.component.css']
+})
+export class UserItemComponent implements OnInit {
+  @Input() name: string;
+
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
+
+}
+```
+
+### 向子组件传入数据
+
+在模板中使用 `[]` 语法来向子组件传入数据。
+
+`src/app/user-list/user-list.component.html`: 
+
+```html
+<ul>
+  <app-user-item 
+    *ngFor="let name of names"
+    [name]="name">
+  </app-user-item>
+</ul>
+```
+
+用 `[name]` 来表示将值赋给子组件的该属性，用 `[]` 表示法和 Python、JavaScript 的属性访问符类似。语法右边字符串中的是要传入的变量。
+
+现在，示例程序可以显示用户列表的信息了。
+
+# ng2 应用的启动过程
+
+所有应用都有一个主入口。应用的构建由 `angular-cli` 完成，而 `angular-cli` 基于 webpack实现的。
+
+当运行 `ng serve` 时，ng 会在 `angular-cli.json` 中查找应用的主入口，例如在本例中：
+
++ angular-cli.json 中指定了一个 "main" 文件，即 main.ts
++ main.ts 即是该应用的主入口，由它启动应用
++ 启动过程会启动一个 Angular 模块（Angular module）
++ 本例中，该启动模块为 AppModule，它在 `src/app/app.module.ts` 中指定
++ AppModule 指定了哪个组件用作顶层组件，本例中是 AppComponent
++ 本例中 AppComponent 模板中加入了 app-user-list 标签，因而可显示用户列表信息
+
+
+Angular 也有模块的概念。当启动一个应用时，我们不是直接启动一个组件，而是创建一个 `NgModule`，由该 NgModule 指向我们要加载的组件。
+
+`src/app/app.module.ts` 代码如下：
+
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+
+import { AppComponent } from './app.component';
+import { HelloWorldComponent } from './hello-world/hello-world.component';
+import { UserItemComponent } from './user-item/user-item.component';
+import { UserListComponent } from './user-list/user-list.component';
+
+@NgModule({
+  declarations: [ // 指定了本模块中定义了的组件，它们在 "ng generate compo" 时自动添加到此，只有在 NgModule 中声明了的组件才能在模板中使用
+    AppComponent,
+    HelloWorldComponent,
+    UserItemComponent,
+    UserListComponent
+  ],
+  imports: [ // 指定本模板的依赖模块
+    BrowserModule,
+    FormsModule,
+    HttpModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent] //启动组件，即将 AppComponent 作为顶层组件
+})
+export class AppModule { }
+```
+
+可见，`@NgModule` 也是一个注释，它将 meta 数据添加到紧跟它的类(AppModule) 中。
+
+# 扩展我们的应用
+
+实现一个 Simple Reddit 应用。
+
+```bash
+$ ng new angular2-reddit  # 创建新应用
+```
+
+## 添加 CSS
+
+从 https://github.com/haiiiiiyun/ng-book2-r51-code 的 first_app/angular2_reddit 目录下复制以下文件和我们的相应目录下。
+
+本项目的样式使用了 [Semantic-UI](http://semantic-ui.com/)，这也是一个 CSS 框架，和 [Zurb foundation](http://foundation.zurb.com/) 及 [Twitter Bootstrap](http://getbootstrap.com/) 类似。
+
+
+## Application 组件
+
+现创建一个新的组件来完成：
+
++ 存储当前的文章列表
++ 包含一个能提交文章的表单
+
+
+```html
+<!--file: src/app/app.component.html
+这是提交文档的表单，样式大都来自 semantic-ui 包
+-->
+<form class="ui large form segment">
+  <h3 class="ui header">Add a Link</h3>
+
+  <div class="field">
+    <label for="title">Title:</label>
+    <!-- input 标签中，通过 #varname 使该标签对象值 (HTMLInputElement 类型) 绑定到
+    varname 局部变量
+    -->
+    <input name="title" #newtitle>
+  </div>
+  <div class="field">
+    <label for="link">Link:</label>
+    <input name="link" #newlink>
+  </div>
+  <!--
+  将事件名用 () 括起来，来绑定事件响应。这里 button 的 click
+  事件响应函数是本组件中的 addArticle 方法
+  -->
+  <button (click)="addArticle(newtitle, newlink)"
+           class="ui positive right floated button">
+    Submit link
+  </button>
+</form>
+```
+
+## 添加交互功能
+
+```typescript
+// file: src/app/app.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+    // 方法声明的格式为：
+    // functionName(propertyName1: typeName, propertyName2: typeName): returnTypeName
+    // 这些参数需要在响应事件时传入
+    addArticle(title: HTMLInputElement, link: HTMLInputElement): boolean {
+        console.log(`Adding article title: ${title.value} and link: ${link.value}`);
+        return false;
+    }
+}
+```
+
+
+
+
+
 
 续..
 
