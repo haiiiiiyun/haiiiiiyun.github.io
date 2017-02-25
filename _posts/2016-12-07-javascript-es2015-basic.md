@@ -3,7 +3,7 @@ title: Javascript ES2015（ES6）标准入门
 date: 2016-12-07
 writing-time: 2016-12-07 10:25--2016-12-08 17:07
 categories: programming Javascript
-tags: Programming Javascript ES2015 ES6
+tags: Programming Javascript ES2015 ES6 Node NodeJS
 ---
 
 # 概述
