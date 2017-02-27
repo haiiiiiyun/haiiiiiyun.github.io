@@ -1,5 +1,5 @@
 ---
-title: 有人话描述的设计模式--创建型设计模式
+title: 用人话描述的设计模式--创建型设计模式
 date: 2017-02-25
 writing-time: 2017-02-25 15:21
 categories: Programming
