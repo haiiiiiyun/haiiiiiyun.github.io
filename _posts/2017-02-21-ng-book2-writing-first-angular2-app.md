@@ -22,7 +22,7 @@ TypeScript 依赖 Node，故要先 [安装 Node](https://nodejs.org/en/download/
 $ sudo npm install -g @angular/cli
 ```
 
-由于开发 ng 项目时有时会构建一些 Node 的本地 add，一般还要安装 [node-gyp](https://www.npmjs.com/package/node-gyp) ：
+由于开发 ng 项目时有时会构建一些 Node 的本地 addon，一般还要安装 [node-gyp](https://www.npmjs.com/package/node-gyp) ：
 
 ```bash
 $ sudo npm install -g node-gyp
@@ -38,7 +38,7 @@ Could not start watchman; falling back to NodeWatcher for file system events.
 ...
 ```
 
-在 OSX 或 Linux 运行一般会有 'Could not start watchman ...' 的输出，这是因为我们还没有安装 [watchman](https://ember-cli.com/user-guide/#watchman)，该程序能帮助 angular-cli 监测项目中的文件修改情况。如果在 OSX 上，最好通过 Homebrew 安装它：
+在 OSX 或 Linux 上运行一般会有 'Could not start watchman ...' 的输出，这是因为我们还没有安装 [watchman](https://ember-cli.com/user-guide/#watchman)，该程序能帮助 angular-cli 监测项目中的文件修改情况。如果在 OSX 上，最好通过 Homebrew 安装它：
 
 ```bash
 $ brew install watchman
@@ -87,7 +87,7 @@ $ tree -F -L 1
 + `src/*`: 源代码目录
 + `e2e/*`: End-to-End 测试文件。 e2e 测试是一个独立的应用，用于测试我们的主应用，因此它们不放在 `src/` 下，并且有自己的 `tsconfig.json` 文件
 + `node_modules/...`: Node 将列于 package.json 中的依赖包安装在该目录下
-+ `.editorconfig`: 编辑器的通用配置文件，大多数编辑都支持加载 .editorconfig 中的配置项，见 http://editorconfig.org
++ `.editorconfig`: 编辑器的通用配置文件，大多数编辑器都支持加载 .editorconfig 中的配置项，见 http://editorconfig.org
 + `angular-cli.json`: Angular-CLI 的配置信息。可以设置一些默认值，也可配置当构建项目时要包含的文件
 + `karma.conf.js`: [Karma test runner](https://karma-runner.github.io/) 单元测试的配置文件，当运行 `ng test` 时会用到
 + `package.json`: npm 将项目的依赖包记录在该文件中。也可以在文件内添加 [自定义的脚本](https://docs.npmjs.com/misc/scripts)
@@ -95,7 +95,7 @@ $ tree -F -L 1
 + `tslint.json`: 有关 [TSLint](https://palantir.github.io/tslint/) 和 [Codelyzer](http://codelyzer.com/) 的配置文件，当运行 `ng lint` 时使用
 
 
-而源代码目录里包含了 Angular 的所有组件，模板，样式，图片，及项目所需的其它所有内容。项目结构如下：
+而源代码目录里包含了 Angular 的所有组件，模板，样式，图片，及项目所需的其它所有内容。目录结构如下：
 
 ```bash
 $ cd src
@@ -124,14 +124,14 @@ $ tree -F
 
 各文件和目录的用途：
 
-+ `app/app.component.{ts,html,css,spec.ts}`: 定义 `AppComponent` 及其 HTML 模板，CSS 样式和单元测试。这是 ng 项目中的组件树中的根组件。
-+ `app/app.module.ts`: 定义 `AppModule`, 该根模块能告诉 Angular 如何组装应用。新建项目后，该文件中只有一个 `AppComponent`，但是之后自定义的组件也要加到该文件中。
++ `app/app.component.{ts,html,css,spec.ts}`: 定义 `AppComponent` 及其 HTML 模板，CSS 样式和单元测试。这是 ng 项目组件树的根组件。
++ `app/app.module.ts`: 定义 `AppModule`, 该模块能告诉 Angular 如何组装应用。新建项目后，该文件中只有一个 `AppComponent`，但是之后自定义的组件也要加到该文件中。
 + `assets/*`: 保存图片等文件，该目录中的内容在应用构建时会原样复制。
-+ `environments/*`: 每个目标环境都对应一个配置文件，如开发环境、和生产环境等。
-+ `indext.html`: 主 HTML 页。通常无需对它手动编辑，CLI 在应用构建过程中会自动将所需的 js 和 css 文件链接添加进去。
++ `environments/*`: 每个目标环境都对应一个配置文件，如开发环境、生产环境等。
++ `indext.html`: 主 HTML 页。通常无需对它手动编辑，CLI 在应用构建过程中会自动将所需的 js 和 css 文件链接进去。
 + `main.ts`: 这是应用的主入口点。[JIT 编译器](https://angular.io/docs/ts/latest/glossary.html#jit) 对它编译后，再在浏览器中启动应用的根模块 (AppModule) 运行。也可以用 [AoT 编译器](https://angular.io/docs/ts/latest/glossary.html#ahead-of-time-aot-compilation) 进行编译，只需在运行 `ng build` 或 `ng serve` 时传入 `--aot` 参数即可。
-+ `polyfills.ts`: 不同的浏览器对标准的支持不同，而该文件就是用来磨平这些区别的。在使用 `core-js` 和 `zone.js` 需当时，更多信息见 [Browser Support guide](https://angular.io/docs/ts/latest/guide/browser-support.html)。
-+ `styles.css`: 全局的样式放这里。通常为便于维护，自定义的组件的样式都放在其定义目录中。
++ `polyfills.ts`: 不同的浏览器对标准的支持不同，而该文件就是用来磨平这些区别的。在使用 `core-js` 和 `zone.js` 时需当心，更多信息见 [Browser Support guide](https://angular.io/docs/ts/latest/guide/browser-support.html)。
++ `styles.css`: 全局的样式放这里。通常为便于维护，自定义组件的样式都放在其定义目录中。
 + `test.ts`: 单元测试的主入口。
 + `tsconfig.json`: TypeScript 编译器的配置文件。
 
@@ -172,7 +172,7 @@ $ ng serve
 Build successful - 1342ms.
 ```
 
-瑞可以在浏览器里通过 `http://localhost:4200` 访问应用了。
+现可以在浏览器里使用 `http://localhost:4200` 访问应用了。
 
 ## 制作一个组件 (Component)
 
@@ -243,11 +243,11 @@ export class HelloWorldComponent implements OnInit {
 
 **selector**
 
-`selector: 'app-hello-world'`: 定义该组件的标签，之后在 ng 应用中即可使用 `app-hello-world` 标签来引用该组件。类似 CSS 选择子， XPath 或 JQuery 选择子。该属性指定了组件将使用哪个 DOM 元素。
+`selector: 'app-hello-world'`: 定义该组件的标签，之后在 ng 应用中即可使用 `app-hello-world` 标签来引用该组件。它类似 CSS 选择子， XPath 或 JQuery 选择子。该属性指定了组件将使用哪个 DOM 元素。
 
 **templateUrl**
 
- `templateUrl`: 指定该组件的模板文件，也可以用 `template` 属性将代替，此时是将模板内容直接写出来，如：
+ `templateUrl`: 指定该组件的模板文件，也可以用 `template` 属性代替，此时是将模板内容直接写出来，如：
 
  ```typescript
  @Component({
@@ -264,18 +264,20 @@ export class HelloWorldComponent implements OnInit {
 
 **styleUrls**
 
-指定该组件的样式文件，ng2 采用一种称为 **style=encapsulation** 的理念，从而使特定的样式只应用于特定的组件。
+指定该组件的样式文件，ng2 采用一种称为 **style encapsulation** 的理念，从而使特定样式只应用于特定组件。
 
 ### 使用组件
 
 要使用组件，需要将组件标签添加到已经呈现的模板中，即 `src/app/app.component.html` 中，修改如下：
 
 ```html
+{% raw %}
 <h1>
   {{title}}
 
   <app-hello-world></app-hello-world>
 </h1>
+{% endraw %}
 ```
 
 现在刷新浏览器即可看到更新。
@@ -295,7 +297,7 @@ $ ng generate component user-item
   update src/app/app.module.ts
 ```
 
-要实现 `UserItemComponent` 组件显示用户名字，则需为该组件引入一个新的属性 `name`，引入属性（变量）后，该组件即可被用于其他用户。
+要使 `UserItemComponent` 组件显示用户名字，需为该组件引入一个新的属性 `name`，引入属性（变量）后，该组件即可被用于其他用户。
 
 要引入 name 属性，需在 `UserItemComponent` 类中定义一个 name 局部变量：
 
@@ -312,16 +314,18 @@ export class UserItemComponent implements OnInit {
 }
 ```
 
-定义含类型的类属性是 ES5 中的特性，这里属性 name 被定义为 string 类型。而 `constructor` 函数是该类的构建函数，在类初始化时调用。
+定义含类型的类属性是 ES6 中的特性，这里属性 name 被定义为 string 类型。而 `constructor` 函数是该类的构造函数，它在类初始化时调用。
 
 ### 呈现模板
 
 模板内容修改如下：
 
 ```html
+{% raw %}
 <p>
   Hello {{ name }}
 </p>
+{% endraw %}
 ```
 
 这里的 `{{ name }}` 的语法和 Django 模板内的语法类似，也是用于显示变量值，这里的称为 **template tags** 或 **mustache tags**，中间的 name 部分也可以是一个表达式。由于模板绑定到组件，因此本例中将显示组件的变量 name, 即值为 'Felipe'。
