@@ -328,7 +328,7 @@ export class UserItemComponent implements OnInit {
 {% endraw %}
 ```
 
-这里的 `{{ name }}` 的语法和 Django 模板内的语法类似，也是用于显示变量值，这里的称为 **template tags** 或 **mustache tags**，中间的 name 部分也可以是一个表达式。由于模板绑定到组件，因此本例中将显示组件的变量 name, 即值为 'Felipe'。
+这里的 `{%raw%}{{ name }}{%endraw%}` 的语法和 Django 模板内的语法类似，也是用于显示变量值，这里的称为 **template tags** 或 **mustache tags**，中间的 name 部分也可以是一个表达式。由于模板绑定到组件，因此本例中将显示组件的变量 name, 即值为 'Felipe'。
 
 
 ### 使用 UserItemComponent 组件
@@ -336,14 +336,15 @@ export class UserItemComponent implements OnInit {
 将组件添加入 `src/app/app.component.html`，刷新浏览器即可看到效果：
 
 ```html
+{% raw %}
 <h1>
   {{title}}
 
   <app-hello-world></app-hello-world>
-
   <app-user-item></app-user-item>
 
 </h1>
+{% endraw %}
 ```
 
 ## 使用数组来显示用户组
@@ -359,14 +360,15 @@ $ ng generate component user-list
 将 `app.component.html` 中的 app-user-item 替换成 app-user-list：
 
 ```html
+{% raw %}
 <h1>
   {{title}}
 
   <app-hello-world></app-hello-world>
-
   <app-user-list></app-user-list>
 
 </h1>
+{% endraw %}
 ```
 
 在 `app/user-list/user-list.component.ts` 中为 UserListComponent 添加 names 属性，该属性类型是字符串数组：
@@ -388,12 +390,14 @@ export class UserListComponent implements OnInit {
 修改模板 `src/app/user-list/user-list.component.html`，循环遍历组件的 names 属性：
 
 ```html
+{% raw %}
 <ul>
   <li *ngFor="let name of names">Hello {{ name }}</li>
 </ul>
+{% endraw %}
 ```
 
-`*ngFor*` 语法开始使用 ngFor 指令，它类似 Python 中的 `for name in names`，遍历 names 变量，然后将每个值赋给一个新的临时变量 name。ngFor 是在整个标签上循环的，即要本例中，将生成多个 li 标签。
+`*ngFor*` 语法中的 ngFor 指令，它类似 Python 中的 `for name in names`，遍历 names 变量，然后将每个值赋给一个新的临时变量 name。ngFor 是在整个标签上循环的，即在本例中，将生成多个 li 标签。
 
 现在刷新浏览器即可看到修改效果。
 
@@ -460,7 +464,7 @@ export class UserItemComponent implements OnInit {
 
 # ng2 应用的启动过程
 
-所有应用都有一个主入口。应用的构建由 `angular-cli` 完成，而 `angular-cli` 基于 webpack实现的。
+所有应用都有一个主入口。应用的构建由 `angular-cli` 完成，而 `angular-cli` 基于 webpack实现。
 
 当运行 `ng serve` 时，ng 会在 `angular-cli.json` 中查找应用的主入口，例如在本例中：
 
@@ -488,7 +492,7 @@ import { UserItemComponent } from './user-item/user-item.component';
 import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
-  declarations: [ // 指定了本模块中定义了的组件，它们在 "ng generate compo" 时自动添加到此，只有在 NgModule 中声明了的组件才能在模板中使用
+  declarations: [ // 指定了本模块中定义了的组件，它们在 "ng generate component" 时自动添加到此，只有在 NgModule 中声明了的组件才能在模板中使用
     AppComponent,
     HelloWorldComponent,
     UserItemComponent,
