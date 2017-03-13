@@ -591,6 +591,7 @@ export class AppComponent {
 
 ```bash
 $ ng generate component article # 创建一个新组件来表示每个提交的 Article
+```
 
 组件模板 src/app/article/article.component.html 定义如下，其效果为：
 
