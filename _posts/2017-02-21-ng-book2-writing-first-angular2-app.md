@@ -1,7 +1,7 @@
 ---
 title: 编写首个 Angular2 应用
 date: 2017-02-21
-writing-time: 2017-02-21 22:29
+writing-time: 2017-02-21 22:29--2017-03-13:15:49
 categories: Programming
 tags: Programming 《ng-book2-r49》 Angular2 Google JavaScript TypeScript Node ng2
 ---
@@ -521,16 +521,16 @@ $ ng new angular2-reddit  # 创建新应用
 
 ## 添加 CSS
 
-从 https://github.com/haiiiiiyun/ng-book2-r51-code 的 first_app/angular2_reddit 目录下复制以下文件和我们的相应目录下。
+从 https://github.com/haiiiiiyun/ng-book2-r51-code 的 first_app/angular2_reddit 目录下复制以下文件到相应目录下。
 
-本项目的样式使用了 [Semantic-UI](http://semantic-ui.com/)，这也是一个 CSS 框架，和 [Zurb foundation](http://foundation.zurb.com/) 及 [Twitter Bootstrap](http://getbootstrap.com/) 类似。
+本例的样式使用了 [Semantic-UI](http://semantic-ui.com/)，这也是一个 CSS 框架，和 [Zurb foundation](http://foundation.zurb.com/) 及 [Twitter Bootstrap](http://getbootstrap.com/) 类似。
 
 
 ## Application 组件
 
 现创建一个新的组件来完成：
 
-+ 存储当前的文章列表
++ 存储当前的章列表
 + 包含一个能提交文章的表单
 
 
@@ -543,8 +543,9 @@ $ ng new angular2-reddit  # 创建新应用
 
   <div class="field">
     <label for="title">Title:</label>
-    <!-- input 标签中，通过 #varname 使该标签对象值 (HTMLInputElement 类型) 绑定到
-    varname 局部变量
+    <!--
+    input 标签中，通过 #varname 使该标签对象 (HTMLInputElement 类型) 绑定到
+    varname 局部变量， 而 input 的值可用 varname.value 获取
     -->
     <input name="title" #newtitle>
   </div>
@@ -554,7 +555,8 @@ $ ng new angular2-reddit  # 创建新应用
   </div>
   <!--
   将事件名用 () 括起来，来绑定事件响应。这里 button 的 click
-  事件响应函数是本组件中的 addArticle 方法
+  事件响应函数是本组件中的 addArticle 方法， addArticle 定义在当前组件的  ArticleComponet 类中 。
+    回调函数中的 newtitle, newlink 等是从上面的输入域标签 resolve 过来的，如 resolve(#newtitle)。
   -->
   <button (click)="addArticle(newtitle, newlink)"
            class="ui positive right floated button">
@@ -585,22 +587,405 @@ export class AppComponent {
 }
 ```
 
+## 添加 Article 组件
+
+```bash
+$ ng generate component article # 创建一个新组件来表示每个提交的 Article
+
+组件模板 src/app/article/article.component.html 定义如下，其效果为：
+
+![单个 Article](/assets/images/ng-book2/reddit-article.png)
+
+```html
+{% raw %}
+<!--
+  CSS 类 four wide column 和 twelve wide column 都来自 Semantics UI。
+  该模板中的 {{ votes }}, {{ link }} 等变量绑定到组件类 ArticleComponent 中的相应属性 votes 和 link
+-->
+<div class="four wide column center aligned votes">
+  <div class="ui statistic">
+    <div class="value">
+      {{ votes }}
+    </div>
+    <div class="label">
+      Points
+    </div>
+  </div>
+</div>
+
+<div class="twelve wide column">
+  <a class="ui large heaer" href="{{ link }}">
+    {{ title }}
+  </a>
+  <!--
+    绑定的回调函数 voteUp, voteDown 也是在组件类 ArticleComponent 中定义
+  -->
+  <ul class="ui big horizontal list voters">
+    <li class="item">
+      <a href (click)="voteUp()">
+        <i class="arrow up icon"></i>
+        upvote
+      </a>
+    </li>
+    <li class="item">
+      <a href (click)="voteDown()">
+        <i class="arrow down icon"></i>
+        downvote
+      </a>
+    </li>
+  </ul>
+</div>
+{% endraw %}
+```
+
+组件类定义 src/app/article/article.component.ts:
+
+```typescript
+/*
+ * host 就是代表当前组件关联到的元素。这里设置在
+ * 每个 app-article 标签上都加个 'row' 类。通过 host，
+ * 我们可以在组件内对元素标签进行配置
+ */
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-article',
+  templateUrl: './article.component.html',
+  styleUrls: ['./article.component.css']
+  host: {
+      class: 'row'
+  }
+})
+export class ArticleComponent implements OnInit {
+  // 这些属性可以在组件模板中引用
+  votes: number;
+  title: string;
+  link: string;
 
 
+  constructor() {
+      this.title = 'Angular 2';
+      this.link = 'http://angular.io';
+      this.votes = 10;
+  }
+
+  // 这些函数可以在组件模板中引用
+  voteUp() {
+      this.votes += 1;
+  }
+
+  voteDown() {
+      this.votes -= 1;
+  }
+
+  ngOnInit() {
+  }
+
+}
+```
+
+这里每个 Article 自成一行，使用了 [Semantic UI 的 row 类](https://semantic-ui.com/collections/grid.html)。
 
 
+## 使用 app-article 组件
 
-续..
+在 AppComponent 模板的 form 下添加 app-article 标签：
+
+```html
+<!-- file: src/app/app.component.html -->
+<!-- form ... -->
+
+<div class="ui grid posts">
+  <app-article>
+  </app-article>
+</div>
+```
+
+现在可以正常显示 Article 了，但是当点击 upvote, downvote 时浏览器会进行刷新加载。这是因为 Javascript 默认会将 click 事件向上传递给所有的父元素，因此当该空链接传递到父链接后，浏览器会进行加载。要改正这种行为，只需使 click 回调函数返回 false 即可，它使 JavaScript 不再向上传递 click 事件。
+
+修改后的回调函数为：
+
+```typeScript
+  voteUp(): boolean {
+      this.votes += 1;
+      return false;
+  }
+
+  voteDown(): boolean {
+      this.votes -= 1;
+      return false;
+  }
+```
 
 
+## 显示多行 Article
+
+### 创建 Article 数据结构类
+
+Angular 代码的最佳实践是将数据结构与组件代码进行分离。因此现创建一个代表单个 Article 的数据结构类：
+
+```typeScript
+// file src/app/article/article.model.ts
+export class Article {
+    title: string;
+    link: string;
+    votes: number;
+
+    // 参数 votes? 表示是可选的
+    constructor(title: string, link: string, votes?: number){
+        this.title = title;
+        this.link = link;
+        this.votes = votes || 0;
+    }
+
+    voteUp(): void {
+        this.votes += 1;
+    }
+
+    voteDown(): void {
+        this.votes -= 1;
+    }
+
+    domain(): string {
+        try {
+            const link: string = this.link.split('//')[1];
+            return link.split('/')[0];
+        } catch(err){
+            return null;
+        }
+    }
+}
+```
+
+这是一个普通的类，非 Angular 组件，在 MVC 模式中，这是一个 Model。
+
+更新 ArticleComponent 代码，使用 Article 类来存储属性：
+
+```typeScript
+// file: src/article/article.component.ts
+/*
+ * host 就是代表当前组件关联到的元素。这里设置将
+ * 每个 app-article 标签上都加个 'row' 类。通过 host，
+ * 我们可以在组件内对元素标签进行配置
+ */
+import { Component, OnInit } from '@angular/core';
+import { Article } from './article.model.ts';
+
+@Component({
+  selector: 'app-article',
+  templateUrl: './article.component.html',
+  styleUrls: ['./article.component.css']
+  host: {
+      class: 'row'
+  }
+})
+export class ArticleComponent implements OnInit {
+  // 这些属性可以在组件模板中引用
+  article: Article;
+
+  constructor() {
+      this.article = new Article(
+          'Angular 2',
+          'http://angular.io',
+          10
+      );
+  }
+
+  // 这些函数可以在组件模板中引用
+  voteUp(): boolean {
+      this.article.voteUp();
+      return false;
+  }
+
+  voteDown(): boolean {
+      this.article.voteDown();
+      return false;
+  }
+
+  ngOnInit() {
+  }
+
+}
+```
+
+同时，更新 Article 组件模板中的引用绑定，如从 `votes` 更新为 `article.votes` 等。
 
 
+## 显示多个 Article
+
+```typescript
+// file: src/app/app.component.ts
+import { Component } from '@angular/core';
+import { Article } from './article/article.model.ts';
+//...
+export class AppComponent {
+    // 将 articles 定义为 Article 的数组，
+    // 也可以写成 articles: Array<Article>
+    articles: Article[];
+
+    constructor(){
+        this.articles = [
+            new Article('Angular 2', 'http://angular.io', 3),
+            new Article('Fullstack', 'http://fullstack.io', 2),
+            new Article('Angular Homepage', 'http://angular.io', 1)
+        ];
+    }
+
+    // 方法声明的格式为：
+    // functionName(propertyName1: typeName, propertyName2: typeName): returnTypeName
+    // 这些参数需要在响应事件时传入
+    addArticle(title: HTMLInputElement, link: HTMLInputElement): boolean {
+        // 这里又用 ` 来包围字符串，在 ES6 中，这种字符串能扩展里面的变量值
+        console.log(`Adding article title: ${title.value} and link: ${link.value}`);
+        return false;
+    }
+}
+```
+
+将 AppComponent 中的 article 数据模型传入 ArticleComponent，需要定义 @Input 参数。如：
+
+```typescript
+// file: src/article/article.component.ts
+/*
+ * host 就是代表当前组件关联到的元素。这里设置将
+ * 每个 app-article 标签上都加个 'row' 类。通过 host，
+ * 我们可以在组件内对元素标签进行配置
+ */
+import { Component, OnInit, Input } from '@angular/core';
+import { Article } from './article.model.ts';
+
+@Component({
+  selector: 'app-article',
+  templateUrl: './article.component.html',
+  styleUrls: ['./article.component.css']
+  host: {
+      class: 'row'
+  }
+})
+export class ArticleComponent implements OnInit {
+  // 这些属性可以在组件模板中引用
+  @Input() article: Article;
+
+  // 这些函数可以在组件模板中引用
+  voteUp(): boolean {
+      this.article.voteUp();
+      return false;
+  }
+
+  voteDown(): boolean {
+      this.article.voteDown();
+      return false;
+  }
+
+  ngOnInit() {
+  }
+
+}
+```
+
+然后在模板中：
+
+```html
+<app-article [article]="article1"></app-article>
+<app-article [article]="article2"></app-article>
+```
+
+更新 AppComponent 模板：
+
+```html
+<!-- file: src/app/app.component.html-->
+<!--
+  articles 是定义在 AppComponent 中的 Article 数组，
+  anarticle 是由 NgFor 创建的局部变量，
+  [article] 是 ArticleComponent 中的 Input 参数
+-->
+<div class="ui grid posts">
+  <app-article
+    *ngFor="let anarticle of articles"
+    [article]="anarticle">
+  </app-article>
+</div>
+```
+
+刷新浏览器后，可看到可以显示多个 Article 了。
+
+## 添加新的 Article
+
+更新 AppComponent 中的 addArticle:
+
+```typescript
+// file: src/app/app.component.ts
+//...
+    addArticle(title: HTMLInputElement, link: HTMLInputElement): boolean {
+        // 这里又用 ` 来包围字符串，在 ES6 中，这种字符串能扩展里面的变量值
+        console.log(`Adding article title: ${title.value} and link: ${link.value}`);
+        this.articles.push(new Article(title.value, link.value, 0));
+
+        // 值清空后，其绑定的 Input 标签上的值也会清空
+        title.value = '';
+        link.value = '';
+        return false;
+    }
+```
+
+## 显示链接的域名
+
+在 Article Model 中定义链接域名提取函数：
+
+```typescript
+// file: src/article/article.model.ts
+//...
+
+    domain(): string {
+        try {
+            const link: string = this.link.split('//')[1];
+            return link.split('/')[0];
+        } catch(err){
+            return null;
+        }
+    }
+```
+
+然后在 ArticleComponent 模板中调用：
+
+```html
+  <div class="meta">({{ article.domain() }})</div>
+  <ul class="ui big horizontal list voters">
+```
+
+## 基于分数排序 Article
+
+在 AppComponent 中定义排序函数：
+
+```typescript
+// file: src/app/app.component.ts
+    sortedArticles(): Article[] {
+        return this.articles.sort((a: Article, b: Article) => b.votes - a.votes);
+    }
+```
+
+并在 AppComponent 模板中调用 sortedArticles():
+
+```html
+<!--file: src/app/app.component.html -->
+<div class="ui grid posts">
+  <app-article
+    *ngFor="let anarticle of sortedArticles()"
+    [article]="anarticle">
+  </app-article>
+</div>
+```
 
 
+# 总结
 
+大部分 Angular 应用开发步骤为：
 
-
-
++ 将应用分解为组件
++ 创建视图
++ 定义数据模型
++ 显示数据模型
++ 添加交互
 
 
 # 参考 
