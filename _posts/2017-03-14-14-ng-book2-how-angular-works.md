@@ -1,7 +1,7 @@
 ---
 title: Angular2 应用如何运作
 date: 2017-03-14
-writing-time: 2017-03-14 15:13
+writing-time: 2017-03-14 15:13--22:05
 categories: Programming
 tags: Programming 《ng-book2-r49》 Angular2 Google JavaScript TypeScript Node ng2
 ---
@@ -14,9 +14,9 @@ Angular2 应用是由组件组成的，而组件能教会浏览器识别新的�
 
 一个 Angular2 应用就是一个组件树。树根，即最顶层组件就是应用本身，浏览器就是从它开始呈现页面的。
 
-组件的一个特性是它们都是可组合的，因此可以用一些小组件构建大组件。由于组件通过父子树结构来组织，因此当每个组件在呈现时，也会自动递归地对它们的子组件进行呈现。
+组件的一个特性是它们都是可组合的，因此可以用一些小组件构建大组件。由于组件通过父子树结构来组织，因此当呈现各个组件时，也会自动递归地对它们的子组件进行呈现。
 
-下面实现一个仓库管理应用(Inventory Management APP)为例，说明 Angular2 应用的运作流程。
+下面实现一个仓库管理应用(Inventory Management APP)为例，以说明 Angular2 应用的运作流程。
 
 应用的设计图如下：
 
@@ -52,7 +52,7 @@ Angular2 应用是由组件组成的，而组件能教会浏览器识别新的�
 
 ## 产品数据模型
 
-Angular 没有提供特定的数据模型库，因而而用其它的数据体系框架来实现。
+Angular 没有提供指定的数据模型库，因而需用其它的数据体系框架来实现。
 
 
 ```typescript
@@ -72,7 +72,7 @@ class Product {
 
 ## 组件
 
-每个组件都有 3 部分组成：
+每个组件都由 3 部分组成：
 
 + 组件的注解 Annotation（即 @Component 部分）
 + 视图（即组件的模板）
@@ -88,13 +88,13 @@ class Product {
 // @Component 就是注解 annotation，它将 metadata 加入到紧跟其后的类（这里是 InventoryApp) 中。
 @Component({
   // selector 定义该组件在 HTML 中的匹配标签。它类似于 CSS 或 XPath 选择子。
-  // 之后，可以有 HTML 中用 <inventory-app></inventory-app> 来调用组件;
+  // 之后，可以在 HTML 中用 <inventory-app></inventory-app> 来调用组件;
   // 不过也可以用 div 和属性的方式调用，如 <div inventory-app></div>
   selector: 'inventory-app',
 
   // 模板也可以通过 templateUrl 来定义
   // 本组件调用了 ProductsList 来呈现所有的产品信息。
-  // 在调用 ProductsList 组件时，用到了组件的一个关键特性：输入来输出。
+  // 在调用 ProductsList 组件时，用到了组件的一个关键特性：输入和输出。
   // 数据通过输入绑定 (input bindings) 流入你的组件，而你的组件中的事件
   // 则通过输出绑定 (output bindings) 流出。
   // 输入 Inputs:
@@ -108,8 +108,8 @@ class Product {
   template: `
   <div class="inventory-app">
     <products-list 
-      [productList]="products"  <!-- input -->
-      (onProductSelected)="productWasSelected($event)"> <!-- output -->
+      [productList]="products"
+      (onProductSelected)="productWasSelected($event)">
     </products-list>
   </div>
   `
@@ -175,11 +175,11 @@ class InventoryApp { // 类定义体实现了该组件的控制器 Controller
   // 在外部组件的模板中，可用 (outputevent)="action" 的语法来绑定。
   // 内置的事件有 click, dbl-click, mousedown 等，而创建自定义事件需要做 3 件事：
   //   1. 在 @Component 的 outputs 中指定事件名，如 'onProductSelected'
-  //   2. 事件名 'onProductSelected' 对应组件类时的一个属性 onProductSelected，
+  //   2. 事件名 'onProductSelected' 对应组件类中的一个属性 onProductSelected，
   //      该属性需要设置为 EventEmitter 类型，如本例中为 
   //      `onProductSelected: EventEmitter<Product>;`，表示产生该事件时，同时抛出一个
   //      Product 对象。并对其初始化，本例中是在构造器中进行初始化。
-  //   3. 在适时的时候，通过 EventEmitter.emit 发送事件，如本例中：
+  //   3. 在适当的时候，通过 EventEmitter.emit 发送事件，如本例中：
   //       `this.onProductSelected.emit(product);`
   //
   // EventEmitter 对象有助于我们实现观察者模式，即它能维护一组注册者，并向他们发送事件。
@@ -246,6 +246,7 @@ class ProductsList {
 ### 单个产品组件
 
 ```typescript
+{% raw %}
 /**
  * @ProductRow: 显示单个产品的组件
  */
@@ -256,7 +257,7 @@ class ProductsList {
   // 为组件的匹配标签添加 "item" 类
   host: {'class': 'item'},
 
-  // 模板中要见，该组件调用了 3 个子组件
+  // 模板中可见，该组件调用了 3 个子组件
   template: `
   <product-image [product]="product"></product-image>
   <div class="content">
@@ -276,11 +277,13 @@ class ProductRow {
   // 需要一个构造器
   product: Product;
 }
+{% endraw %}
 ```
 
-### 显示单个产品图标的组件
+### 显示单个产品图片的组件
 
 ```typescript
+{% raw %}
 /**
  * @ProductImage: 显示单个产品图片的组件
  */
@@ -290,8 +293,8 @@ class ProductRow {
   inputs: ['product'],
 
   // 这里 img 的 src 是通过 [src] 来设置的！
-  // 如果 <img src="{{ product.imageUrl }}"> 写是错误的，
-  // 这里因为有时浏览器会在 Angular 运行前加载了模板，而
+  // 如果像 <img src="{{ product.imageUrl }}"> 写是错误的，
+  // 这是因为有时浏览器会在 Angular 运行前加载了模板，而
   // 那时图片的 URL 是 "{{ product.imageUrl }}"，从而出现
   // 404 错误。
   // 故一定要用 [src] 属性来设置，让 Angular 来替换相应的值
@@ -302,11 +305,13 @@ class ProductRow {
 class ProductImage {
   product: Product;
 }
+{% endraw %}
 ```
 
 ### 显示产品单价的组件
 
 ```typescript
+{% raw %}
 /**
  * @PriceDisplay: 显示产品单价的组件
  */
@@ -322,11 +327,13 @@ class ProductImage {
 class PriceDisplay {
   price: number;
 }
+{% endraw %}
 ```
 
 ### 显示产品部门信息的组件
 
 ```typescript
+{% raw %}
 /**
  * @ProductDepartment: 显示产品部门信息的组件
  * Product's department
@@ -348,19 +355,53 @@ class PriceDisplay {
 class ProductDepartment {
   product: Product;
 }
+{% endraw %}
 ```
 
 
 # NgModule 和应用的启动
 
-续...
+最后还要为应用创建 NgModule 用于启动。
+
+```typescript
+@NgModule({
+  declarations: [ 
+    InventoryApp,
+    ProductImage, 
+    ProductDepartment, 
+    PriceDisplay,
+    ProductRow,
+    ProductsList
+  ],
+  imports: [ BrowserModule ],
+  bootstrap: [ InventoryApp ]
+})
+class InventoryAppModule {}
+
+platformBrowserDynamic().bootstrapModule(InventoryAppModule);
+```
+
+Angular 提供了模块系统用于组织我们的代码。Angular 1 中所有的指令都是全局的，而 Angular 2 中则必须要显示声明要使用的组件。
+
+当创建一个组件后，要想使用它，那么该组件必须对当前模块是可访问的。也就是说，如果想在 InventoryApp 模板中通过 products-list 标签使用 ProductsList 组件，必须确保 InventoryApp 模块至少满足以下 1 个条件：
+
++ 它与 ProductsList 组件位于同一个模块，或者
++ InventoryApp 模块中已 `imports` 了包含 ProductsList 组件的模块
 
 
+我们编写的任何组件，都必须在一个 NgModule 中声明后才能在模板中使用。
 
+本例中，我们将所有的组件都放在了同一个模块中，从而使用每个组件相互可见。
 
+NgModule 中将 bootstrap 值设置为 InventoryApp，使得 InventoryApp 成为了顶级组件。
 
+由于我们的是浏览器应用，从而将 `BrowserModule` 应用也 `import` 进来了。
 
+最后通过下面的语句启动应用：
 
+```typescript
+platformBrowserDynamic().bootstrapModule(InventoryAppModule);
+```
 
 # 参考 
 
