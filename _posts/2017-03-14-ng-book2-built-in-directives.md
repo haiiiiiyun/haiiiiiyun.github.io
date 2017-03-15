@@ -88,8 +88,10 @@ export class SampleApp {
 <!-- ngFor -->
 <!-- 该指令会重复生成特定的 DOM 元素，每次都从数组中取出一个值传入 -->
 <!-- 假设组件中设置了属性 this.cities = ['Miami', 'Sao Paulo', 'New York']; -->
-<div class="ui list" *ngFor="let c of cities; let idx=index">
-    <div class="item">{{ idx }}:{{ c }}</div>
+<div class="ui list">
+    <div class="item" *ngFor="let c of cities; let idx=index">
+      {{ idx }}:{{ c }}
+    </div>
 </div>
 <!-- 输出为：-->
 <div class="ui list">
