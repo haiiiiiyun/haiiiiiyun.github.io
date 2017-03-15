@@ -1,7 +1,7 @@
 ---
 title: Angular2 内置指令
 date: 2017-03-14
-writing-time: 2017-03-14 22:22
+writing-time: 2017-03-14 22:22--23:30
 categories: Programming
 tags: Programming 《ng-book2-r49》 Angular2 Google JavaScript TypeScript Node ng2
 ---
