@@ -3,7 +3,7 @@ title: Angular2 的表单功能
 date: 2017-03-15
 writing-time: 2017-03-15 15:47--2017-03-16 16:18
 categories: Programming
-tags: Programming 《ng-book2-r49》 Angular2 Google JavaScript TypeScript Node ng2 form JSONPlaceholder
+tags: Programming 《ng-book2-r49》 Angular2 Google JavaScript TypeScript Node ng2 form
 ---
 
 # 表单很重要也很复杂
