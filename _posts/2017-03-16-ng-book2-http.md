@@ -3,7 +3,7 @@ title: Angular2 的 HTTP
 date: 2017-03-16
 writing-time: 2017-03-16 20:05--2017-03-17 14:19
 categories: Programming
-tags: Programming 《ng-book2-r49》 Angular2 Google JavaScript TypeScript Node ng2 form JSONPlaceholder
+tags: Programming 《ng-book2-r49》 Angular2 Google JavaScript TypeScript Node ng2 JSONPlaceholder
 ---
 
 # 概述
