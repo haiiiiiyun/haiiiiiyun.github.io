@@ -1,14 +1,14 @@
 ---
 title: Angular2 的路由功能
 date: 2017-03-19
-writing-time: 2017-03-19 17:54
+writing-time: 2017-03-19 17:54--2017-03-21 10:05
 categories: Programming
 tags: Programming 《ng-book2-r49》 Angular2 Google JavaScript TypeScript Node ng2
 ---
 
 # 概述
 
-Web 开发中，路由通常是指根据浏览器中的当前 URL，根据某种规则将应用分割成不同的部分。例如，当访问 `/` 时，路由到主页面，而当访问 `/about` 时，则可路由到关于页面等。
+Web 开发中，路由通常是指基于浏览器中的当前 URL，根据某种规则将应用分割成不同的部分。例如，当访问 `/` 时，路由到主页面，而当访问 `/about` 时，则路由到关于页面等。
 
 在应用中定义路由的好处：
 
@@ -19,9 +19,9 @@ Web 开发中，路由通常是指根据浏览器中的当前 URL，根据某种
 
 ## 客户端的路由如何运作
 
-服务端的路由很简单，只需根据进入的 URL 调用不同的控制器来呈现。
+服务端的路由很简单，只需根据进入的 URL 调用不同的控制器来处理。
 
-而客户端路由中，当每次 URL 修改时，我们无需向服务端请求。这种应用称为 "Single Page Pages"(SPA)，因为服务端只提供一个页面，然后由 JavaScript 呈现不同的页面。
+而客户端路由中，当每次 URL 修改时，我们无需向服务端请求。这种应用称为 "Single Page Pages"(SPA)，服务端只提供一个页面，然后由 JavaScript 呈现不同的页面内容。
 
 客户端的路由主要有 2 种实现方法。
 
@@ -33,18 +33,18 @@ Web 开发中，路由通常是指根据浏览器中的当前 URL，根据某种
 <a name="about"><h1>About</h1></a>
 ```
 
-然后通过 `http://something/#about`，浏览器值直接跳到该标签。SPA 用的相同的原则，但是对标签名就个小小改进，使它们看起来更像路径，例如，`about` 路由可能为 `http://something/#/about`。这种路由叫 *hash-based routing*。
+之后访问 `http://something/#about`，浏览器直接跳到该标签。SPA 用的是相同的原则，但是对标签名进行了小小改进，使它们看起来更像路径，例如，`about` 路由可为 `http://something/#/about`。这种路由叫 *hash-based routing*。
 
 
 ### 新办法：HTML5 客户端路由
 
 HTML5 中，JavaScript 可以通过 `history.pushState` 方法创建浏览历史，无需向服务器再次请求就能改变显示的 URL。
 
-现在多数的现代框架都依赖 `pushState`，通过对浏览历史的处理实现路由。
+多数的现代框架都依赖 `pushState`，通过对浏览历史的处理实现路由。
 
 Angular 2 中，默认使用的模式是 HTML5 的，不过可以手动修改为 anchor 标签模式。
 
-使用 HTML5 模式中，需要注意：
+使用 HTML5 模式时，需要注意：
 
 + 很多旧版本的浏览器不支持
 + 服务端必须支持基于 HTML 5 的路由
@@ -68,7 +68,7 @@ Angular 2 中，默认使用的模式是 HTML5 的，不过可以手动修改为
 
 
 ```typescript
-import { // 加载路由的相关模式
+import { // 加载路由的相关模块
   RouterModule,
   Routes
 } from '@angular/router';
@@ -106,18 +106,18 @@ const routes: Routes = [
 class RoutesDemoAppModule {}
 ```
 
-## 在模板中建立路由链接及定义路由页内容的位置
+## 在模板中建立路由链接及定义路由页的内容位置
 
 ```typescript
 // 在模板中使用 router-outlet 元素定义路由内容的放置位置，
 // 即路由链接的内容都会呈现在这个元素内
 //
-// 使用 <a href="/#/home">Home</a> 也可以定义链接，但是这样
+// 使用 <a href="/#/home">Home</a> 也可以定义链接，但是这样的话，
 // 当点击链接时，页面会重加载，不适合在 SPA 中使用
 // Angular2 中使用 [routerLink] 指令来建立路由链接，这样创建的
 // 链接点击时页面不会重加载。
-// [routerLink] 指令右侧的表达式是一个数据，其中第一个元素指的是
-// 对应的路由路径，其中的元素可以是子元素，路由参数等。
+// [routerLink] 指令右侧的表达式是一个数组，其中第一个元素指的是
+// 对应的路由路径，其它的元素可以是子元素，路由参数等。
 @Component({
   selector: 'router-app',
   template: `
@@ -150,7 +150,7 @@ class RoutesDemoApp {
       图片等其它资源进行加载。
       而 Angular Router 也依赖该标签来构建路由，例如，如果
       我们有个路由的路径是 /hello，而 base 元素定义为 href="/app"，
-      那么该路由的实现路径将为 "/app/#/hello"。
+      那么该路由的实际路径将为 "/app/#/hello"。
     -->
     <base href="/">
     <title>ng-book 2: Angular 2 Router</title>
@@ -208,7 +208,7 @@ export class HomeComponent {
 
 ## 路由策略
 
-路由策略就是 Angular 应用从路径解析和创建路由定义的方法。
+路由策略就是 Angular 应用关于路径解析和创建路由定义的方法。
 
 默认的策略是 `PathLocationStrategy`，也即 HTML5 路由。使用这种策略时，路由使用一般的路径表示，如 `/home`, `/contact` 等。
 
@@ -485,7 +485,7 @@ export class SearchComponent implements OnInit {
     // this.route.queryParams 和 this.route.params 不同：
     // + this.route.queryParams 将 URL 参数组织成对象，
     //   例如在 URL http://localhost/#/search?query=cats&order=asc 中，
-    //   从而 queryParams['query'] 值为 'cats'
+    //   queryParams['query'] 值为 'cats'
     // + this.route.params 将路由的参数组织成对象
     this.route
       .queryParams
@@ -508,8 +508,8 @@ export class SearchComponent implements OnInit {
   // 也会进行搜索操作
   submit(query: string): void {
     // 手动告诉路由，导航到 search 路由，并提供了一个 query 参数，
-    // 然后再执行实现的搜索。
-    // 这种方式有个很大的好处：当浏览器重装加载页面时，可以看到相同的搜索结果。
+    // 然后再执行实际的搜索。
+    // 这种方式有个很大的好处：当浏览器重新加载页面时，可以看到相同的搜索结果。
       // 这就是 "pesisting the search term on the URL"
     this.router.navigate(['search'], { queryParams: { query: query } })
       .then(_ => this.search() );
@@ -527,7 +527,7 @@ export class SearchComponent implements OnInit {
       .subscribe((res: any) => this.renderResults(res));
   }
 
-  // 我们将 results 定义为了组件属性，当它的值有到时候后，
+  // 我们将 results 定义为了组件属性，当它的值有修改后，
   // Angular 会自动为我们更新与其关联的视图
   renderResults(res: any): void {
     this.results = null;
@@ -609,15 +609,264 @@ export class TrackComponent implements OnInit {
 
 有时需要在切换路由时进行某些操作，例如认证操作等。
 
-假设有一个 login 路由和一个 protected 路由。
+假设有一个 login 路由和一个 protected 路由。我们只让已经通过 login 页面登录后的用户才能转到 protected 页面。
 
-续 ...
+实现时，需要为路由添加挂钩，当路由被激活时，调用该挂钩，来确认认证信息等。
+
+## AuthService 服务
+
+```typescript
+//file: services/AuthService.ts
+//创建登录认证服务
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class AuthService {
+  login(user: string, password: string): boolean {
+    if (user === 'user' && password === 'password') {
+      // 成功登录后，将 username 保存到 `localStorage` 
+      // localStorage 是 HTML5 提供的键/值对，它能用来
+      // 将持久数据保存到浏览器中。
+      // API：https://developer.mozilla.org/en-US/docs/Web/API/Storage
+      localStorage.setItem('username', user);
+      return true;
+    }
+
+    return false;
+  }
+
+  logout(): any {
+    localStorage.removeItem('username');
+  }
+
+  getUser(): any {
+    return localStorage.getItem('username');
+  }
+
+  isLoggedIn(): boolean {
+    return this.getUser() !== null;
+  }
+}
+
+export var AUTH_PROVIDERS: Array<any> = [
+  { provide: AuthService, useClass: AuthService }
+];
+```
+
+## LoginComponent 组件
+
+```typescript
+//file:components/LoginComponent.ts
+
+// 该组件当用户登录后显示用户信息和退出链接，
+// 用户未登录时显示登录表单
+import {Component} from '@angular/core';
+
+/*
+ * Services
+ */
+import {AuthService} from 'services/AuthService';
+
+@Component({
+  selector: 'login',
+  template: `
+  <div class="alert alert-danger" role="alert" *ngIf="message">
+    {{ message }}
+  </div>
+
+  <!-- 在用户未登录时显示 -->
+  <form class="form-inline" *ngIf="!authService.getUser()">
+    <div class="form-group">
+      <label for="username">User:</label>
+      <input class="form-control" name="username" #username>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input class="form-control" type="password" name="password" #password>
+    </div>
+
+    <a class="btn btn-default" (click)="login(username.value, password.value)">
+      Submit
+    </a>
+  </form>
+
+  <!-- 在用户登录后显示 -->
+  <div class="well" *ngIf="authService.getUser()">
+    Logged in as <b>{{ authService.getUser() }}</b>
+    <a href (click)="logout()">Log out</a>
+  </div>
+  `
+})
+export class LoginComponent {
+  message: string;
+
+  constructor(private authService: AuthService) {
+    this.message = '';
+  }
+
+  login(username: string, password: string): boolean {
+    this.message = '';
+    if (!this.authService.login(username, password)) {
+      this.message = 'Incorrect credentials.';
+      setTimeout(function() {
+        this.message = '';
+      }.bind(this), 2500);
+    }
+    return false;
+  }
+
+  logout(): boolean {
+    this.authService.logout();
+    return false;
+  }
+}
+```
+
+## 路由挂钩 canActivate
+
+先创建一个 guard 类，并实现 CanActive 接口（接口中有 canActive 方法）。
 
 
+```typescript
+// file: guards/loggedIn.guard.ts
+import { Injectable } from '@angular/core';
+import { CanActivate } from '@angular/router';
+import { AuthService } from 'services/AuthService';
+
+@Injectable()
+export class LoggedInGuard implements CanActivate { // 实现 CanActivate 接口
+  // 构造器中 AuthService 注入
+  constructor(private authService: AuthService) {}
+
+  // 由于路由的 `canActive` 挂钩配置为了该类，
+  // 那么当路由被激活时会调用 canActivate 方法
+  canActivate(): boolean {
+    return this.authService.isLoggedIn();
+  }
+}
+```
+
+为路由配置挂钩：
 
 
+```typescript
+const routes: Routes = [
+  { path: '',          redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home',      component: HomeComponent },
+  { path: 'about',     component: AboutComponent },
+  { path: 'contact',   component: ContactComponent },
+  { path: 'protected', component: ProtectedComponent,
+    canActivate: [LoggedInGuard]}
+];
+```
 
+# 嵌套路由
 
+嵌套路由就是将路由包含在路由中。使用嵌套路由后，我们就能封装父路由中的功能，然后将这些功能应用在子路由上。例如，显示所有产品的页是一个父路由，而显示单个产品的页是一个子路由。
+
+## 组件中定义子路由
+
+```typescript
+// file: components/ProductsComponent.ts
+@Component({
+  selector: 'products',
+
+  // 模板中的本地路由用 `./` 作为前缀，例如 ['./main']，
+  // 从而表明这些路由是相对于父路由路径的。
+  // 我们也可以写成 ['products', 'main']，明确写出父路由，
+  // 但是这样写后，子路由就需要了解父路由，当父路由修改
+  // 名字后，子路由中也需要跟着修改。
+  template: `
+  <h2>Products</h2>
+
+  <div class="navLinks">
+    <a [routerLink]="['./main']">Main</a> |
+    <a [routerLink]="['./interest']">Interest</a> |
+    <a [routerLink]="['./sportify']">Sportify</a> |
+    Enter id: <input #id size="6">
+    <button (click)="goToProduct(id.value)">Go</button>
+  </div>
+
+  <!-- 这里的 router-outlet 是为子路由使用的 -->
+  <div class="products-area">
+    <router-outlet></router-outlet>
+  </div>
+  `
+})
+
+export class ProductsComponent {
+  constructor(private router: Router, private route: ActivatedRoute) {
+  }
+
+  goToProduct(id:string): void {
+    // 这里使用了相对路由
+    this.router.navigate(['./', id], {relativeTo: this.route});
+  }
+}
+
+// 本组件定义了自己的路由
+export const routes: Routes = [
+  // 当访问 /products 时，会重定向到 /products/main
+  { path: '', redirectTo: 'main', pathMatch: 'full' },
+
+  { path: 'main', component: MainComponent },
+
+  // URL 中在 `/products/` 后的数据都会抽取后保存在路由的 id 参数中
+  // 如果 id 值与本路由配置中明确定义的 id 值都不同，即
+  // 不等于 main, interest, sportify 后，才会激活本条路由
+  { path: ':id', component: ByIdComponent },
+
+  { path: 'interest', component: InterestComponent },
+  { path: 'sportify', component: SportifyComponent },
+];
+```
+
+## 在父组件中使用子路由
+
+```typescript
+//file: app.ts
+import {
+  routes as childRoutes,
+  ProductsComponent,
+  ProductsComponentModule
+} from 'components/ProductsComponent';
+
+@Component({
+  selector: 'router-app',
+  template: `
+  <div class="page-header">
+    <div class="container">
+      <h1>Router Sample</h1>
+      <div class="navLinks">
+        <a [routerLink]="['/home']">Home</a>
+        <a [routerLink]="['/products']">Products</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="content">
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  `
+})
+class RoutesDemoApp {
+  constructor(private router: Router) {
+  }
+}
+
+const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'products', component: ProductsComponent, children: childRoutes }
+];
+```
+
+## 嵌套路由中的链接
+
+用 `[routerLink]="['myRoute']"` 创建的是同级的链接。如果想在子路由中创建父路由级的链接，用 `['/myRoute']`。而在父路由级，想创建子路由链接，则需要将每个路由级都写出，如 `['products', 'sportify']`。
 
 
 
