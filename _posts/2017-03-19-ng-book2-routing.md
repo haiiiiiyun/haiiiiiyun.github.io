@@ -142,6 +142,7 @@ class RoutesDemoApp {
 ## 在 index.html 中进行拼接
 
 ```html
+{% raw %}
 <!doctype html>
 <html>
   <head>
@@ -169,6 +170,7 @@ class RoutesDemoApp {
     <script src="/bundle.js"></script>
   </body>
 </html>
+{% endraw %}
 ```
 
 有时候，Angular 开发人员没有权限修改应用中的 HTML head 区域（比如，团队共用一个模板时）。幸运的是，这种情况下可以通过在应用的 @NgModule 中使用 `APP_BASE_HREF` provider 实现：
@@ -398,6 +400,7 @@ export var SPOTIFY_PROVIDERS: Array<any> = [
 ## SearchComponent
 
 ```typescript
+{% raw %}
 // 导入
 import {Component, OnInit} from '@angular/core';
 import {
@@ -536,6 +539,7 @@ export class SearchComponent implements OnInit {
     }
   }
 }
+{% endraw %}
 ```
 
 进行可以进行搜索测试了。
@@ -544,6 +548,7 @@ export class SearchComponent implements OnInit {
 ## TrackComponent
 
 ```typescript
+{% raw %}
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
@@ -603,6 +608,7 @@ export class TrackComponent implements OnInit {
     this.track = res;
   }
 }
+{% endraw %}
 ```
 
 # 路由挂钩 (Router Hooks)
@@ -656,6 +662,7 @@ export var AUTH_PROVIDERS: Array<any> = [
 ## LoginComponent 组件
 
 ```typescript
+{% raw %}
 //file:components/LoginComponent.ts
 
 // 该组件当用户登录后显示用户信息和退出链接，
@@ -721,6 +728,7 @@ export class LoginComponent {
     return false;
   }
 }
+{% endraw %}
 ```
 
 ## 路由挂钩 canActivate
