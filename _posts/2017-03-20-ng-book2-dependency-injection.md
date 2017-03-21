@@ -352,10 +352,71 @@ class ParamService {
 { provide: NewComponent, useClass: MyComponent }
 ```
 
-//续..
+# 在应用中使用依赖注入
 
 
+要使用依赖一般需 3 个步骤：
 
++ 创建服务类(injectable)
++ 在接收组件中声明依赖
++ 配置注入（例如使用 Angular 中的 NgModule 进行注入登记）
+
+
+## 创建服务类
+
+```typescript
+export class ApiService {
+    get(): void {
+        console.log('Getting resource ...');
+    }
+}
+```
+
+## 在接收组件中声明依赖
+
+之前是直接通过 Injector 类完成的，但是 Angular 为我们提供了 2 种简单的方式。
+
+第 1 种方式是在组件构造器中声明可注入类，如：
+
+```typescript
+import {ApiService} from 'services/ApiService';
+
+class DiSampleApp {
+    // Angular DI 系统会会核查可用的注入，并返回一个 ApiService 的单例实例
+    constructor(private apiService: ApiService) {
+    }
+}
+```
+
+第 2 种方式是使用 @Inject 注解，从而为 Angular 提供更多有多注入的信息，如：
+
+```typescript
+class DiSampleApp {
+    private apiService: ApiService;
+    constructor(@Inject(ApiService) ate apiService) {
+        this.apiService = apiService;
+    }
+}
+```
+
+## 配置注入（例如使用 Angular 中的 NgModule 进行注入登记）
+
+例如：
+
+```typescript
+// 这里使用 ApiService 标识来暴露出 ApiService 类的单例实例
+{ provide: ApiService, useClass: ApiService }
+
+// 最后将 ApiService 添加到 NgModule 的 providers  
+
+```typescript
+@NgModule({
+    //...
+    providers: [ ApiService ]
+})
+```
+
+续 ..
 
 
 
