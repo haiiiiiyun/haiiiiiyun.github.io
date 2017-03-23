@@ -213,7 +213,7 @@ tags: Programming JavaScript Node underscore
   > 有利于调试。模板的 source 属性可查看模板的源码：
 
   ```html
-  <% raw %>
+  {% raw %}
   <script>
     JST.project = <%= _.template(jstText).source %>;
   </script>
