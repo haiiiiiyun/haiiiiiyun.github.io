@@ -1,7 +1,7 @@
 ---
-title: ExtJS 数据--Learning ExtJS(4th)
+title: ExtJS 中的数据--Learning ExtJS(4th)
 date: 2017-03-31
-writing-time: 2017-03-31 09：01
+writing-time: 2017-03-31 09:01--11:07
 categories: Programming
 tags: Programming 《Learning&nbsp;ExtJS&nbsp;4th&nbsp;Edition》 Sencha ExtJS Javascript
 ---
@@ -21,7 +21,7 @@ Ext.Ajax.request({
     // 即当服务端应答码为 200-299 时运行。
 
     // 函数参数 response 是服务器返回的应答对象，
-    // 可以从中抽取出应答文体 responseText 和应答头信息。
+    // 可以从中抽取出应答文体和应答头信息。
     // 函数参数 options 就是我们传入 Ajax request 方法的所有信息，
     // 这里即 url, success, failure, callback。
     success: function(response,options){
@@ -88,7 +88,7 @@ Ext.Ajax.request({
 ```javascript
 Ext.Ajax.request({
     url: "serverside/myfirstparams.php",
-    method: 'POST', // 设置请求方式，转为为 'GET'
+    method: 'POST', // 设置请求方式，改为 'GET'
     params: { // 通过 params 属性可传入多个参数
         x:200,
         y:300
@@ -103,7 +103,7 @@ Ext.Ajax.request({
 });
 ```
 
-# 数据模型 Model
+# 数据模型 (Model)
 
 一个 Model 代表一个对象或实体，如 客户 Client，收据 Invoice 等。而 Model 会被 Store 使用。
 
@@ -121,12 +121,12 @@ Ext.define('Myapp.model.Client',{
     idProperty:'clientId ',
     fields:[
         // 数据项的类型 type 值可为：
-        //    string
-        //    int
-        //    float
-        //    boolean
-        //    date（记得设置 dataFormat 属性）
-        //    auto（表示不对接收到的数据进行任何转换）
+        //    String
+        //    Integer
+        //    Float
+        //    Boolean
+        //    Date（需要设置 dataFormat 属性）
+        //    Auto（表示不对接收到的数据进行任何转换）
         {name: 'clientId', type: 'int'},
         {name: 'name' , type: 'string'},
         {name: 'phone' , type: 'string'},
@@ -137,7 +137,7 @@ Ext.define('Myapp.model.Client',{
 
     // 设置数据项的验证规则
     // type 定义使用哪个规则，
-    // Ext 内置有常用的验证规则，如：
+    // Ext 内置常用的验证规则，如：
     //   inclusion, exclusion, presence, length, format, e-mail 等
     //   针对各种验证规则，可能还需要额外的参数，如 length 的 min 和 max。
     // type 值实际上对应于 Ext.data.Validator 子类中的一个函数。
@@ -192,8 +192,7 @@ myclient.set('name', '');
 console.log(myclient.isValid()); // false，因为 name 不能为空
 
 // 显示验证错误信息
-// validate() 方法错误集，即 Ext.data.ErrorCollection （扩展
-// 至 Ext.util.MixedCollection）实例。
+// validate() 方法会返回错误集，即 Ext.data.ErrorCollection (扩展至 Ext.util.MixedCollection）实例。
 var errors = myclient.validate();
 errors.each(function(error){
     console.log(error.field,error.message); // name Name must be present (custom message)
@@ -202,7 +201,7 @@ errors.each(function(error){
 
 ## 映射
 
-如果应答中的数据项名与 Model 中的数据项中不相同时，可以进行映射。例如返回的 JSON 为：
+如果应答中的数据项名与 Model 中的数据项名不相同时，可以进行映射。例如返回的 JSON 为：
 
 ```javascript
 {
@@ -219,7 +218,7 @@ errors.each(function(error){
 }
 ```
 
-要将应答中的数据名 `x0001` 映射到 Model 的 `contractFileName` 数据项，如下：
+要将应答中的数据项名 `x0001` 映射到 Model 的 `contractFileName` 数据项，如下：
 
 ```javascript
 Ext.define('Myapp.model.Client',{
@@ -268,7 +267,7 @@ Ext.define('Myapp.model.Client',{
         {name: 'phone' , type: 'string'},
         {name: 'website' , type: 'string'},
 
-        // type: 'status'，从而会引用别名为 `data.field.status` 的
+        // type: 'status'，会引用别名为 `data.field.status` 的
         // 数据项类型
         {name: 'status' , type: 'status'},
         {name: 'clientSince' , type: 'date', dateFormat: 'Y-m-d H:i'}
@@ -314,8 +313,8 @@ if (!myclient.isValid(){
 ### 一对多关联
 
 ```javascript
-// 先定义一个 Employee Model
 // file:appcode/model/Employee.js
+// 先定义一个 Employee Model
 Ext.define('Myapp.model.Employee',{
     extend:'Ext.data.Model',
     idProperty:'id ',
@@ -331,8 +330,8 @@ Ext.define('Myapp.model.Employee',{
     ]
 });
 
-// 定义 ClientWithContacts Model，
 // file:appcode/model/ClientWithContacts.js
+// 定义 ClientWithContacts Model，
 // Client 与 Employee 有一对多关联，
 // 即一个客户可能需要多个员工来提供服务。
 Ext.define('Myapp.model.ClientWithContacts',{
@@ -433,7 +432,7 @@ var myclient = Ext.create('Myapp.model.Customer',{
     clientSince: '2010-01-01 14:35',
 
     // 直接通过配置信息创建关联的 Model 实例
-    // 没有在创建 Customer 实例时没有指定
+    // 如果在创建 Customer 实例时没有指定
     // contractInfo 项的配置信息，那么 contractInfo 
     // 不会出现在 Customer 的实例中。
     contractInfo:{
@@ -446,7 +445,7 @@ var myclient = Ext.create('Myapp.model.Customer',{
 
 # Store
 
-Store 是 Model 的一个集合，它能作为客户端（如组件）的缓存工具，用来管理客户端的本地数据。例如，对本地数据进行排序、分组、过滤等。Store 也能通过代理 proxy 从服务端获取数据，解析后合并到集合中。
+Store 是 Model 的一个集合，它能作为客户端（如组件）的缓存工具，用来管理客户端的本地数据。例如，对本地数据进行排序、分组、过滤等。Store 也能通过代理 (proxy) 从服务端获取数据，解析后合并到集合中。
 
 组件如 grid, tree, combo box, data view 等都使用 Store 来管理数据，一旦 Store 中的数据更新了，那么组件也会自动更新。
 
@@ -521,17 +520,240 @@ var modelTest = store.getAt(2);
 var first = store.first();
 var last = store.last();
 
-// 返回一个区别记录列表，
+// 返回一个区间记录列表，
 // 和 Python 的列表不同，这里返回 [1,3] 索引的记录
 var list = store.getRange(1,3);
+
+// 通过记录的 ID 获取
+var record = store.getById(10001);
+
+// 删除单条记录
+store.remove(record);
+
+// 删除多条记录
+store.remove([first, last]);
+
+// 删除索引位置上的记录
+store.removeAt(2);
+
+// 删除全部记录
+store.removeAll();
 ```
 
-// 续 ..
+# 获取远程数据
+
+Ext JS 使用代理(proxy) 来从数据源获取数据及向源发送数据。我们可为 Model 或 Store 配置适当的代理。
+
+代理负责处理数据模型的数据/信息，可以说，代理类就是用来处理（解析，组织等）数据，从而 Store 能从服务器读取并保存，或向服务器发送数据。
+
+代理使用 reader 来解析接收的数据，使用 writer 将数据编码成正确的格式再发送到数据源。共有 3 种 reader: Array, JSON, XML。writer 有 2 种：JSON, XML。
+
+使用代理后，如何要修改数据源，只需修改代理即可。
 
 
+## Ajax 代理
+
+```javascript
+Ext.define('Myapp.store.customers.Customers',{
+    extend:'Ext.data.Store',
+    model: 'Myapp.model.Customer',
+    proxy:{
+        type:'ajax', //指定代理类型
+
+        // ajax 的 URL 不能跨域，
+        // 需要跨域的话：
+        //    1. 使用 JSONP 代理
+        //    2. 或者如果能控制服务端，可启动 CORS(cross origin resource sharing)
+        //       见 http://en.wikipedia.org/wiki/Cross-origin_resource_sharing 和 https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+        url: 'serverside/customers.php',
+        reader: {
+            type:'json', // 指定信息的编码类型，值还可以为 xml, array
+
+            // 指定应答中的根名字，
+            // 在 JSON 应答中应该是一个包含所有记录的数组名
+            // 如果有嵌套，属性值也可以含 '.'，例如在下面的返回中：
+            //  {
+            //      "success" :"true",
+            //      "id":"id",
+            //      "output":{
+            //          "appRecords":[{ our data .... }],
+            //          "customerRecords":[{ our data .... }]
+            //      }
+            //   }
+            // rootProperty 值应该为 'output.customerRecords'
+            rootProperty:'records'
+        }
+    }
+});
+
+// 创建 Store 实例并通过代理加载数据：
+var store = Ext.create("Myapp.store.customers.Customers");
+
+// load 方法内部通过代理的 read 操作进行 Ajax 请求，
+// load 中的回调函数只在当所有记录都加载入 Store 集合后才运行
+store.load(function(records, operation, success) {
+    console.log('loaded records');
+
+    Ext.each(records, function(record, index, records){
+        console.log( record.get("name") + ' - ' +
+            record.data.contractInfo.contractId );
+    });
+});
+```
 
 
+## XML reader
 
+```javascript
+proxy:{
+    type:'ajax',
+    url: 'serverside/customers.xml', // 返回 XML
+    reader: {
+        type: 'xml',
+        rootProperty: 'data', // XML 中的数据根结点
+        record:'customer', // XML 中的记录结点标签
+        totalProperty: 'total', // XML 中的总记录数结点标签
+        successProperty: 'success' // XML 中的状态结点标签
+    }
+}
+```
+
+上面的代理所需的应答 XML 可为：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+    <success>true</success>
+    <total>2</total>
+
+    <customer>
+        <id>10001</id>
+        <name>Acme corp2</name>
+        <phone>+52-01-55-4444-3210</phone>
+        <website>www.acmecorp.com</website>
+        <status>Active</status>
+        <clientSince>2010-01-01 14:35</clientSince>
+        <contractInfo>
+            <id>444</id>
+            <contractId>ct-001-444</contractId>
+            <documentType>PDF</documentType>
+        </contractInfo>
+    </customer>
+
+    <customer>
+        <id>10002</id>
+        <name>Candy Store LTD</name>
+        <phone>+52-01-66-3333-3895</phone>
+        <website>www.candyworld.com</website>
+        <status>Active</status>
+        <clientSince>2011-01-01 14:35</clientSince>
+        <contractInfo>
+            <id>9998</id>
+            <contractId>ct-001-9998</contractId>
+            <documentType>DOCX</documentType>
+        </contractInfo>
+    </customer>
+</data>
+```
+
+## 发送数据
+
+```javascript
+Ext.define('Myapp.store.customers.CustomersSending',{
+    extend:'Ext.data.Store',
+    model: 'Myapp.model.Customer',
+    autoLoad:false,
+    autoSync:true, // 设置为自动同步操作（即立即发送数据到服务器）
+    proxy:{
+        type:'ajax',
+        url: 'serverside/customers.json',
+
+        // 定义 CRUD 方法的各 URL
+        api: {
+            read : 'serverside/customers.json',
+            create : 'serverside/process.php?action=new',
+            update : 'serverside/process.php?action=update',
+            destroy : 'serverside/process.php?action=destroy'
+        },
+        reader: {
+            type:'json',
+            rootProperty:'records'
+        },
+
+        writer:{
+            type:'json', // 指定数据的编码格式为 JSON
+            encode:true, // 确保在发送到服务器前进行数据编码
+            rootProperty:'paramProcess', // 发送的参数名
+            allowSingle:false,
+
+            // true 时指记录的所有数据项一起发送给服务器，
+            // false 时只将修改过的数据项发送给服务器
+            writeAllFields:true,
+            root:'records'
+        },
+        actionMethods:{
+            create: 'POST',
+            read: 'GET',
+            update: 'POST',
+            destroy: 'POST'
+        }
+    }
+});
+
+// Store 发送数据
+var store = Ext.create("Myapp.store.customers.CustomersSending");
+
+store.load({ // Step 2 load Store in order to get all records
+    scope: this,
+
+    // 加载后的回调函数
+    callback: function(records, operation, success) {
+        console.log('loaded records');
+
+        // 遍历显示集合中的记录
+        Ext.each(records, function(record, index, records){
+            console.log( record.get("name") + ' - ' +
+            record.data.contractInfo.contractId );
+        });
+
+        var test=11;
+        console.log('Start adding model / record...!');
+        // 添加一条记录
+        var mynewCustomer = Ext.create('Myapp.model.Customer',{
+            clientId : '10003',
+            name: 'American Notebooks Corp',
+            phone: '+52-01-55-3333-2200',
+            website : 'www.notebooksdemo.com',
+            status : 'Active',
+            clientSince: '2015-06-01 10:35',
+            contractInfo:{
+            "id":99990,
+            "contractId":"ct-00301-99990",
+            "documentType":"DOC"
+            }
+        });
+        // 由于设置了 autoSync: true，
+        // 会立即发送一条 CREATE 请求
+        store.add(mynewCustomer); 
+
+        // 更新记录
+        console.log('Updating model / record...!');
+        var updateCustomerModel = store.getAt(0);
+        updateCustomerModel.beginEdit();
+        updateCustomerModel.set("website","www.acmecorpusa.com");
+        updateCustomerModel.set("phone","+52-01-33-9999-3000");
+        updateCustomerModel.endEdit();
+        // endEdit() 后会立即发送一条 UPDATE 请求
+
+        // 删除记录
+        console.log('deleting a model / record ...!');
+        var deleteCustomerModel = store.getAt(1);
+        store.remove(deleteCustomerModel); // 将发送一条 DESTROY 请求
+    }
+});
+```
+
+可以看到，所有请求的参数都封装在 `paramProcess` 参数中，如 `paramProcess:[{"id":10001, "name":"Acme corp2", ...},...]`。
 
 
 # 参考 
