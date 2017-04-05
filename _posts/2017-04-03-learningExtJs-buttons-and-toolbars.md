@@ -1,32 +1,32 @@
 ---
 title: ExtJS 的按钮和工具栏--Learning ExtJS(4th)
 date: 2017-04-03
-writing-time: 2017-04-03
+writing-time: 2017-04-03 10:00--2017-04-05 15:23
 categories: Programming
 tags: Programming 《Learning&nbsp;ExtJS&nbsp;4th&nbsp;Edition》 Sencha ExtJS Javascript
 ---
 
 # 事件驱动开发
 
-观察者模式用于实现实体/对象间使用事件进行交流。当某对象/组件内发生一个事件时，该对象会将事件广播给订阅的所有对象。
+使用观察者模式可实现实体/对象间用事件进行交流。当某对象/组件内发生一个事件时，该对象会将事件广播给订阅的所有对象。
 
-`Ext.util.Observable` 基类可用来添加、触发和侦听某个特定对象或组件的事件，然后定义事件触发时的处理方式。
+`Ext.util.Observable` 基类可用来添加、触发和侦听某个特定对象或组件的事件，并能定义事件触发时的处理方式。
 
-Ext JS 中的所有组件都合并了 (用 mixin 方式) Ext.util.Observable 类的功能，因此所有组件都能触发事件，并且可以侦听事件并定义相应处理方式。
+Ext JS 中的所有组件都合并了 (用 mixin 方式) Ext.util.Observable 类的功能，因此所有组件都能触发事件，并且可以侦听事件及定义相应处理方法。
 
 在自定义组件中也可以定义新的事件。
 
 
 ```javascript
 Ext.define('Myapp.sample.Employee', {
-    // 包含了 Ext.util.Observable 类，
+    // 合并了 Ext.util.Observable 类，
     // 因而 Employee 类具有了事件处理机制
     mixins: {observable: 'Ext.util.Observable'},
     //...
     constructor: function(config){
-    //...
-    // 在构造器中初始化事件机制
-    this.mixins.observable.constructor.call(this, config);
+        //...
+        // 在构造器中初始化事件机制
+        this.mixins.observable.constructor.call(this, config);
     },
     quitJob: function(){
         // 触发一个自定义事件。
@@ -100,11 +100,13 @@ var myButton = Ext.create('Ext.button.Button', {
     // iconCls 的值为 CSS 类名，
     // 它通过将图标设置为背景实现按钮图标 
     // 图标的大小是基于 scale 值的：
+    //
     //    scale  | size
     //-----------|-------
     //    small  | 16x16
     //    medium | 24x24
     //    large  | 32x32
+    //
     // 因此，还需针对不同的 scale 创建不同的 CSS 规则：
     // .addicon-16{
     //   background:transparent url('images/add_16x16.png') center 0 no-repeat !important;
@@ -115,7 +117,7 @@ var myButton = Ext.create('Ext.button.Button', {
     // .addicon-32{
     //    background:transparent url('images/add_32x32.png') center 0  no-repeat !important;
     //  }
-    iconCls: 'addicon-16',
+    iconCls: 'addicon-24',
 
     // 默认图标放置在按钮文本的左侧，
     // 可以设置将图标放置在 'top', 'right', 'bottom', 'left'(默认值)
@@ -142,7 +144,7 @@ var mySegmentedbuttons = Ext.create('Ext.button.Segmented',{
     vertical:false,
 
     // Ext.button.Segmented 是一个容器，
-    // 定义为 defaults: { xtype: 'button' }
+    // 定义了 defaults: { xtype: 'button' }
     // 因此 items 中的子组件默认都认为是 button
     items:[
         {
@@ -238,14 +240,159 @@ var myButton = Ext.create('Ext.button.Button',{
 });
 ```
 
-// 续...
+# 工具栏
 
+工具栏组件可作为一个容器，用于排列我们的按钮。
 
+从 Ext Js 4 开始，工具栏可以放置在容器的 4 边 (top, right, bottom, left)，同时还可以同时定义多个工具栏。同时要注意，工具栏通常用于 panel, window, grid 等容器组件上。
 
+```javascript
+var myPanel = Ext.create( 'Ext.panel.Panel' ,{
+    title: 'My first toolbar...',
+    //width: 450,
+    //height: 200,
 
+    // 该数组中定义的组件可以放置到任何 4 个边上 (top, right, bottom, left)
+    // 通常该数组中的组件为工具栏，但也可以定义其它组件，
+    // 如 grid, panel, form 等。
+    dockedItems: [
+        {
+            xtype : 'toolbar',
+            dock: 'top', //放置到 top 边，未设置该属性时，默认值也是 top
 
+            // 工具栏组件中的 items 中的组件默认的 xtype 为 button
+            // 也可以加入其它组件，如 textfield, combo box, radiobutton 等。
+            items: [
+                {text: 'New record'},
+                {text: 'Edit record'},
+                {text: 'Remove record'},
 
+                // 可用 Ext.container.ButtonGroup (xtype: buttongroup) 将工具栏中的多个
+                // 按钮组合成一组。ButtonGroup 扩展至 Ext.panel.Panel，因此可以设置
+                // title 等属性
+                { xtype:'buttongroup',
+                    title:'Actions',
 
+                    // buttongroup 分组内按钮默认是水平排列的，
+                    // 即每个按钮一列，可以用 column 属性来调整
+                    items:[
+                        {text: 'New', iconCls: 'addicon-16'},
+                        {text: 'Edit', iconCls: 'editicon-16'},
+                        {text: 'Remove', iconCls: 'deleteicon-16'}
+                    ]
+                },
+                {
+                    xtype: 'buttongroup',
+                    title: 'Print / Export & Help',
+
+                    // 这个分组设置为只有 2 列
+                    columns: 2,
+
+                    // 子组件（按钮）的默认属性值
+                    defaults:{scale:'large', iconAlign:'top'},
+
+                    items:[
+                        {
+                            text: 'Export', 
+                            iconCls: 'export-32',
+                            rowspan: 2, // 该按钮占据了 2 行，从而在第 1 列
+                        },
+                        // 下面 2 个按钮在第 2 列
+                        {text: 'Print', iconCls: 'print-32'},
+                        {text: 'Help', iconCls: 'help-32'}
+                    ]
+                }
+            ]
+        }
+    ],
+    renderTo:Ext.getBody()
+});
+```
+
+# 面包屑导航栏 (breadcrumb bar)
+
+面包屑栏在 Ext Js 5 时引进，它能将 TreeStore 中的数据显示为一条导航按钮。
+
+```javascript
+// 定义 TreeStore
+Ext.define('Myapp.sample.store.mainMenu', {
+    extend: 'Ext.data.TreeStore',
+    root: {
+        text: 'My app',
+        expanded: true,
+        children: [
+            {
+                text: 'Modules',
+                expanded: true,
+                children: [
+                    {leaf: true, text: 'Employees'},
+                    {leaf: true, text: 'Customers'},
+                    {leaf: true, text: 'Products'}
+                ]
+            }
+            ,{
+                text: 'Market',
+                expanded: true,
+                children: [
+                    {leaf: true, text: 'Sales'},
+                    {leaf: true, text: 'Budgets'},
+                    {leaf: true, text: 'SEO'},
+                    {leaf: true, text: 'Statistics'}
+                ]
+            },
+            {
+                text: 'Support',
+                iconCls:'help-16',
+                children: [
+                    {leaf: true, text: 'Submit a ticket'},
+                    {leaf: true, text: 'Forum'},
+                    {leaf: true, text: 'Visit our web site'}
+                ]
+            },
+            {leaf: true, text: 'Reports'},
+            {leaf: true, text: 'Charts'}
+        ]
+    }
+});
+
+// 创建 TreeStore 实例
+var myMenuStore = Ext.create('Myapp.sample.store.mainMenu',{});
+
+var myPanel = Ext.create('Ext.panel.Panel',{
+    title:'My first breadcrumb bar...',
+    width:600,
+    height:200,
+    dockedItems:[
+        { // 创建面包屑导航栏
+            xtype : 'breadcrumb',
+            dock: 'top',
+            store: myMenuStore, // 用 TreeStore 中的数据来创建按钮，菜单等组件
+            showIcons: true, // 在显示的按钮上显示图标
+
+            // 设置初始选中的结点。
+            // 这里选择了 {leaf: true, text: 'Submit a ticket'},
+            selection: myMenuStore.getRoot().childNodes[2].childNodes[0],
+
+            listeners: {
+                // 当面包屑导航栏中的按钮或菜单点击时会
+                // 触发 selectionchange 事件
+                // 参数：
+                //   mybreadcrumb: 当前的面包屑导航栏实例
+                //   node: 选中的 TreeStore 结点
+                //   eOpts: 传入 Ext.util.Observable.addListener 的选项内容
+                'selectionchange':{
+                    fn: function(mybreadcrumb, node, eOpts){
+                        var panel = mybreadcrumb.up('panel');
+                        panel.update( 'This is the zone for:<b>' + node.data.text + '</b>' );
+                    },
+                    delay:200
+                }
+            }
+        }
+    ],
+    renderTo:Ext.getBody()
+});
+```
 
 
 # 参考 
