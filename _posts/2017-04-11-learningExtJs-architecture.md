@@ -1074,6 +1074,6 @@ handleRoute: function(id) {
 }
 ```
 
- 参考 
+# 参考 
 
 + [Chapter10: Architecture](https://www.amazon.com/Learning-ExtJS-Fourth-Carlos-Mendez/dp/1784394386/)
