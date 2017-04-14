@@ -3,7 +3,7 @@ title: ExtJS 应用的构建和部署
 date: 2017-04-14
 writing-time: 2017-04-13 08:47--2017-04-14 10:25
 categories: Programming
-tags: Programming 《Learning&nbsp;ExtJS&nbsp;4th&nbsp;Edition》 Sencha ExtJS Javascript 《Ext&nbsp;JS&nbsp;Application&nbsp;Development&nbsp; Blueprints》 
+tags: Programming 《Learning&nbsp;ExtJS&nbsp;4th&nbsp;Edition》 Sencha ExtJS Javascript 《Ext&nbsp;JS&nbsp;Application&nbsp;Development&nbsp;Blueprints》 
 ---
 
 # 概述
