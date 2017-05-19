@@ -12,7 +12,7 @@ tags: Programming 《Data&nbsp;Structures&nbsp;and&nbsp;Algorithms&nbsp;Using&nb
 
 ADT 定义：
 
-+ Array(size): 创建一个长度为 size 的一给数组，并且将每个元素初始化成 None
++ Array(size): 创建一个长度为 size 的一维数组，并且将每个元素初始化成 None
 + length(): 返回数组中的元素个数
 + getitem(index): 返回指定下标的元素
 + setitem(index, value): 修改数组中 index 位置的元素值
@@ -35,7 +35,7 @@ ArrayType = ctypes.py_object * 5
 slots = ArrayType()
 ```
 
-这个数组必须先初始化后才能访问，不然无法元素，如 `slots[0]` 会抛出异常，初始化如下：
+这个数组必须先初始化后才能访问，不然会抛出异常，如 `slots[0]` 会抛出异常，初始化如下：
 
 ```python
 for i in range(5):
