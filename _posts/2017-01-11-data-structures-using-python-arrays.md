@@ -304,8 +304,7 @@ class Matrix:
         return newMatrix
 
     def multiple( self, rhsMatrix ):
-        assert self.numRows() == rhsMatrix.numCols() and \
-            self.numCols() == rhsMatrix.numRows(), \
+        assert self.numCols() == rhsMatrix.numRows(), \
             "Matrix sizes not compatible for the multiple operation."
 
         newMatrix = Matrix( self.numRows(), rhsMatrix.numCols() )
