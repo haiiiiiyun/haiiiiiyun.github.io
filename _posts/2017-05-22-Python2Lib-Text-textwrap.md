@@ -139,4 +139,4 @@ print textwrap.fill(dedented_text,
 
 ## 参考
 
-+ [The Python Standard Library By Example: 1.2 textwrap-Formatting 文本段落](https://www.amazon.com/Python-Standard-Library-Example/dp/0321767349)
++ [The Python Standard Library By Example: 1.2 textwrap-Formatting Text Paragraphs](https://www.amazon.com/Python-Standard-Library-Example/dp/0321767349)
