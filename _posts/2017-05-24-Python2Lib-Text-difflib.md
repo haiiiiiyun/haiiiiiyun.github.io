@@ -254,7 +254,7 @@ print 's1 == s2:', s1==s2
 
 ## 更多资源
 
-[difflib](https://docs.python.org/3/library/difflib.html) The standard library documentation for this module.
++ [difflib](https://docs.python.org/3/library/difflib.html) The standard library documentation for this module.
 + [本文对应的 Jupyter notebook](https://github.com/haiiiiiyun/ThePythonStandardLibraryByExample-ipynb/blob/master/1.4difflib.ipynb) 
 
 ## 参考
