@@ -1,5 +1,5 @@
 ---
-title: Python 2 标准库示例:：1.4 difflib-序列比较
+title: Python 2 标准库示例：1.4 difflib-序列比较
 date: 2017-05-24
 writing-time: 2017-05-24 16:39
 categories: Programming

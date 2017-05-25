@@ -1,5 +1,5 @@
 ---
-title: Python 2 标准库示例:：1.2 textwrap-格式化文本段
+title: Python 2 标准库示例：1.2 textwrap-格式化文本段
 date: 2017-05-22
 writing-time: 2017-05-22 15:47
 categories: Programming

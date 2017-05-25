@@ -1,5 +1,5 @@
 ---
-title: Python 2 标准库示例:：1.3 re-正则表达式
+title: Python 2 标准库示例：1.3 re-正则表达式
 date: 2017-05-24
 writing-time: 2017-05-24 11:09
 categories: Programming
