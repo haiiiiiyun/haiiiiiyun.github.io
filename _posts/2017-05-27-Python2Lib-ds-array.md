@@ -160,10 +160,9 @@ for values in zip(to_hex(a1), a1, to_hex(a2), a2): # zip(seq1, seq2,..) -> [(seq
 
 # 更多资源
 
-+ array(https://docs.python.org/2.7/library/array.html?highlight=array#module-array) The standard library documentation for this module.
-+ [Numerical Python](www.scipy.org) NumPy is a Python library for working with large
-data sets efficiently.
-+ [本文对应的 Jupyter notebook](https://github.com/haiiiiiyun/ThePythonStandardLibraryByExample-ipynb/blob/master/2.1.collections.ipynb) 
++ [array](https://docs.python.org/2.7/library/array.html?highlight=array#module-array) The standard library documentation for this module.
++ [Numerical Python](www.scipy.org) NumPy is a Python library for working with large data sets efficiently.
++ [本文对应的 Jupyter notebook](https://github.com/haiiiiiyun/ThePythonStandardLibraryByExample-ipynb/blob/master/2.2.array.ipynb) 
 
 
 # 参考
