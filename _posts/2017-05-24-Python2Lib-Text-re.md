@@ -1759,12 +1759,12 @@ for num, para in enumerate(re.split(r'(\n{2,})', text)):
 
 ## 更多资源
 
-+ [本文对应的 Jupyter notebook](https://github.com/haiiiiiyun/ThePythonStandardLibraryByExample-ipynb/blob/master/1.3re.ipynb) 
 + [Regular Expression HOWTO](http://docs.python.org/howto/regex.html) Andrew Kuchling's introduction to regular expressions for Python developers.
 + [Kodos,  The Python Regular Expression Debugger](http://kodos.sourceforge.net/) An interactive tool for testing regular expressions, created by Phil Schwartz.
 + [Regular expression](http://en.wikipedia.org/wiki/Regular_expressions) Wikipedia article that provides a general introduction to regular expression concepts and techniques.
 + locale (page 909): 当使用 Unicode 时，使用 `locale` 模块进行语言设置。
 + [unicodedata](docs.python.org/library/unicodedata.html) Programmatic access to the Unicode character property database.
++ [本文对应的 Jupyter notebook](https://github.com/haiiiiiyun/ThePythonStandardLibraryByExample-ipynb/blob/master/1.3re.ipynb) 
 
 ## 参考
 

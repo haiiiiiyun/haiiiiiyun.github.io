@@ -135,7 +135,7 @@ print textwrap.fill(dedented_text,
 
 ## 其它资料
 
-+ [本文对应的 Jupyter notebook](https://github.com/haiiiiiyun/ThePythonStandardLibraryByExample-ipynb/blob/master    /1.2textwrap.ipynb) 
++ [本文对应的 Jupyter notebook](https://github.com/haiiiiiyun/ThePythonStandardLibraryByExample-ipynb/blob/master/1.2textwrap.ipynb) 
 
 ## 参考
 

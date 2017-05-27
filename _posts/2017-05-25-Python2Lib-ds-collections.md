@@ -635,11 +635,11 @@ print d1 == d2
 
 # 更多资源
 
-+ [本文对应的 Jupyter notebook](https://github.com/haiiiiiyun/ThePythonStandardLibraryByExample-ipynb/blob/master/2.1.collections.ipynb) 
 + [defaultdict examples](https://docs.python.org/2.7/library/collections.html?highlight=defaultdict#collections.defaultdict) Examples of using defaultdict from the standard library documentation.
 + [Evolution of Default Dictionaries in Python](http://jtauber.com/blog/2008/02/27/evolution_of_default_dictionaries_in_python/) Discussion from James Tauber of how defaultdict relates to other means of initializing dictionaries.
 + [Deque](http://en.wikipedia.org/wiki/Deque) Wikipedia article that provides a discussion of the deque data structure.
 + [Deque Recipes](https://docs.python.org/3/library/collections.html?highlight=deque#collections.dequel) Examples of using deques in algorithms from the standard library documentation.
++ [本文对应的 Jupyter notebook](https://github.com/haiiiiiyun/ThePythonStandardLibraryByExample-ipynb/blob/master/2.1collections.ipynb) 
 
 
 # 参考

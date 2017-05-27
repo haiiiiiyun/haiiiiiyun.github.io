@@ -121,6 +121,22 @@ show_tree(data)
     ------------------------------------
     
 
+堆元素也可以是一个元组，从而可实现类似任务优先级的功能：
+
+```python
+import heapq
+
+h = []
+heapq.heappush(h, (5, 'write code'))
+heapq.heappush(h, (7, 'release product'))
+heapq.heappush(h, (1, 'write spec'))
+heapq.heappush(h, (3, 'create tests'))
+
+print 'top priority task:', heapq.heappop(h)
+```
+
+    top priority task: (1, 'write spec')
+
 
 # 访问堆内容
 
@@ -238,7 +254,7 @@ print 'from sort:', sorted(data)[:3]
 
 + [heapq](https://docs.python.org/2.7/library/heapq.html?highlight=heapq#module-heapq) The standard library documentation for this module.
 + [Heap (data structure)](http://en.wikipedia.org/wiki/Heap_(data_structure)) Wikipedia article that provides a general description of heap data structures.
-+ [本文对应的 Jupyter notebook](https://github.com/haiiiiiyun/ThePythonStandardLibraryByExample-ipynb/blob/master/2.3.heapq.ipynb) 
++ [本文对应的 Jupyter notebook](https://github.com/haiiiiiyun/ThePythonStandardLibraryByExample-ipynb/blob/master/2.3heapq.ipynb) 
 
 
 # 参考
