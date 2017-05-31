@@ -1,7 +1,7 @@
 ---
 title: Python 2 标准库示例：2.7 weakref-非持久对象引用
-date: 2017-05-27
-writing-time: 2017-05-27 16:16
+date: 2017-05-31
+writing-time: 2017-05-31 16:16
 categories: Programming
 tags: Programming 《The&nbsp;Python&nbsp;Standard&nbsp;Library&nbsp;by&nbsp;Example》 Python Data&nbsp;Sturcture weakref
 ---
