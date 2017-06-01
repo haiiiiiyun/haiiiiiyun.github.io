@@ -467,7 +467,7 @@ obj = Dict(red=1, green=2, blue=3) # 该对象可被弱引用
 # 更多资源
 
 + [weakref](https://docs.python.org/2/library/weakref.html) Standard library documentation for this module.
-+ [本文对应的 Jupyter notebook](https://github.com/haiiiiiyun/ThePythonStandardLibraryByExample-ipynb/blob/master/2.6weakref.ipynb) 
++ [本文对应的 Jupyter notebook](https://github.com/haiiiiiyun/ThePythonStandardLibraryByExample-ipynb/blob/master/2.7weakref.ipynb) 
 
 
 # 参考
