@@ -255,7 +255,7 @@ for zone in ZONES:
 
 # 时间的解析和格式化
 
-*strptime()* 和 *strftime()* 在 *struct_time* 与字符串表示的时间值之间进行转换。具体的格式指令见 [time 模块的官方文档](https://docs.python.org/2/library/time.html#time.strftime)。
+*strptime()* (p 为 parse) 和 *strftime()* (f 为 format) 在 *struct_time* 与字符串表示的时间值之间进行转换。具体的格式指令见 [time 模块的官方文档](https://docs.python.org/2/library/time.html#time.strftime)。
 
 下例将当前时间从字符串转成 *struct_time* 实例，再转回字符串。
 
