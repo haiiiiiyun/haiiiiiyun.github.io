@@ -1,5 +1,5 @@
 ---
-title: CSAPP3: 1 计算机系统漫游
+title: CSAPP3 1 计算机系统漫游
 date: 2017-07-20
 writing-time: 2017-07-12
 categories: Programming CSAPP3
