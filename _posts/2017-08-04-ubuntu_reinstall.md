@@ -12,6 +12,20 @@ tags: ubuntu
 $ sudo apt-get update && sudo apt-get upgrade -y
 ```
 
+# 更新 Grub 启动延时
+
+```bash
+$ sudo vi /etc/default/grub
+```
+
+修改 `GRUB_TIMEOUT` 项的值。
+
+再运行：
+
+```bash
+$ sudo update-grub
+```
+
 # 安装 Fcitx 五笔拼音输入法
 
 1. 安装汉语语言包和 fcitx
@@ -167,5 +181,14 @@ sudo apt-get update
 sudo apt-get install shadowsocks-qt5 -y
 ```
 
+在 Ubuntu 16.04 中启动时如果出现错误：
 
-https://doub.bid/
+ss-qt5: error while loading shared libraries: libQtShadowsocks.so.1: cannot open shared object file: No such file or directory
+
+可创建链接解决：
+
+```bash
+$ sudo ln /usr/lib/libQtShadowsocks.so /usr/lib/libQtShadowsocks.so.1
+```
+
+SS 共享账号页见 https://doub.bid/sszhfx/。
