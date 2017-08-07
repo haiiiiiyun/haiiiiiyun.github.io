@@ -173,6 +173,11 @@ $ workon xcity
 $ pip install -f ~/workspace/xcity/requirements/local.txt
 ```
 
+# 安装 Jupyter
+
+```bash
+$ sudo pip install jupyter 
+
 # 安装 Shadowsocks 客户端
 
 ```bash
@@ -192,3 +197,42 @@ $ sudo ln /usr/lib/libQtShadowsocks.so /usr/lib/libQtShadowsocks.so.1
 ```
 
 SS 共享账号页见 https://doub.bid/sszhfx/。
+
+# 安装 Ext JS 6 开发环境
+
+见 [设置 Ext JS 6 开发环境](http://www.atjiang.com/setting-up-extjs6/)。
+
+
+# 安装 Docker 和 Docker XAMPP
+
+安装 Docker 见 [在 Ubuntu 上安装 Docker](http://www.atjiang.com/install-docker-on-ubuntu/)。
+
+安装 Docker Compose 见 [安装 Docker Compose 并运行一个简单的 Python Web 应用](http://www.atjiang.com/install-docker-compose-and-run-simple-app/)。
+
+
+配置阿里云镜像见 [Docker 注册中心及配置阿里云加速](http://www.atjiang.com/docker-registry-and-aliyun-mirror/)。
+
+或者使用 Docker 中国官方镜像加速，见 https://www.docker-cn.com/registry-mirror。
+
+可以在 Docker 守护进程启动时传入 --registry-mirror 参数：
+
+```bash
+$ docker --registry-mirror=https://registry.docker-cn.com daemon
+```
+
+为了永久性保留更改，可以修改 /etc/docker/daemon.json 文件并添加上 registry-mirrors 键值。
+
+```json
+{
+  "registry-mirrors": ["https://registry.docker-cn.com"]
+}
+```
+
+修改保存后重启 Docker 以使配置生效。
+
+
+安装配置 Docker 版本的 XAMPP:
+
+```bash
+$ docker pull registry.docker-cn.com/fuyuanli/xampp
+```
