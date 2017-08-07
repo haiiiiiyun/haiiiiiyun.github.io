@@ -233,6 +233,19 @@ $ docker --registry-mirror=https://registry.docker-cn.com daemon
 
 安装配置 Docker 版本的 XAMPP:
 
+Docker 映像文件见: https://hub.docker.com/r/tomsik68/xampp/ 。
+
+
 ```bash
-$ docker pull registry.docker-cn.com/fuyuanli/xampp
+$ docker pull tomsik68/xampp
+
+# 运行
+$ docker run --name myXampp -p 9922:22 -p 9980:80 -d -v ~/workspace/www:/www tomsik68/xampp
+```
+
+在 .bashrc 中添加 alias:
+
+```bash
+# run docker xampp
+alias xamppstart='docker run --name myXampp -p 9922:22 -p 9980:80 -d -v ~/workspace/www:/www tomsik68/xampp'
 ```
