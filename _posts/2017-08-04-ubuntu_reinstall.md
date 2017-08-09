@@ -43,6 +43,31 @@ $ sudo apt-get install fcitx-table-wbpy
 4. 在 WubiPinyin(Fcitx) 的 "Input Method Configuration" 界面中将 Trigger Input Method 清空，关闭 "Enable Hotkey to scroll Between Input Method"。
 
 
+# 安装 WPS
+
+下载地址： http://community.wps.cn/download/
+
+ubuntu 16.04 下解决 WPS 无法输入中文的问题：
+
+1. word 部分
+
+在 /usr/bin/wps 的第一行 #!/bin/bash 下添加：
+
+```bash
+export XMODIFIERS="@im=fcitx"
+export QT_IM_MODULE="fcitx"
+```
+
+2. ppt、excel部分
+
+和 word 一样的方法添加环境变量，只是编辑的文件各不同：
+
+```bash
+$ vi /usr/bin/wpp
+$ vi /usr/bin/et
+```
+
+
 # 安装配置 git
 
 详细文档见 [Generating a new SSH key and adding it to the ssh-agent](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)。
