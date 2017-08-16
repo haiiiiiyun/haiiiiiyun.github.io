@@ -277,7 +277,13 @@ hdmi_mode=38   1280x1024 120Hz reduced blanking
 hdmi_mode=39   1360x768  60Hz
 hdmi_mode=40   1360x768  120Hz reduced blanking
 hdmi_mode=41   1400x1050       reduced blanking
-hdmi_mode=42   1400x1050 60Hz
+hdmi_mode=42   1400x1050 60Hz举个例，比如每天下午定时16:20关机
+1.编辑crontab 任务：
+$crontab -e
+2.再文件的最后一行添加以下这行内容：
+20 16 * * * /sbin/shutdown -h now
+
+注：20 16 代表 每天的16：20 ，执行的命令就是“shutdown -h now”
 hdmi_mode=43   1400x1050 75Hz
 hdmi_mode=44   1400x1050 85Hz
 hdmi_mode=45   1400x1050 120Hz reduced blanking
@@ -375,7 +381,22 @@ cd screen-message-delivery
 cat "@bash /home/pi/workspace/screen-message-delivery/startup.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
 ```
 
-# 七、运行图
+# 七、设置每天自动关机
+
+```bash
+$ crontab -e
+```
+
+在文件的最后一行添加下列内容：
+
+```
+25 17 * * * /sbin/shutdown -h now
+```
+
+表示在每天的 16:25 执行关机命令 `shutdown -h now`。
+
+
+# 八、运行图
 
 ## 树莓派
 ![树莓派](https://raw.githubusercontent.com/haiiiiiyun/screen-message-delivery/master/static/screenshots/raspberry.jpg)
