@@ -92,7 +92,7 @@ template.add_to_builtins(
 
 这种方式虽然遵循 DRY，但是它具有的缺点会把 DRY 的好处抵消殆尽：
 
-+ 由于所有由 *django.template.Template* 加载的模板都会自动将 builtins 中的 Tag 加载进来，因此所有的继承子模板、模板中 {% raw %}{% include %} 语句、inclusion_tag 等都会重复加载这些 Tag 库，从而会影响性能
++ 由于所有由 *django.template.Template* 加载的模板都会自动将 builtins 中的 Tag 加载进来，因此所有的继承子模板、模板中 `raw` 和 `include` 语句、inclusion_tag 等都会重复加载这些 Tag 库，从而会影响性能
 + 由于是隐式加载，故难以调试
 
 > 参考文献： [Two Scoops of Django: Best Practices for Django 1.8](https://www.amazon.com/Two-Scoops-Django-Best-Practices/dp/0981467342/)
