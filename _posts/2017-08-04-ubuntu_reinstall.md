@@ -3,7 +3,7 @@ title: Ubuntu 重装后的初始化设置
 date: 2017-08-04
 writing-time: 2017-08-04
 categories: misc
-tags: ubuntu
+tags: ubuntu node npm fcitx grub
 ---
 
 # 更新 apt
@@ -273,4 +273,34 @@ $ docker run --name myXampp -p 9922:22 -p 9980:80 -d -v ~/workspace/www:/www tom
 ```bash
 # run docker xampp
 alias xamppstart='docker run --name myXampp -p 9922:22 -p 9980:80 -d -v ~/workspace/www:/www tomsik68/xampp'
+```
+
+# 安装 Node 和 Angular 环境
+
+[Angualr CLI](https://github.com/angular/angular-cli) 要求 node 6.9.x 和 npm 3.x.x。
+
+## 安装 node
+
+在 Ubuntu 16.04 上安装当前稳定版本 v6.x:
+
+```bash
+$ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+$ sudo apt-get install -y nodejs
+```
+
+详细参考 https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions 。
+
+配置 npm 使用淘宝镜像：
+
+```bash
+$ npm config set registry=http://registry.npm.taobao.org
+```
+
+详细见 [npm 等国内镜像整理](http://www.atjiang.com/china-mirrors/)。
+
+
+## 安装 Angualar CLI
+
+```bash
+$ sudo npm install -g @angular/cli
 ```
