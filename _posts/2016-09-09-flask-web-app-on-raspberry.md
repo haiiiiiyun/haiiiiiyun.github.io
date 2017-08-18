@@ -100,58 +100,28 @@ $ sudo dd bs=1M if=2016-05-27-raspbian-jessie.img of=/dev/mmcblk0
 按照提示一步步设置好后，更新系统里的软件：
 
 ```bash
-# in root terminal
-$ apt-get update
-$ apt-get upgrade
+$ sudo apt-get update
+$ sudo apt-get upgrade
 ```
+
+设置系统的键盘为 USA-English。
 
 # 三、网络设置
 
-系统网络默认设置的是 DHCP，如果要设置成静态地址，需要修改 `/etc/network/interfaces` 文件：
+系统网络默认设置的是 DHCP，如果要设置成静态地址，需要修改 `/etc/dhcpcd.conf` 文件：
 
 在修改前最好先将原文件备份：
 
 ```bash
-$ cp /etc/network/interfaces /etc/network/interfaces.bak
+$ cp /etc/dhcpcd.conf /etc/dhcpcd.conf.bak
 ```
 
-原始文件内容如下:
+添加如下内容:
 
 ```conf
-auto lo
-
-
-iface lo inet loopback
-
-iface eth0 inet dhcp
-
-
-allow-hotplug wlan0
-iface wlan0 inet manual
-wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
-iface default inet dhcp
-```
-
-如果用的是有线，可以将无线接口的内容全部删掉，再设置 IP 地址、网关和子网掩码：
-
-```conf
-auto lo
-
-iface lo inet loopback
-
-iface eth0 inet static
-
-address 172.16.28.39
-netmask 255.255.255.192
-gateway 172.16.28.1
-```
-
-如果还需要修改 DNS，应修改 `/etc/resolv.conf` 文件，修改前最好也备份一下，内容如下：
-
-```conf
-nameserver 8.8.8.8
-nameserver 8.8.4.4
-nameserver 114.114.114.114
+static ip_address=172.16.28.39/8
+static routers=172.16.28.1
+static domain_name_servers=8.8.8.8
 ```
 
 # 四、配置分辨率
@@ -277,13 +247,7 @@ hdmi_mode=38   1280x1024 120Hz reduced blanking
 hdmi_mode=39   1360x768  60Hz
 hdmi_mode=40   1360x768  120Hz reduced blanking
 hdmi_mode=41   1400x1050       reduced blanking
-hdmi_mode=42   1400x1050 60Hz举个例，比如每天下午定时16:20关机
-1.编辑crontab 任务：
-$crontab -e
-2.再文件的最后一行添加以下这行内容：
-20 16 * * * /sbin/shutdown -h now
-
-注：20 16 代表 每天的16：20 ，执行的命令就是“shutdown -h now”
+hdmi_mode=42   1400x1050 60Hz
 hdmi_mode=43   1400x1050 75Hz
 hdmi_mode=44   1400x1050 85Hz
 hdmi_mode=45   1400x1050 120Hz reduced blanking
@@ -342,7 +306,7 @@ $ mkdir workspace
 下载项目源码，[这是 Github 仓库](https://github.com/haiiiiiyun/screen-message-delivery)：
 
 ```bash
-$ git clone git@github.com:haiiiiiyun/screen-message-delivery.git
+$ git clone https://github.com/haiiiiiyun/screen-message-delivery
 ```
 
 如果没有安装 pip (Python 2 >=2.7.9 及 Python 3 >=3.4 中都已经自带了) ，先安装：
@@ -356,12 +320,15 @@ $ python get-pip.py
 安装依赖包：
 
 ```bash
-$ cd workspace
-$ pip install -r requirements.py
+$ cd workspace/screen-message-delivery
+$ sudo pip install -r requirements.txt
 ```
 
 安装 Chromium 软件
 
+```bash
+$ sudo apt-get install chromium-browser
+```
 
 
 # 六、 设置自动启动
@@ -378,7 +345,10 @@ $ pip install -r requirements.py
 ```bash
 # in root terminal
 cd screen-message-delivery
-cat "@bash /home/pi/workspace/screen-message-delivery/startup.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
+sudo echo "@bash /home/pi/workspace/screen-message-delivery/startup.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
+
+# or,
+echo "@bash /home/pi/workspace/screen-message-delivery/startup.sh" >> ~/.config/xdg/lxsession/LXDE-pi/autostart
 ```
 
 # 七、设置每天自动关机
@@ -390,7 +360,7 @@ $ crontab -e
 在文件的最后一行添加下列内容：
 
 ```
-25 17 * * * /sbin/shutdown -h now
+25 16 * * * /sbin/shutdown -h now
 ```
 
 表示在每天的 16:25 执行关机命令 `shutdown -h now`。
