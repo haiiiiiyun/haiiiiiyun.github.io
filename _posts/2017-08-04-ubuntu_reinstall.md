@@ -26,6 +26,15 @@ $ sudo vi /etc/default/grub
 $ sudo update-grub
 ```
 
+# 安装多线程下载工具 axel
+
+```bash
+$ sudo apt-get install axel
+
+# download
+$ axel -n 5 http://example.com/file.gzip
+```
+
 # 安装 Fcitx 五笔拼音输入法
 
 1. 安装汉语语言包和 fcitx
