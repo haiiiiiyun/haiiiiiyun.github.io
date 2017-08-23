@@ -104,9 +104,12 @@ $ sudo apt-get upgrade
 
 # 设置每天自动关机
 
+在 /root/.bashrc 中添加 `export EDITOR=vi`，设置默认编辑器。
+
+
 ```bash
 $ sudo apt-get install cron
-$ crontab -e
+$ sudo crontab -e
 ```
 
 在文件的最后一行添加下列内容：
