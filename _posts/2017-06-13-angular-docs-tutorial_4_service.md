@@ -207,6 +207,7 @@ getHeroesSlowly(): Promise<Hero[]> {
   });
 }
 ```
+
 ## 参考
 
 + https://angular.io/tutorial/toh-pt4
