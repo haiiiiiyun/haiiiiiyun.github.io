@@ -130,7 +130,9 @@ export class CountdownViewChildParentComponent implements AfterViewInit {
 ## 父子组件通过服务来交互
 
 
-父子共享一个服务，通过服务来双向通讯。## 参考
+父子共享一个服务，通过服务来双向通讯。
+
+## 参考
 
 + https://angular.io/guide/component-interaction
 + [对应的 jupyter notebook](https://github.com/haiiiiiyun/angular-docs-notebook/blob/master/template_data_binding_component_interaction.ipynb)
