@@ -277,4 +277,4 @@ export class UnlessDirective {
 ## 参考
 
 + https://angular.io/guide/structural-directives
-+ [对应的 jupyter notebook](https://github.com/haiiiiiyun/angular-docs-notebook/blob/master/template_data_binding_tructural_directives.ipynb)
++ [对应的 jupyter notebook](https://github.com/haiiiiiyun/angular-docs-notebook/blob/master/template_data_binding_structural_directives.ipynb)
