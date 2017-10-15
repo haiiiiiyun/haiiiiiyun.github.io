@@ -1,7 +1,7 @@
 ---
 title: Angular docs-表单-Reactive 表单
-date: 2017-10-14
-writing-time: 2017-10-14
+date: 2017-10-15
+writing-time: 2017-10-15
 categories: programming
 tags: angular node Angular&nbsp;docs
 ---
