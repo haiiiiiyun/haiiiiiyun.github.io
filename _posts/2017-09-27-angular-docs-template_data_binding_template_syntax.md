@@ -1,5 +1,5 @@
 ---
-title: Angular docs-模板与数据绑定-显示数据
+title: Angular docs-模板与数据绑定-模板语法
 date: 2017-09-27
 writing-time: 2017-09-27
 categories: programming
