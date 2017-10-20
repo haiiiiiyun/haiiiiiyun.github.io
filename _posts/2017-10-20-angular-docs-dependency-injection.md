@@ -383,7 +383,20 @@ constructor(@Optional() private logger: Logger) {
 }
 ```
 
+## 注入器树
+
+一个应用可能有多个注入器。Angular 应用是一个组件树，而每个组件实例都有其自己的注入器，从而组件树和注入器树是并行的。
+
+如果组件本身没有 `providers` 登记，那么该组件的注入器是其祖先组件注入器的一个代理 (proxy)，从而提高性能。
+
+### 注入器冒泡访问
+
+先在本组件实例的注入器查找，再逐级访问其祖先组件的注入器，最后访问应用级的根注入器。
+
+因此在底层的注入器，通过登记相同 token 的提供者，可以实现对高层注入器中相应提供者的 shadow 效果。
+
 ## 参考
 
 + https://angular.io/guide/dependency-injection
++ https://angular.io/guide/hierarchical-dependency-injection
 + [对应的 jupyter notebook](https://github.com/haiiiiiyun/angular-docs-notebook/blob/master/dependency_injection.ipynb)
