@@ -383,6 +383,22 @@ constructor(@Optional() private logger: Logger) {
 }
 ```
 
+### 用 `@Host` 限制注入器的查找到托管组件为止
+
+托管组件通常就是请求依赖的组件，但是当组件被投入到另一个组件时，父组件就是托管组件。
+
+例如：
+
+```typescript
+//dependency-injection-in-action/src/app/hero-bios.component.ts
+template: `
+  <hero-bio [heroId]="1"> <hero-contact></hero-contact> </hero-bio>
+  <hero-bio [heroId]="2"> <hero-contact></hero-contact> </hero-bio>
+  <hero-bio [heroId]="3"> <hero-contact></hero-contact> </hero-bio>`,
+```
+
+以上的 `<hero-contact>` 组件就放替换父组件 `<hero-bio>` 模板中的 `<ng-content>` 元素。
+
 ## 注入器树
 
 一个应用可能有多个注入器。Angular 应用是一个组件树，而每个组件实例都有其自己的注入器，从而组件树和注入器树是并行的。
@@ -395,8 +411,120 @@ constructor(@Optional() private logger: Logger) {
 
 因此在底层的注入器，通过登记相同 token 的提供者，可以实现对高层注入器中相应提供者的 shadow 效果。
 
+## 基于注入查找父组件
+
+有相应的 API （如 Query, ViewChildren, ContentChildren) 来获取子组件，但没有查找父组件的相关 API。
+
+由于每个组件实例都会添加到其本身对应的注入器的内部容器中，因此可以通过依赖注入查找到父组件。
+
+### 知道父组件的具体类型，进行查找
+
+例如父组件 `AlexComponent` 中有子组件 `CathyComponent`:
+
+```typescript
+//parent-finder.component.ts (AlexComponent v.1)
+@Component({
+  selector: 'alex',
+  template: `
+    <div class="a">
+      <h3>{{name}}</h3>
+      <cathy></cathy>
+      <craig></craig>
+      <carol></carol>
+    </div>`,
+})
+export class AlexComponent extends Base
+{
+  name= 'Alex';
+}
+```
+
+子组件中通过注入 `AlexComponent` 来查找到父组件：
+
+```typescript
+//parent-finder.component.ts (CathyComponent)
+@Component({
+  selector: 'cathy',
+  template: `
+  <div class="c">
+    <h3>Cathy</h3>
+    {{alex ? 'Found' : 'Did not find'}} Alex via the component class.<br>
+  </div>`
+})
+export class CathyComponent {
+  constructor( @Optional() public alex: AlexComponent ) { }
+}
+```
+
+### 通过注入父组件的基类，无法查找到父组件
+
+```typescript
+//parent-finder.component.ts (CraigComponent)
+@Component({
+  selector: 'craig',
+  template: `
+  <div class="c">
+    <h3>Craig</h3>
+    {{alex ? 'Found' : 'Did not find'}} Alex via the base class.
+  </div>`
+})
+export class CraigComponent {
+  constructor( @Optional() public alex: Base ) { }
+}
+```
+
+由于组件可能有多个基类（多重继承），这种方法无效。
+
+
+### 通过类接口 class-interface 来查找
+
+父组件实例已经添加到其对应注入器的容器中了，而本方法中父组件还要为其自身实现提供一个别名：
+
+```typescript
+//parent-finder.component.ts (AlexComponent providers)
+providers: [{ provide: Parent, useExisting: forwardRef(() => AlexComponent) }],
+
+//parent-finder.component.ts (CarolComponent class)
+export class CarolComponent {
+  name= 'Carol';
+  constructor( @Optional() public parent: Parent ) { }
+}
+```
+
+`Parent` 是一个类接口（抽象类），`forwardRef` 用来去除循环引用。
+
+由于 TypeScript 中只能引用已经定义了的对象，因此当 class A 引用 class B, 而 class B 又引用 class A 时，会出错。`forwarRef()` 函数会返回一个非直接引用。
+
+### 通过 @SkipSelf 在组件树中查找父组件
+
+假如组件层级为 `Alice->Barry->Carol`，其中 `Alice` 和 `Barry` 都实现了 `Parent` 类接口。此时，使用上面方法时，`Barry` 会有问题，因为它即要通过类接口注入来获取其父组件 `Alice`，又要为 `Carol` 提供服务，此时要用 `@SkipSelf`，即在本身构造器注入时，直接从父组件上的注入器开始查找，跳过本身的注入器：
+
+```typescript
+//parent-finder.component.ts (BarryComponent)
+const templateB = `
+  <div class="b">
+    <div>
+      <h3>{{name}}</h3>
+      <p>My parent is {{parent?.name}}</p>
+    </div>
+    <carol></carol>
+    <chris></chris>
+  </div>`;
+
+@Component({
+  selector:   'barry',
+  template:   templateB,
+  providers:  [{ provide: Parent, useExisting: forwardRef(() => BarryComponent) }]
+})
+export class BarryComponent implements Parent {
+  name = 'Barry';
+  constructor( @SkipSelf() @Optional() public parent: Parent ) { }
+}
+```
+
 ## 参考
 
 + https://angular.io/guide/dependency-injection
 + https://angular.io/guide/hierarchical-dependency-injection
++ https://angular.io/guide/dependency-injection-in-action
 + [对应的 jupyter notebook](https://github.com/haiiiiiyun/angular-docs-notebook/blob/master/dependency_injection.ipynb)
