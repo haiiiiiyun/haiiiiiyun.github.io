@@ -1,5 +1,5 @@
 ---
-title: Angular docs-表单-依赖注入 (Dependency Injection)
+title: Angular docs-依赖注入 (Dependency Injection)
 date: 2017-10-20
 writing-time: 2017-10-20
 categories: programming
