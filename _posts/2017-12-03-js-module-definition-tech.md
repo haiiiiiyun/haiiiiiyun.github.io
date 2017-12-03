@@ -1,6 +1,6 @@
 ---
 title: JS 模块化规范简介
-date: 2017-12-02
+date: 2017-12-03
 writing-time: 2017-12-02
 categories: programming
 tags: JS javascript CommonJS AMD CMD require.js
