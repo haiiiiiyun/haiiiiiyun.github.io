@@ -24,6 +24,13 @@ weibo:
 github: haiiiiiyun
 highlighter: rouge
 safe: true
-pulgins: [jekyll-paginate]
 paginate: 20
 about: "这里是蒋海云的个人博客。"
+repository: haiiiiiyun/haiiiiiyun.github.io
+plugins:
+- jekyll-paginate
+- jekyll-github-metadata
+- jekyll-mentions
+- jekyll-redirect-from
+- jekyll-sitemap
+- jemoji
