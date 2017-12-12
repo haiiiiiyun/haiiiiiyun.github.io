@@ -1,12 +1,12 @@
 ---
-title: webpack 2.x 实践（二）
+title: webpack 实践 3：输出管理
 date: 2017-12-08
 writing-time: 2017-12-08
 categories: programming
-tags: JS javascript webpack yarn
+tags: JS javascript webpack webpack2 yarn webpack&guides
 ---
 
-# 输出管理
+本文的代码基于 [webpack 实践 1：安装与初始化](http://www.atjiang.com/webpack-practice-2/
 
 添加 `src/print.js`:
 

@@ -1,174 +1,15 @@
 ---
-title: webpack 2.x 实践（一）
-date: 2017-12-05
+title: webpack 实践 2：资源文件管理
+date: 2017-12-06
 writing-time: 2017-12-05
 categories: programming
-tags: JS javascript webpack yarn
+tags: JS javascript webpack webpack2 yarn webpack&guides
 ---
 
-# 安装
-
-## 局部安装
-
-```bash
-$ cd ~/workspace/webpack-practice
-$ yarn init # create package.json
-$ yarn add webpack --dev
-$ yarn add webpack@version --dev  # add special version
-$ yarn  install
-```
-
-webpack 程序一般放在 "node_modules/.bin/" 下。
-
-
-# 初始化
-
-添加文件 `index.html`, `src/index.js`。
-
-```javascript
-//src/index.js
-function component() {
-  var element = document.createElement('div');
-
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
-  return element;
-}
-
-document.body.appendChild(component());
-```
-
-```html
-<!--index.html-->
-<html>
-  <head>
-    <title>Getting Started</title>
-    <script src="https://unpkg.com/lodash@4.16.6"></script>
-  </head>
-  <body>
-    <script src="./src/index.js"></script>
-  </body>
-</html>
-```
-
-现在 `src/index.js` 通过 `<script>` 标签依赖于 `lodash`。
-
-## 使用 webpack 创建一个 Bundle
-
-创建 `dist` 目录用来存放分发的代码，将 `index.hmtl` 移到 `dist/` 下。`src/index.js` 中显式 `import _ from 'lodash'`。同时去除 `dist/index.html` 中的 `lodash` 链接。
-
-由于现在是 `import _ from 'lodash`，因此需要手动下载安装 lodash:
-
-```bash
-$ yarn add lodash
-```
-
-现在的文件内容：
-
-```javascript
-//src/index.js
-import _ from 'lodash';
-function component() {
-  var element = document.createElement('div');
-
-  // Lodash, now imported by this script
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
-  return element;
-}
-
-document.body.appendChild(component());
-```
-
-```html
-<!--dist/index.html-->
-<html>
-  <head>
-    <title>Getting Started</title>
-  </head>
-  <body>
-    <script src="bundle.js"></script>
-  </body>
-</html>
-```
-
-运行 webpack 进行打包：
-
-```bash
-$ yarn run webpack src/index.js  dist/bundle.js
-
-Hash: b78ba88800fb17fdfd02
-Version: webpack 3.10.0
-Time: 301ms
-    Asset    Size  Chunks                    Chunk Names
-bundle.js  544 kB       0  [emitted]  [big]  main
-   [0] ./src/index.js 256 bytes {0} [built]
-   [2] (webpack)/buildin/global.js 509 bytes {0} [built]
-   [3] (webpack)/buildin/module.js 517 bytes {0} [built]
-    + 1 hidden module
-```
-
-这里将 `src/index.js` 作为入口，`dist/bundle.js` 作为输出打包文件。
-
-## 使用配置文件
-
-创建 webpack 的打包配置文件 `webpack.config.js`:
-
-```javascript
-const path = require('path');
-
-module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  }
-};
-```
-
-再运行打包：
-
-```bash
-$ yarn run webpack --config webpack.config.js
-
-hash: b78ba88800fb17fdfd02
-Version: webpack 3.10.0
-Time: 306ms
-    Asset    Size  Chunks                    Chunk Names
-bundle.js  544 kB       0  [emitted]  [big]  main
-   [0] ./src/index.js 256 bytes {0} [built]
-   [2] (webpack)/buildin/global.js 509 bytes {0} [built]
-   [3] (webpack)/buildin/module.js 517 bytes {0} [built]
-    + 1 hidden module
-Done in 0.72s.
-```
-
-由于默认的配置文件名为 `webpack.config.js`，故上面命令可简写为:
-
-```bash
-$ yarn run webpack
-```
-
-## NPM 脚本
-
-在 `package.json` 中添加 webpack 的自定义命令：
-
-```json
-{
-    "scripts": {
-        "build": "webpack"
-    }
-}
-```
-
-再用 `yarn run build` 运行。
-
-# 资源文件管理
 
 使用 webpack 可以完成 grunt 或 gulp 的工作。
 
-## 加载 CSS
+# 加载 CSS
 
 要使 JS 中能 `import` CSS，需要安装 `style-loader` 和 `css-loader`:
 
@@ -234,7 +75,7 @@ document.body.appendChild(component());
 
 通过 loader, 还可以直接将 sass, less 文件翻译后再加载进 JS 模块中。
 
-## 加载图片
+# 加载图片
 
 使用 `file-loader` 来加载图片。
 
@@ -271,7 +112,7 @@ $ yarn add file-loader --dev
 在 `src/index.js` 中加载和使用图片：
 
 ```javascript
-import Icon from './icon.png';
+import Icon from './icon.jpg';
 //...
 var myIcon = new Image();
 myIcon.src = Icon;
@@ -284,13 +125,13 @@ element.appendChild(myIcon);
 ```css
 .hello {
     color: red;
-    background: url('./icon.png');
+    background: url('./icon.jpg');
 }
 ```
 
-打印处理后，`icon.png` 将输出到 `dist` 目录下，并改为了 `86375d934477a20aaf0f446b12a17cfb.png` 类似的名字。
+打印处理后，`icon.jpg` 将输出到 `dist` 目录下，并改为了 `c8c05b6e39143f647fb67b552561e072.jpg` 类似的名字。
 
-## 加载字体
+# 加载字体
 
 字体的加载和图片加载一样，也是用 `file-loader` 加载器，同时，字体文件的 url 处理也和图片的一样。
 
@@ -324,7 +165,7 @@ element.appendChild(myIcon);
 }
 ```
 
-## 加载数据文件
+# 加载数据文件
 
 和 Node 一样，webpack 内置也直接支持导入 json 文件，如 `import Data from './data.json`。而 CSV, TSV，XML 等数据文件则要 `csv-loader` 和 `xml-loader` 加载器加载。
 
@@ -373,12 +214,12 @@ console.log(Data);
 
 可以看到，Data 变量即为一个解析了的 JSON 对象。
 
-## 全局资源目录
+# 全局资源目录
 
 通过 webpack 的资源打包方式，我们可以将组件所需的资源放在组件目录下，无需放在一个全局目录下，从而提高可复用性。
 
 
 # 参考
 
-+ https://webpack.js.org/guides/
++ https://webpack.js.org/guides/asset-management/
 + [测试代码 github 仓库](https://github.com/haiiiiiyun/webpack-practice)
