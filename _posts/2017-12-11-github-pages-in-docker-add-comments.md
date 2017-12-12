@@ -122,7 +122,6 @@ $ docker run \
         data-isso-vote="true"
         data-vote-levels=""
         src="//comments.my_isso.com/js/embed.min.js"></script>
-
 <section id="isso-thread"></section>
 <noscript>请开启 JavaScript 查看 <a href="https://posativ.org/isso/" rel="nofollow">isso 评论系统的内容</a>。</noscript>
 ```
