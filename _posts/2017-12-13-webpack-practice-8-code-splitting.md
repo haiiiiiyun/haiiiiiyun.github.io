@@ -1,6 +1,6 @@
 ---
 title: webpack 实践 8： 代码分割
-date: 2017-12-12
+date: 2017-12-13
 writing-time: 2017-12-12
 categories: programming
 tags: JS javascript webpack webpack2 yarn webpack&guides
