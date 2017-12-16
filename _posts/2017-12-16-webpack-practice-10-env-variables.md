@@ -1,6 +1,6 @@
 ---
-title: webpack 实践 ： 环境变量
-date: 2017-12-12
+title: webpack 实践 10： 环境变量
+date: 2017-12-16
 writing-time: 2017-12-12
 categories: programming
 tags: JS javascript webpack webpack2 yarn webpack&guides
