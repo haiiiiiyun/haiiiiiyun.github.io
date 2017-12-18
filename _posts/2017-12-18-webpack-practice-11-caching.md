@@ -1,7 +1,7 @@
 ---
 title: webpack 实践 11： 缓存
-date: 2017-12-16
-writing-time: 2017-12-16
+date: 2017-12-18
+writing-time: 2017-12-18
 categories: programming
 tags: JS javascript webpack webpack2 yarn webpack&guides
 ---
