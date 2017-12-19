@@ -1,6 +1,6 @@
 ---
 title: webpack 实践 12： 打包发布自己的库
-date: 2017-12-18
+date: 2017-12-19
 writing-time: 2017-12-18
 categories: programming
 tags: JS javascript webpack webpack2 yarn webpack&guides
