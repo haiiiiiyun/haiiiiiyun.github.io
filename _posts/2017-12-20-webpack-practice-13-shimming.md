@@ -1,6 +1,6 @@
 ---
 title: webpack 实践 13： Shimming
-date: 2017-12-18
+date: 2017-12-20
 writing-time: 2017-12-18
 categories: programming
 tags: JS javascript webpack webpack2 yarn webpack&guides
