@@ -1,7 +1,7 @@
 ---
 title: Android 笔记
 date: 2018-01-29
-writing-time: 2018-01-01--
+writing-time: 2018-01-01--2018-02-06
 categories: programming
 tags: Android Android&nbsp;Programming&nbsp;2nd
 ---
@@ -455,11 +455,272 @@ Intent i = new Intent(Intent.ACTION_MAIN)
     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 startActivity(i);
 ```
+## 使用 AsyncTask 完成后台任务
+
+```java
+private class FetchItemsTask extends AsyncTask<Integer, Void, List<GalleryItem>> {
+    @Override
+    protected List<GalleryItem> doInBackground(Integer... params) {
+        Integer page = params[0];
+        return new FlickrFetchr().fetchItems(page);
+    }
+
+    @Override
+    protected void onPostExecute(List<GalleryItem> items) {
+        mItems.addAll(items);
+        setupAdapter();
+    }
+}
+
+new FetchItemsTask().execute(mFlickrFetchrPage++);
+```
+
+其中任务内容写在 `doInBackground` 中，会在单独纯种中执行，执行完毕后,结果传入 `onPostExecute`，并在主线程中执行该方法。
+
+每个 AsyncTask 任务实例只能调用一次 `execute`。
+
 
 ## 使用 AsyncTaskLoader 完成数据任务
 
 ### Parse JSON in JAVA
 
-[Gson](https://github.com/google/gson) 能直接将 JSON 转成 Java 对象。# 参考
+[Gson](https://github.com/google/gson) 能直接将 JSON 转成 Java 对象。
 
-...
+
+# Message Queue, Looper, Handler, handlerThread
+
+message queue 相当于线程的邮箱，Looper 对象用来管理 message queue, 不断地取出 message 给线程处理。 具有 message queue 和 looper 对象的线程称为一个 message loop，而主线程就是一个 message loop。
+
+自定义的 message loop 可用来完成后台任务，一般继承 `HandlerThread` 类来实现，因为它已经提供了一个 Looper 对象。
+
+![message_loop.png](/assets/images/androidprogrammingv2/message_loop.png)
+
+Message loop 实例初始化例子：
+
+```java
+@Override
+public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    mThumbnailDownloader = new ThumbnailDownloaderHandlerThread<>();
+    mThumbnailDownloader.start(); // ensure looper initialized
+    mThumbnailDownloader.getLooper();
+}
+```
+
+每个 Message 实例内包含 3 个参数：
+
++ `what`: 用户定义的 `int` 型值，描述做什么。
++ `obj`: 用户定义的随着该 Message 发送的对象
++ `target`: 用来处理该 Message 的 Handler
+
+![handler_looper.png](/assets/images/androidprogrammingv2/handler_looper.png)
+
+
+一个 message loop 中有一个 HandlerThread 和 Looper，一个 Looper 对应一个 Message Queue，Queue 中的每个 Message 可对应不同的 Handler，而一个 Handler 对应一个 Looper。创建 Handler 后，Handler 将绑定其创建时的线程所在的 Looper。
+
+创建 Message 一般通过 `Handler.obtainMessage()`。 `Message.sendToTarget()` 将 Message 发送给其 Handler，Handler 会先将 Message 添加到其 Looper 的 Message Queue 中。
+
+实现 Handler 的 `handlerMessage(Message msg)` 对 Message 进行处理：
+
+```java
+public class ThumbnailDownloaderHandlerThread<T> extends HandlerThread {
+    @Override
+    protected void onLooperPrepared() {
+        mRequestHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                if (msg.what == MESSAGE_DOWNLOAD) {
+                    T target = (T) msg.obj;
+                    handleRequest(target);
+                }
+            }
+    };
+}
+```
+
+对 Message 的处理代码也可以通过 `Handler.post(Runnable)` 实现：
+
+```java
+mResponseHandler.post(new Runnable() {
+    public void run() {
+    }
+});
+```
+
+## AsyncTask vs Thread
+
+AsyncTask 用于无需重复执行的短时间内能完成的任务。
+
+
+# 图片下载库： 
+
+[Picasso](http://square.github.io/picasso/)，包含了下载，缓存，变换、点位符图片等功能。
+
+
+1. 下载 picasso-2.5.2.jar 文件，放置到 `app/libs` 目录下。
+2. 通过 `Project Setting...` 添加依赖： `implementation files('libs/picasso-2.5.2.jar')`
+3. 在 HolderView 中：
+
+```java
+public void bindGalleryItem(GalleryItem galleryItem) {
+            Picasso.with(getActivity())
+                    .load(galleryItem.getUrl())
+                    .placeholder(R.drawable.bill_up_close)
+                    .into(mItemImageView);
+}
+```
+
+
+# SearchView
+
+推荐使用支持库的实现： `android.support.v7.widget.SearchView`。
+
+
+# 使用 SharedPreferences 存储持久化数据
+
+内容保存在本系统的 sandbox 中。
+
+```java
+public class QueryPreferences {
+    private static final String PREF_SEARCH_QUERY = "searchQuery";
+
+    public static String getStoredQuery(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(PREF_SEARCH_QUERY, null);
+    }
+
+    public static void setStoredQuery(Context context, String query) {
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putString(PREF_SEARCH_QUERY, query)
+                .apply();
+    }
+}
+```
+
+# Service
+
+## IntentService
+
+IntentService 类似 Activity，也是 `Context` 的子类。类似 Activity，将 IntentService 在 `AndroidManifest.xml` 中注册，从而能响应对应的 Intent，并调用其中的 `onHandleIntent(Intent)` 方法在后台运行。
+
+IntentService 接收到的 Intent 叫 `command`，接收到的多个 `command` 会放在队列中，依次处理。
+
+![IntentService_commands.png](/assets/images/androidprogrammingv2/IntentService_commands.png)
+
+```java
+// IntentService 类
+public class PollService extends IntentService {
+    private static final String TAG = "PollService";
+    
+    public static Intent newIntent(Context context) {
+        return new Intent(context, PollService.class);
+    }
+    
+    public PollService() {
+        super(TAG);
+    }
+    
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        Log.i(TAG, "Received an intent: " + intent);
+    }
+}
+```
+
+```java
+// 使用
+Intent i = PollService.newIntent(getActivity());
+getActivity().startService(i);
+```
+
+### 使用 AlertManager 定时重复启动 IntentService
+
+```java
+public class PollService extends IntentService {
+    private static final String TAG = "PollService";
+
+    private static final int POLL_INTERVAL = 1000 * 60; // 60 seconds
+    
+    public static void setServiceAlarm(Context context, boolean isOn) {
+        Intent i = PollService.newIntent(context);
+        PendingIntent pi = PendingIntent.getService(context, 0, i, 0);
+
+        AlarmManager alarmManager = (AlarmManager)
+                context.getSystemService(Context.ALARM_SERVICE);
+
+        if (isOn) {
+            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
+                    SystemClock.elapsedRealtime(), POLL_INTERVAL, pi);
+        } else {
+            alarmManager.cancel(pi);
+            pi.cancel();
+        }
+    }
+}
+```
+
+其中的 `PendingIntent.getService(context, 0, i, 0);` 封装了 `Context.startService(Intent)` 的功能。
+
+之后在 Fragment 的 `onCreate` 中使用 `PollService.setServiceAlarm(getActivity(), true);` 设置。
+
+通过 AlertManager 设置后，即便应用退出后，AlertManager 也还会在后台定时启动 IntentService。
+
+
+## Notification
+
+使用 [NotificationCompat](https://stackoverflow.com/questions/10071086/why-is-notificationcompat-needed) 实现 Notification。
+
+Notification 封装了显示在状态栏中的标题 (Ticker)，图标 (SmallIcon)，内容组件的标题和内容，一个 PendingIntent（当点击该 Notification 时会启动）。
+
+```java
+            Resources resources = getResources();
+            Intent i = PhotoGalleryActivity.newIntent(this);
+            PendingIntent pi = PendingIntent.getActivity(this, 0, i, 0);
+
+            Notification notification = new NotificationCompat.Builder(this)
+                    .setTicker(resources.getString(R.string.new_pictures_title))
+                    .setSmallIcon(android.R.drawable.ic_menu_report_image)
+                    .setContentTitle(resources.getString(R.string.new_pictures_title))
+                    .setContentText(resources.getString(R.string.new_pictures_text))
+                    .setContentIntent(pi)
+                    .setAutoCancel(true)
+                    .build();
+
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+            notificationManager.notify(0, notification);
+```
+
+## IntentService 和 Service
+
+Service 类似 Activity，是一种应用组件，它提供各种生命周期回调函数，但是这些函数都在主线程执行。
+
+推荐用 IntentService 实现大多数的服务型任务，因为可以在后台执行。
+
+## Broadcast Intent & Receiver
+
+在 Manifest 中注册的 Receiver 当应用未启动状态下也会接收 Broadcast Intent。
+
+在代码中 *dynamic broadcast receiver* 只在应用运行时会接收：
+
+```java
+registerReceiver(BroadcastReceiver, IntentFilter);
+unregisterReceiver(BroadcastReceiver);
+```
+
+
+# 应用内的通信，Local Events
+
+使用 event bus，每三方库有 greenrobot 的 EventBus，Square 的 Otto。
+
+
+# 获取 signing key
+
+在 Android Studio Terminal 中：
+
+运行 `./gradlew signingReport`， SHA1 值即为 signing key。
+
+
+# 参考
+
++ [Android Programming: The Big Nerd Ranch Guild(2nd Edition)](https://www.bignerdranch.com/books/android-programming/)
