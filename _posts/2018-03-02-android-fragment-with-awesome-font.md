@@ -1,5 +1,5 @@
 ---
-title: Android Fragment 中使用 Font Awesome 4.7.0
+title: Android Fragment 中使用 TTF 矢量字体图标（以 Font Awesome 4.7.0 为例)
 date: 2018-03-02
 writing-time: 2018-03-02
 categories: programming
@@ -61,3 +61,5 @@ public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
 # 参考
 
 + [Android 使用Font Awesome 显示文字图标](https://www.jianshu.com/p/a1ab20158bc0)
++ [矢量图标字体集](https://www.npmjs.com/package/react-native-vector-icons)
+
