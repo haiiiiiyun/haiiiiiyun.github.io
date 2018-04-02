@@ -62,6 +62,7 @@ tags: Programming miniprogram
 每个页面有一个模板文件，例如 `pages/index/index` 页对应模板文件 `pages/index/index.wxml`，例如：
 
 ```html
+{%
 <view class="container">
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}"> 获取头像昵称 </button>
