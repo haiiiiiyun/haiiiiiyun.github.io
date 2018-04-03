@@ -62,7 +62,6 @@ tags: Programming miniprogram
 每个页面有一个模板文件，例如 `pages/index/index` 页对应模板文件 `pages/index/index.wxml`，例如：
 
 ```html
-{%
 <view class="container">
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}"> 获取头像昵称 </button>
@@ -76,6 +75,7 @@ tags: Programming miniprogram
   </view>
 </view>
 ```
+
 WXML 模板的使用模式，总体上和 Angular 类似。
 
 + 模板中使用封装了的组件，如 view, button, image, text, block 等。
