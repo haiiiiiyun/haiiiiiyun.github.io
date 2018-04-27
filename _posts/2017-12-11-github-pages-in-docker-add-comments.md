@@ -61,6 +61,7 @@ host =
     http://fullstackpython.atjiang.com/
     http://localhost:8080
 log-file = /db/logs
+notify = smtp
 
 [server]
 listen = http://0.0.0.0:8080
@@ -72,9 +73,22 @@ direct-reply = 3
 reply-to-self = true
 require-author = true
 require-email = false
+
+[smtp]
+; send email notification when receiving comments
+host = smtp.sina.com
+port = 465
+security = ssl
+username = your_name@sina.com
+password = your_password
+to = your_admin_account@gmail.com
+from = your_name@sina.com
+timeout = 10
 ```
 
 配置文件中指定了数据库文件(sqlite 3) 及日志文件的位置。同时指定的需要使用该评论系统的域名。
+
+这里使用新浪的 SMTP 服务来发送提醒，因此要注意 `[smtp]` 下的 `username` 和 `from` 的值必须一致。
 
 
 在本机上为 isso 创建目录:
@@ -135,3 +149,4 @@ $ docker run \
 + [isso 评论系统 docker 映射文件](https://hub.docker.com/r/wonderfall/isso/)
 + [isso 评论系统 docker 映射 Dockerfile](https://github.com/Wonderfall/dockerfiles/tree/master/isso)
 + [isso github](https://github.com/posativ/isso)
++ [用ISSO自建静态博客的评论系统](https://www.jianshu.com/p/205f2fce3051)
