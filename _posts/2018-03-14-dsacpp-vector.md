@@ -28,7 +28,7 @@ C 等语言中的数组能组织相同类型的数据项，并用下标存取数
 
 ![extendable_vector.png](/assets/images/tsinghua_dsacpp/c2_vector/extendable_vector.png)
 
-满员时进行插入操作，会自动扩容为原数组为两倍。
+满员时进行插入操作，会自动扩容为原数组的两倍。
 
 ```cpp
 template <typename T> void Vector<T>::expand() { //向量空间不足时扩容
@@ -328,7 +328,7 @@ template <typename T> static Rank binSearch(T* A, T const& e, Rank lo, Rank hi) 
 ### 二分查找 （版本 C），返回的结果方便进行插入操作
 
 + 当有多个命中元素时，必须返回最靠后（秩最大）者
-+ 失败时，应返回小于 e 的最大都（仿哨兵 A[lo-1])
++ 失败时，应返回小于 e 的最大值（仿哨兵 A[lo-1])
 
 ```cpp
 //二分查找版本C：在有序向量的区间 [lo, hi) 内查找元素 e, 0 <= lo <= hi <= _size
@@ -392,7 +392,7 @@ template <typename T> static Rank binSearch_VC(T* A, T const& e, Rank lo, Rank h
 
 算法的每一运行时间，取决于对应叶节点到根节点的距离（称作叶节点的深度），而最坏情况下的运行时间，取决于所有叶节点的最大深度（即树的高度）。
 
-一个 CBA 算法对应一棵比较树，从而下界即为所有比较树的最小高度）。
+一个 CBA 算法对应一棵比较树，从而下界即为所有比较树的最小高度。
 
 在一个高度为 h 的二叉树中，叶结点不可能多于 $2^h$，反过来，若某一问题的输出结果（即叶结点）不于少 N 种，则树高不可能低于 $log_2N$。
 
@@ -453,7 +453,7 @@ template <typename T> Rank Vector<T>::bubble2(Rank lo, Rank hi) {
 
 ### 归并排序
 
-有序向量的二路归并 (2-way merge)，将两有有序序列合并成为一个有序序列：
+有序向量的二路归并 (2-way merge)，将两有序序列合并成为一个有序序列：
 
 迭代进行，每次迭代时只比较两个序列的首元素，将小者取出放在输出序列末尾。最后将另一个非空的向量整体接到输出向量的末尾。
 
@@ -484,7 +484,7 @@ void Vector<T>::merge(Rank lo, Rank mi, Rank hi){ //以 mi 为界，合并有序
     int second_len = hi-mi;
     T* C = _elem + mi; //后子向量的首地址
 
-    for (Rank i=0, j=0, k=0; (j<first_len) || (j<second_len); ){ //将 B[j] 和 C[k] 中的小者续至 A 末尾
+    for (Rank i=0, j=0, k=0; (j<first_len) || (k<second_len); ){ //将 B[j] 和 C[k] 中的小者续至 A 末尾
 
         // 前子向量还有元素未处理时，
         //   1. 如果后子向量已经处理完毕，或者
@@ -520,8 +520,8 @@ void Vector<T>::merge(Rank lo, Rank mi, Rank hi){ //以 mi 为界，合并有序
 
 ## 位图
 
-习题 [2-34] 位图(Bitmap)是一种特殊癿序列结极,可用以劢态地表示由一组(无符号)整数极成癿集合。
-其长度无限,且其中每个元素癿叏值均为布尔型(刜始均为 false)。
+习题 [2-34] 位图(Bitmap)是一种特殊的序列结构,可用以动态地表示由一组(无符号)整数构成的集合。
+其长度无限,且其中每个元素的取值均为布尔型(初始均为 false)。
 
 ```cpp
 //习题 2-34 位图 Bitmap b)
@@ -631,7 +631,7 @@ class Bitmap {
 class Bitmap_without_init { //以空间换时间，仅允许插入，不支持删除
     private:
         Rank* F; Rank N; //规模为 N 的向量 F，
-        Rank* T; Rank top; //容量为 N 和栈
+        Rank* T; Rank top; //容量为 N 的栈
 
     protected:
         inline bool valid(Rank r){ return (0 <= r) && (r < top); }
