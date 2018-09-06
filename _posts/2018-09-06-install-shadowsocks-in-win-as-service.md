@@ -72,16 +72,17 @@ instsrv Shadowsocks remove
 
 ## 配置服务
 
-注册后，需对 srvany.exe 进行配置，定位实际要运行的程序信息。
+注册后，需对 srvany.exe 进行配置，补充实际要运行的程序信息。
 
 运行 `regedit` 打开注册表，定位到 `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Shadowsocks`。
 
-如果该服务名下没有 Parameters 项，则在服务名项右键菜单中选择`新建->项`，名称为 Parameters，然后定位到 Parameters 项，新建以下几个字符串值:
+如果该服务名下没有 Parameters 项，则在服务名项右键菜单中选择 `新建->项`，名称为 Parameters，然后定位到 Parameters 项，新建以下几个字符串值:
 + 名称 Application 值为要作为服务运行的程序路径，这里为 `C:\Python27\Scripts\ssserver.exe`
-名称 AppDirectory 值为你要作为服务运行的程序所在目录路径，这里为 `C:\Python27\Scripts`
-名称 AppParameters 值为你要作为服务运行的程序启动所需要的参数，这里为 ` -c C:\Python27\Scripts\shadowsocks.json`
++ 名称 AppDirectory 值为你要作为服务运行的程序所在目录路径，这里为 `C:\Python27\Scripts`
++ 名称 AppParameters 值为你要作为服务运行的程序启动所需要的参数，这里为 `-c C:\Python27\Scripts\shadowsocks.json`
 
-reg操作文件：
+
+reg 操作文件：
 
 ```
 //****************************************************
