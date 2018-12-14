@@ -65,3 +65,74 @@ openssl req -new -sha256 -key domain.key -subj "/" -reqexts SAN -config <(cat /e
 +[免费HTTPS证书Let's Encrypt安装教程](http://foofish.net/https-free-for-lets-encrypt.html)
 
 https://letsencrypt.org
+
+
+# Certbot
+
+$ sudo apt-get update
+$ sudo apt-get install software-properties-common
+$ sudo add-apt-repository ppa:certbot/certbot
+$ sudo apt-get update
+$ sudo apt-get install certbot 
+
+$sudo service nginx stop
+sudo certbot certonly --standalone --email jiang.haiyun@gmail.com -d yun.xcitylab.com
+hy@iZ23qrbzo5rZ:~/workspace/lets_encrypt/certbot$ sudo certbot certonly --standalone --email jiang.haiyun@gmail.com -d www.xcitylab.com
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Plugins selected: Authenticator standalone, Installer None
+Starting new HTTPS connection (1): acme-v02.api.letsencrypt.org
+Obtaining a new certificate
+Performing the following challenges:
+http-01 challenge for www.xcitylab.com
+http-01 challenge for api.xcitylab.com
+Waiting for verification...
+Cleaning up challenges
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/api.xcitylab.com/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/api.xcitylab.com/privkey.pem
+   Your cert will expire on 2019-01-06. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot
+   again. To non-interactively renew *all* of your certificates, run
+   "certbot renew"
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+
+$sudo service nginx start
+
+$ sudo certbot renew --dry-run
+
+
+server {
+    listen 443;
+    server_name www.xcitylab.com, dev-api.xcitylab.com, api.xcitylab.com, dev-wx.xcitylab.com, wx.xcitylab.com, dev-yun.xcitylab.com, dev-rest.xcitylab.com, rest.xcitylab.com;
+
+    ssl on;
+    ssl_certificate /home/hy/workspace/lets_encrypt/signed.crt;
+    ssl_certificate_key /home/hy/workspace/lets_encrypt/domain.key;
+    ssl_session_timeout 5m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA;
+    ssl_session_cache shared:SSL:50m;
+    ssl_prefer_server_ciphers on;
+
+    proxy_redirect http:// $scheme://;
+    port_in_redirect on;
+
+    location / {
+        proxy_redirect off;
+        proxy_set_header host $host:$server_port;
+        proxy_set_header x-real-ip $remote_addr;
+        proxy_set_header x-forwarded-for $proxy_add_x_forwarded_for;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_set_header X-Forwarded-Proto  $scheme;
+        proxy_pass http://127.0.0.1:9999;
+    }
+    access_log /var/log/nginx/www.xcitylab.com_access.log;
+}
+
+https://letsencrypt.org/getting-started/
