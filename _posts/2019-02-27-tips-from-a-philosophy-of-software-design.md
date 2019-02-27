@@ -1,9 +1,9 @@
 ---
-title: Tips from "A philosophy of software design"
+title: Tips from A philosophy of software design
 date: 2019-02-27
 writing-time: 2019-02-27
-categories: software design
-tags: software design
+categories: software&nbsp;design
+tags: software&nbsp;design
 ---
 
 # Design Principles
