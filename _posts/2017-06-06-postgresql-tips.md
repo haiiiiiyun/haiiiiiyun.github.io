@@ -19,3 +19,16 @@ ALTER DATABASE name OWNER TO new_owner;
 ```sql
 ALTER USER username WITH PASSWORD 'password';
 ```
+
+# 修改 postgres 用户密码
+
+```bash
+$ sudo -u postgres psql
+
+postgres=# \password
+
+#Enter new password twice
+
+\q
+```
+
