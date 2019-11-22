@@ -98,21 +98,27 @@ sudo ./install_dev_db.sh
 
 # 4. 运行
 
-Running UI container in hot redeploy mode, 3000端口
+以热部署方式 (hot redploy mode) 运行 UI 容器，完成后可通过 127.0.0.1:3000 访问:
 
 ```bash
 cd ui
 mvn clean install -P npm-start
 ```
 
-Running server-side container
+运行服务端容器，完成后可通过 127.0.0.1:8080 访问：
 
 ```bash
 java -jar application/target/thingsboard-2.4.1-boot.jar
 ```
 
-As a first option, we can run the main method of org.thingsboard.server.ThingsboardServerApplication class that is located in application module from your IDE.
 
+在 IDE 中，可通过执行 `org.thingsboard.server.ThingsboardServerApplication` 类的主方法来启动服务端窗口。
+
+
+测试用户: tenant@thingsboard.org
+密码: tenant
+
+其它的测试账号、测试设备 Tokens 见 [Demo Account](https://thingsboard.io/docs/samples/demo-account/)。
 
 # 5. 错误
 
@@ -143,7 +149,16 @@ As a first option, we can run the main method of org.thingsboard.server.Thingsbo
 #systemProp.http.proxyPort=1090
 ```
 
+2. 在执行 `java -jar application/target/thingsboard-2.4.1-boot.jar` 时出错： ` ERROR 17201 --- [           main] o.a.velocity.runtime.log.Log4JLogChute   : Problem instantiating the template loader: org.thingsboard.server.conf
+ig.ThingsboardMessageConfiguration$SpringResourceLoader.
+Look at your properties file and make sure the
+name of the template loader is correct.
 
+java.lang.IllegalAccessException: Class org.apache.velocity.util.ClassUtils can not access a member of class org.thingsboard.server.config.ThingsboardMessageConfiguration$
+SpringResourceLoader with modifiers ""
+`。
+
+见 [issue 1625](https://github.com/thingsboard/thingsboard/issues/1625)
 
 
 # Resources
