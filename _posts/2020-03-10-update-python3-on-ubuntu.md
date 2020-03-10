@@ -49,6 +49,9 @@ Python 3.8.2
 
 # 3. 配置 python3.8 为系统默认 python3
 
+**修改默认 python3 会导致打不开 Terminal 等各种问题，解决方法见 [Ubuntu16.04TLS 中终端（Terminal）无法打开的解决办法](https://blog.csdn.net/threeyearsago/article/details/80276579)**
+
+
 ## 3.1. 将 python 各版本添加到 update-alternatives
 
 ```bash
