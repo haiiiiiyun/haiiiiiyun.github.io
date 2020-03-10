@@ -1,5 +1,5 @@
 ---
-title: 如何将 Ubuntu 16 和 18 上的 python 升级到最新版 3.8
+title: 如何将 Ubuntu 16 和 18 上的 python 升级到最新 3.8 版
 date: 2020-03-10
 writing-time: 2020-03-10
 categories: python;ubuntu
@@ -17,7 +17,7 @@ $ python3 -V
 Python 3.5.2
 ```
 
-本文以在 Ubuntu 16.04 中安装为例，方法也适用于 Ubuntu 18.04 。
+本文以在 Ubuntu 16.04 中安装为例，方法同样适用于 Ubuntu 18.04 。
 
 # 2. 通过 Apt 安装
 
@@ -63,7 +63,7 @@ $ which python3.5
 $ sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 2
 ```
 
-## 3.2 将 python3 默认为指向 python3.8
+## 3.2. 配置 python3 默认指向 python3.8
 
 ```bash
 $ sudo update-alternatives --config python3
