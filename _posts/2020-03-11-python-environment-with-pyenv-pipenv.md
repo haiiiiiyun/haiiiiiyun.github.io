@@ -62,12 +62,15 @@ $ pyenv install --list
 $ pyenv install 3.8.2
 ```
 
-安装 python 前，可能要先安装编译 python 所需的依赖包:
+安装 python 前，要先安装编译 python 所需的依赖包:
 
 ```bash
-$ sudo apt-get install libc6-dev gcc
-$ sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm
+$ sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
+    libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+    xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
 ```
+
+见 [Common build problems](https://github.com/pyenv/pyenv/wiki/Common-build-problems), 不然编译后导入某些 python 库时会出现 `ModuleNotFoundError: No module named '_sqlite3'` 等问题。
 
 查看当前已安装的 python 版本:
 
@@ -318,5 +321,6 @@ $ pipenv install --dev
 
 + [Ubuntu下安装pyenv实现Python多版本共存](https://www.linuxidc.com/Linux/2018-04/151988.htm)
 + [pyenv 官网](https://github.com/pyenv/pyenv)
++ [pyenv Common build problems](https://github.com/pyenv/pyenv/wiki/Common-build-problems)
 + [pipenv 文档](https://pipenv.pypa.io/en/latest/)
 + [利用pipenv和pyenv管理多个相互独立的Python虚拟开发环境](https://blog.csdn.net/liuchunming033/article/details/79582617)
