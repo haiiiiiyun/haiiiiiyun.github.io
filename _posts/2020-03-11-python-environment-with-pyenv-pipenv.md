@@ -293,7 +293,7 @@ Updated Pipfile.lock (91e3b9)!
 $ pipenv shell
 ```
 
-#4. 项目管理
+# 4. 项目管理
 
 ```bash
 $ ls -la
