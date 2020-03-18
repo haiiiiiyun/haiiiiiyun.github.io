@@ -2,8 +2,8 @@
 title: 用 SendGrid 发送免费电子邮件
 date: 2020-03-18
 writing-time: 2020-03-18
-categories: email;python;django
-tags: email;python;django
+categories: email python django
+tags: email python django
 ---
 
 # 1. 概述

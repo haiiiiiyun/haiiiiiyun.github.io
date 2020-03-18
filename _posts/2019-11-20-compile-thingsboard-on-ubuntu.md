@@ -2,8 +2,8 @@
 title: 在 Ubuntu 上搭建 thingsboard 开发环境
 date: 2019-11-20
 writing-time: 2019-11-20
-categories: java;thingsboard;iot
-tags: java;thingsboard;iot
+categories: java thingsboard iot
+tags: java thingsboard iot
 ---
 
 # 1. 工具

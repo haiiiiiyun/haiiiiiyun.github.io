@@ -2,8 +2,8 @@
 title: thingsboard 规则引擎概述
 date: 2019-11-25
 writing-time: 2019-11-25
-categories: java;thingsboard;iot
-tags: java;thingsboard;iot
+categories: java thingsboard iot
+tags: java thingsboard iot
 ---
 
 # 1. 概述

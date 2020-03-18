@@ -2,8 +2,8 @@
 title: HTTP Basic, Session, Token 三种认证方法简介
 date: 2020-03-13
 writing-time: 2020-03-13
-categories: http;web;authentication;authorization
-tags: http;web;authentication;authorization
+categories: http web authentication authorization
+tags: http web authentication authorization
 ---
 
 # 1. 概述

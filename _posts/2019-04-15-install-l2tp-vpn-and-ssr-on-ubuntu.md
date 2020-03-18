@@ -2,8 +2,8 @@
 title: Run IPsec/L2TP VPN server and SSR server via Docker on Ubuntu 16.04
 date: 2019-04-15
 writing-time: 2019-04-15
-categories: vpn;ssr;l2tp
-tags: vpn;ssr;l2tp
+categories: vpn ssr l2tp
+tags: vpn ssr l2tp
 ---
 
 # 1 Environment setup
