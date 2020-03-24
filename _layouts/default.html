@@ -50,15 +50,19 @@
 
     <footer>
         <p><small>
-            <a href="http://github.com/{{ site.github }}/{{ site.github }}.github.io/new/master/_posts" target="_blank" title="撰写文章">Po</a>wer<a href="http://github.com/{{ site.github }}/{{ site.github }}.github.io/edit/master/{{ page.path }}" target="_blank" title="编辑页面">ed</a> by <a href="http://jekyllrb.com" target="_blank">Jekyll</a> @ <a href="http://github.com/{{ site.github }}/{{ site.github }}.github.io/" target="_blank" title="项目主页">GitHub</a>
-             | <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/cn/" target="_blank" title="许可协议">©</a> {{site.time | date:"%Y"}} <a href="/about/">{{ site.author }}</a>
-{% if site.beian %}
+            <a href="http://github.com/{{ site.github }}/{{ site.github }}.github.io/new/master/_posts" target="_blank" title="撰写文章">Po</a>wer<a href="http://github.com/{{ site.github }}/{{ site.github }}.github.io/edit/master/{{ page.path }}" target="_blank" title="编辑页面">ed</a> by <a href="http://jekyllrb.com" target="_blank">Jekyll</a> 
+            | <a href="https://github.com/{{ site.github }}/" target="_blank" title="GitHub">GitHub</a>
+            | <a href="https://twitter.com/{{ site.twitter }}/" target="_blank" title="Twitter">Twitter</a>
+            | <a href="https://weibo.com/{{ site.weibo }}/" target="_blank" title="Weibo">微博</a>
+            | <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/cn/" target="_blank" title="许可协议">©</a> {{site.time | date:"%Y"}} <a href="/about/">{{ site.author }}</a>
+            {% if site.beian %}
              | <a href="http://www.beian.miit.gov.cn" target="_blank">{{ site.beian }}</a>
-{% endif %}
-{% if site.cnzz %}
+            {% endif %}
+            {% if site.cnzz %}
              | <script src="http://s85.cnzz.com/stat.php?id={{ site.cnzz }}"></script>
-{% endif %}
+            {% endif %}
          </small></p>
+        <p><img width="150" src="/assets/images/qr.jpg" alt="微信扫描"></p>
     </footer>
 
     </div>
