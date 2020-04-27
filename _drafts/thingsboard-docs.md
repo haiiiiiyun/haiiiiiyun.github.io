@@ -1,6 +1,6 @@
 Install from source: https://thingsboard.io/docs/user-guide/contribution/how-to-contribute/
 
-1. Compile with mvn first, which will create,
+1. Compile with mvn first, which will create bu,
 then import it into IDE as maven 
 
 ```bash
@@ -24,6 +24,9 @@ password: "${SPRING_DATASOURCE_PASSWORD:postgres}"
 ```bash
 sudo service postgresql start
 ```
+
+http://127.0.0.1:8080/login
+
 
 http://www.atjiang.com/postgresql-beginner-11-tasks/
 
