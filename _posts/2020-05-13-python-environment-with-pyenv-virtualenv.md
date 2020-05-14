@@ -2,7 +2,7 @@
 title: Ubuntu 系统上 Python 项目开发本地虚拟环境管理方案： pyenv + virtualenv
 date: 2020-05-13
 writing-time: 2020-05-13
-categories: python.ubuntu
+categories: python ubuntu
 tags: python ubuntu
 ---
 
