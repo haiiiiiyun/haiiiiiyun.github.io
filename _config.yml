@@ -10,14 +10,13 @@ kramdown:
   input: GFM # GitHub Flavored Markdown
 permalink: /:title/
 url: haiiiiiyun.github.io
-#url: http://www.atjiang.com
 name: 蒋海云个人博客,日拱一卒。
 author: Haiiiiiyun
 email: jiang.haiyun#gmail.com
 twitter: haiiiiiyun
 qq: 156227494
 isso_comments: haiiiiiyun
-beian: 浙ICP备16030038号-1 
+beian: 
 cnzz:
 ga: UA-77551377-1 #Google Analytics
 weibo:

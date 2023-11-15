@@ -1,6 +1,6 @@
 # 说明
 
-这是[haiiiiiyun](http://www.atjiang.com)的个人博客。
+这是[haiiiiiyun](hhttps://haiiiiiyun.github.io)的个人博客。
 
 本博客运行于 [Jekyll](http://jekyllrb.com) @ [GitHub](http://github.com/haiiiiiyun/haiiiiiyun.github.io)。
 
