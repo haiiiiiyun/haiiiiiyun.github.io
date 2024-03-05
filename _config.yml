@@ -10,8 +10,8 @@ kramdown:
   input: GFM # GitHub Flavored Markdown
 permalink: /:title/
 url: haiiiiiyun.github.io
-name: 蒋海云个人博客,日拱一卒。
-title: 蒋海云个人博客,日拱一卒。
+name: Today I Learnded
+title: Today I Learnded
 author: Haiiiiiyun
 email: jiang.haiyun#gmail.com
 twitter: haiiiiiyun
@@ -25,7 +25,7 @@ github: haiiiiiyun
 highlighter: rouge
 safe: true
 paginate: 20
-about: "这里是蒋海云的个人博客。"
+about: "Haiiiiiyun's blog"
 repository: haiiiiiyun/haiiiiiyun.github.io
 plugins:
 - jekyll-paginate

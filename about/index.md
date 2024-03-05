@@ -4,15 +4,9 @@ layout: page
 comments: yes
 ---
 
-不入流 Python 程序猿。
-
-热爱编程。
-
-现居于浙江省。
-
 ----
 
-## 联系方式：
+## Contacts：
 
 QQ:[{{ site.qq }}](tencent://message/?uin={{ site.qq }})
 
