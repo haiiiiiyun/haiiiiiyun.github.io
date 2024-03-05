@@ -2,15 +2,18 @@ import os
 import re
 import shutil
 
+# run server:
+# $ bundle exec jekyll serve
+
 src = '/home/hy/workspace/obsidian-notes/TIL_Today I Learned/'
-dst = '/home/hy/workspace/haiiiiiyun.github.io/obsidian2posts/_posts/'
+dst = '/home/hy/workspace/haiiiiiyun.github.io/_posts/'
 
 
 if __name__ == '__main__':
-    # if os.path.exists(dst):
-    #    print('rm')
-    #    shutil.rmtree(dst)
-    #os.makedirs(dst)
+    if os.path.exists(dst):
+       print('rm')
+       shutil.rmtree(dst)
+    os.makedirs(dst)
 
     for subdir, dirs, files in os.walk(src):
         subdir_prefix = subdir
@@ -31,7 +34,12 @@ if __name__ == '__main__':
 
                 [first_line, *rest_lines] = open(src_filepath).readlines()
                 file_tags = {}
+                ignore_this_file = False
                 for tag in first_line.split():
+                    if tag == 'ignore' or tag == 'todo':
+                        ignore_this_file = True
+                        print(f'igore {filename}')
+                        break
                     if tag.startswith('#'):
                         tag = tag[1:]
                         if re.search(r'\d{4}/\d{2}/\d{1,2}', tag):
@@ -42,13 +50,15 @@ if __name__ == '__main__':
                             for tag_name in tag.split('/'):
                                 if tag_name not in file_tags:
                                     file_tags[tag_name] = True
-                tag_str = ' '.join(file_tags.keys())
-                contents.append(f'tags: {tag_str}\n')
-                contents.append('categoris: Programming\n')
-                contents.append('---\n')
 
-                contents += rest_lines
+                if not ignore_this_file:
+                    tag_str = ' '.join(file_tags.keys())
+                    contents.append(f'tags: {tag_str}\n')
+                    contents.append('categoris: Programming\n')
+                    contents.append('---\n')
 
-                dst_filepath = os.path.join(dst, dst_filename)
-                print('dst=', dst_filepath)
-                open(dst_filepath, 'w').writelines(contents)
+                    contents += rest_lines
+
+                    dst_filepath = os.path.join(dst, dst_filename)
+                    print('dst=', dst_filepath)
+                    open(dst_filepath, 'w').writelines(contents)

@@ -1,5 +1,5 @@
 ---
-title: Why we have to place template files under a sub-folder that is named after app name
+title: Why we have to place template files under a sub-folder which is named after app name
 date: 2023-11-17
 tags: python django templates
 categoris: Programming
