@@ -26,6 +26,15 @@ class CustomUserTests(TestCase):
 		pass
 ```
 
+## Authentication
+
+Use TestCase's `client` to login and logout:
+
+```python
+self.client.login(username="name", password="pass")
+self.client.logout()
+```
+
 ## Test web pages that do not have a model included
 
 `django.tests.SimpleTestCase` is a special subset of `TestCase` that is designed for web pages that does not involve any database queries.
@@ -157,6 +166,7 @@ class HomepageTests(SimpleTestCase):
 + assertContains
 + assertNotContains
 + self.assertIsInstance
++ self.assertRedirects
 
 ```python
 from django.test import SimpleTestCase

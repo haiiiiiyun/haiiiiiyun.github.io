@@ -7,7 +7,7 @@ categoris: Programming
 
 Django refers to static assets as `static` whereas anything uploaded by a user, whether it is a file or an image, is referred to as `media`.
 
-The process for adding files or images is similar, but for images the `Pillow` library must b installed which includes additional features such as basic validation.
+The process for adding files or images is similar, but for images the `Pillow` library must be installed which includes additional features such as basic validation.
 
 ## Settings
 

@@ -43,7 +43,7 @@ SITE_ID = 1
 
 ### authentication backends
 
-Django sets  `AUTHENTICATION_BACKENDS108` setting to `'django.contrib.auth.backends.ModelBackend'` implictly, which is used when Django attempts to authenticate a user.
+Django sets  `AUTHENTICATION_BACKENDS108` setting to `'django.contrib.auth.backends.ModelBackend'` implicitly, which is used when Django attempts to authenticate a user.
 
 Add the `django-allauth` specific authentication option, which will allow us to switch over to using login via email.
 

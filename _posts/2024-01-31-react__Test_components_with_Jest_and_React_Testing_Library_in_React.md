@@ -29,7 +29,7 @@ Query is a method that selects a DOM element within the component being rendered
 
 ### Find element in different ways:
 
-1. ByRole: Quries elements by their role, see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles
+1. ByRole: Queries elements by their role, see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles
 2. ByLabelText: Queries elements by their associated label.
 3. ByPlaceholderText
 4. ByText: by their text content
